@@ -47,11 +47,14 @@ void Loading::SpriteRender(ID3D11DeviceContext* dc)
 	float positionX = screenWidth - textureWidth;
 	float positionY = screenHeight - textureHeight;
 
-	spr_icon->Render(dc,
-		positionX, positionY, textureWidth, textureHeight,
-		0, 0, textureWidth, textureHeight,
-		angle,
-		1, 1, 1, 1);
+	spr_icon->Render2(dc,
+		positionX, positionY,						// 表示位置
+		1.0f, 1.0f,									// スケール
+		0, 0,										// 画像切り抜き位置
+		textureWidth, textureHeight,				// 画像切り抜きサイズ
+		textureWidth * 0.5f, textureHeight * 0.5f,	// 画像基準点
+		angle,										// 角度
+		1, 1, 1, 1);								// 色情報(r,g,b,a)
 }
 
 

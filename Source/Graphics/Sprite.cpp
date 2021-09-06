@@ -1,5 +1,6 @@
 #include <stdio.h> 
 #include <WICTextureLoader.h>
+#include <algorithm>
 #include "Sprite.h"
 #include "Misc.h"
 #include "Graphics/Graphics.h"
@@ -356,25 +357,147 @@ void Sprite::Render(ID3D11DeviceContext *immediate_context,
 }
 
 
-void Sprite::textout(std::string s, float x, float y, float w, float h, float r, float g, float b, float a, int score)
+void Sprite::Render2(ID3D11DeviceContext* dc,
+	DirectX::XMFLOAT2 pos,
+	DirectX::XMFLOAT2 scale,
+	DirectX::XMFLOAT2 texPos,
+	DirectX::XMFLOAT2 texSize,
+	DirectX::XMFLOAT2 center,
+	float angle,
+	DirectX::XMFLOAT4 color) const
 {
-	ID3D11DeviceContext* immediate_context = Graphics::Instance().GetDeviceContext();
+	if (scale.x == 0.0f || scale.y == 0.0f) return;
 
-	//->文字文の幅と高さを計算
-	float sw = static_cast<float>(textureWidth / 16);
-	float sh = static_cast<float>(textureHeight / 16);
-	//現在の文字位置(相対位置)
+	D3D11_VIEWPORT viewport;
+	UINT numViewports = 1;
+	dc->RSGetViewports(&numViewports, &viewport);
+
+	float tw = texSize.x;
+	float th = texSize.y;
+	if (tw == FLT_MIN && th == FLT_MIN)
+	{
+		tw = static_cast<float>(textureWidth);
+		th = static_cast<float>(textureHeight);
+	}
+
+	Vertex vertices[4] = {};
+	vertices[0] = { {0.0f, 1.0f, 0}, color, {0, 1} };
+	vertices[1] = { {1.0f, 1.0f, 0}, color, {1, 1} };
+	vertices[2] = { {0.0f, 0.0f, 0}, color, {0, 0} };
+	vertices[3] = { {1.0f, 0.0f, 0}, color, {1, 0} };
+
+
+	float sinValue = sinf(angle);
+	float cosValue = cosf(angle);
+	float mx = (tw * scale.x) / tw * center.x;
+	float my = (th * scale.y) / th * center.y;
+	for (int i = 0; i < 4; i++)
+	{
+		vertices[i].position.x *= (tw * scale.x);
+		vertices[i].position.y *= (th * scale.y);
+
+		vertices[i].position.x -= mx;
+		vertices[i].position.y -= my;
+
+		float rx = vertices[i].position.x;
+		float ry = vertices[i].position.y;
+		vertices[i].position.x = rx * cosValue - ry * sinValue;
+		vertices[i].position.y = rx * sinValue + ry * cosValue;
+
+		vertices[i].position.x += mx;
+		vertices[i].position.y += my;
+
+		vertices[i].position.x += (pos.x - scale.x * center.x);
+		vertices[i].position.y += (pos.y - scale.y * center.y);
+
+		vertices[i].position.x = -1.0f + vertices[i].position.x * 2 / viewport.Width;
+		vertices[i].position.y = 1.0f - vertices[i].position.y * 2 / viewport.Height;
+
+		// UV座標の調整
+		vertices[i].texcoord.x = (std::min)(vertices[i].texcoord.x, 1.0f);
+		vertices[i].texcoord.y = (std::min)(vertices[i].texcoord.y, 1.0f);
+
+		vertices[i].texcoord.x = (texPos.x + vertices[i].texcoord.x * tw) / textureWidth;
+		vertices[i].texcoord.y = (texPos.y + vertices[i].texcoord.y * th) / textureHeight;
+	}
+
+	D3D11_MAPPED_SUBRESOURCE msr;
+	dc->Map(vertexBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &msr);
+	memcpy(msr.pData, vertices, sizeof(vertices));
+	dc->Unmap(vertexBuffer.Get(), 0);
+
+	UINT stride = sizeof(Vertex);
+	UINT offset = 0;
+	dc->IASetVertexBuffers(0, 1, vertexBuffer.GetAddressOf(), &stride, &offset);
+	dc->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+	dc->IASetInputLayout(inputLayout.Get());
+	dc->RSSetState(rasterizerState.Get());
+	dc->VSSetShader(vertexShader.Get(), nullptr, 0);
+	dc->PSSetShader(pixelShader.Get(), nullptr, 0);
+
+	dc->PSSetShaderResources(0, 1, shaderResourceView.GetAddressOf());
+	dc->PSSetSamplers(0, 1, samplerState.GetAddressOf());
+
+	dc->OMSetDepthStencilState(depthStencilState.Get(), 1);
+
+	dc->Draw(4, 0);
+}
+
+
+void Sprite::Textout(ID3D11DeviceContext* dc,
+	std::string str,
+	float pos_x, float pos_y,
+	float size_x, float size_y,
+	float r, float g, float b, float a) const
+{
+	// 1文字の幅と高さを計算
+	int div = 1 / 16;
+	float sw = static_cast<float>(textureWidth * div);
+	float sh = static_cast<float>(textureHeight * div);
+
+	// 現在の文字位置(相対位置)
 	float carriage = 0;
 	const float blend_factor[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	immediate_context->OMSetBlendState(blendState.Get(), blend_factor, 0xFFFFFFFF);
-	s += std::to_string(score);
-	//文字数分だけ render() を呼び出す
-	for (const char c : s)
+	dc->OMSetBlendState(blendState.Get(), blend_factor, 0xFFFFFFFF);
+
+	// 一文字づつRender()する
+	for (const char c : str)
 	{
 		LONG sx = c % 0x0F;
 		//文字を表示。アスキーコードの位置にある文字位置を切り抜いて表示
-		Render(immediate_context, x + carriage, y, w, h, sw * (c & 0x0F), sh * (c >> 4), sw, sh, 0, r, g, b, a);
+		Render(dc, pos_x + carriage, pos_y, size_x, size_y, sw * (c & 0x0F), sh * (c >> 4), sw, sh, 0, r, g, b, a);
 		//文字位置を幅分ずらす
-		carriage += w;
+		carriage += size_x;
+	}
+}
+
+
+void Sprite::Textout_Number(ID3D11DeviceContext* dc,
+	int number,
+	float pos_x, float pos_y,
+	float size_x, float size_y,
+	float r, float g, float b, float a) const
+{
+	//　1文字の幅と高さを計算
+	int div = 1 / 16;
+	float sw = static_cast<float>(textureWidth * div);
+	float sh = static_cast<float>(textureHeight * div);
+
+	// 現在の文字位置(相対位置)
+	float carriage = 0;
+	const float blend_factor[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	dc->OMSetBlendState(blendState.Get(), blend_factor, 0xFFFFFFFF);
+
+	// 数値を文字に変換
+	std::string str_number = std::to_string(number);
+
+	// 一文字づつRender()する
+	for (const char c : str_number)
+	{
+		LONG sx = c % 0x0F;
+		//文字を表示。アスキーコードの位置にある文字位置を切り抜いて表示
+		Render(dc, pos_x + carriage, pos_y, size_x, size_y, sw * (c & 0x0F), sh * (c >> 4), sw, sh, 0, r, g, b, a);
+		//文字位置を幅分ずらす
+		carriage += size_x;
 	}
 }
