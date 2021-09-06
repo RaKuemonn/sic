@@ -1,0 +1,7 @@
+Data/
+External/
+Shader/
+bin/
+
+*.ini
+*.vs
