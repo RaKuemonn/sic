@@ -57,7 +57,11 @@ void Loading::SpriteRender(ID3D11DeviceContext* dc)
 
 void Loading::DeInit()
 {
+	safe_delete(spr_icon);
 
+	if (scene == nullptr) return;
+	scene->DeInit();
+	safe_delete(scene);
 }
 
 

@@ -2,6 +2,7 @@ Data/
 External/
 Shader/
 bin/
+obj/
 
 *.ini
 *.vs

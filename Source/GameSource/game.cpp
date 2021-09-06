@@ -88,7 +88,6 @@ void Game::CameraSet()
 		1000.0f
 	);
 
-	CameraController::Instance()->init();
+	//CameraController::Instance()->init();
 
-	//next_camera_state = CAMERA::TRANSLATION_TRACKING;
 }

@@ -17,13 +17,6 @@ using namespace std;
 #define CAST_F(num)  static_cast<float>(num);
 
 
-enum class CAMERA
-{
-    NORMAL_TRACKING,
-    TRANSLATION_TRACKING,
-};
-
-
 // テンプレート関数
 template <typename T>
 inline void safe_delete(T*& p)

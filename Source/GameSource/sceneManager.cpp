@@ -21,7 +21,7 @@ SceneManager::~SceneManager()
     if (now_scene) now_scene->DeInit();
     safe_delete(now_scene);
 
-    if(next_scene) next_scene->DeInit();
+    if (next_scene) next_scene->DeInit();
     safe_delete(next_scene);
 }
 

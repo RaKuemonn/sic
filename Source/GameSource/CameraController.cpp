@@ -8,43 +8,22 @@
 
 void CameraController::Update(float elapsedTime)
 {
-
     // カメラ挙動の切り替えの有無
-    //if (now_camera_state != next_camera_state)
-    //{
-    //    // 切り替え
-    //    now_camera_state = next_camera_state;
-    //
-    //    // 前回のカメラ位置を保存
-    //    last_position = position;
-    //}
-
-
-
-    // 通常追尾
-    if (now_camera_state == CAMERA::NORMAL_TRACKING)
-        NormalTracking(elapsedTime);
-
-    // 平行移動追尾
-    if (now_camera_state == CAMERA::TRANSLATION_TRACKING)
-        TranslationTracking(elapsedTime);
-
-
-    // カメラシェイク
-    if (camera_shake)
+    if (now_camera_state != next_camera_state)
     {
-        ShakeXY();
-
-        shake_timer += -1 * elapsedTime;
-
-        if (shake_timer < 0.0f) ShakeInit();
+        // 切り替え
+        now_camera_state = next_camera_state;
+    
+        // 前回のカメラ位置を保存
+        last_position = position;
     }
 
-    // シェイク分の加算     ※基本 0
-    position.x += shake_power.x;
-    position.y += shake_power.y;
-    //position.z += shake_power.z;
+    // カメラの挙動
+    Behavior(elapsedTime);
 
+    
+    // カメラシェイク
+    Shake(elapsedTime);
 
 
     Camera::Instance().SetLookAt(position, target, up);
@@ -98,6 +77,21 @@ void CameraController::PadControl(float elapsedTime)
 }
 
 
+void CameraController::Behavior(float elapsedTime)
+{
+    // 自由状態
+    if (now_camera_state == CAMERA::NONE) {}
+
+    // 通常追尾
+    if (now_camera_state == CAMERA::NORMAL_TRACKING)
+        NormalTracking(elapsedTime);
+
+    // 平行移動追尾
+    if (now_camera_state == CAMERA::TRANSLATION_TRACKING)
+        TranslationTracking(elapsedTime);
+}
+
+
 void CameraController::NormalTracking(float elapsedTime)
 {
     // 軸回転から姿勢行列を作り直しているので、向きを変えたい場合は軸角度を変更する
@@ -145,6 +139,24 @@ void CameraController::TranslationTracking(float elapsedTime)
 }
 
 
+void CameraController::Shake(float elapsedTime)
+{
+    if (camera_shake == false) return;
+
+    ShakeXY();
+
+    shake_timer += -1 * elapsedTime;
+
+    if (shake_timer < 0.0f) ShakeInit();
+
+
+    // シェイク分の加算     ※基本 0
+    position.x += shake_power.x;
+    position.y += shake_power.y;
+    //position.z += shake_power.z;
+}
+
+
 void CameraController::ShakeXY()
 {
     constexpr float shake_value_range_X = 15.0f;    // x軸 15の幅 (-7.5f ~ 7.5f)
@@ -165,4 +177,22 @@ void CameraController::ShakeInit()
     camera_shake = false;
     shake_timer = DEFAULT_SHAKE_TIMER;
     shake_power = {};
+}
+
+
+void CameraController::Set(const DirectX::XMFLOAT3 position_, const DirectX::XMFLOAT3 target_, const DirectX::XMFLOAT3 up_)
+{
+    position = position_;
+    target = target_;
+    up = up_;
+}
+
+
+void CameraController::SetCameraBehavior(CAMERA next_camera)
+{
+    // カメラ挙動に変更がなければ
+    if (now_camera_state == next_camera) return;
+
+
+    next_camera_state = next_camera_state;
 }
