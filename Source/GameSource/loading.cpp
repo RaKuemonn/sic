@@ -22,7 +22,7 @@ void Loading::Update(float elapsedTime)
 
 	angle += elapsedTime * 600.0f;/* TEST: Œã‚ÅÁ‚· */
 
-	if (scene->IsSceneLoaded() && angle > 360.0f * 2.0f/* TEST: Œã‚ÅÁ‚· */)
+	if (scene->IsSceneLoaded())
 	{
 		sceneManager.SetNextScene(scene);
 		scene = nullptr;

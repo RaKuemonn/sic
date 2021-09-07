@@ -6,6 +6,7 @@
 enum class CAMERA
 {
     NONE,
+    PADCONTROL,
     NORMAL_TRACKING,
     TRANSLATION_TRACKING,
 };
@@ -29,13 +30,16 @@ public:
     }
 
     void Update(float elapsedTime);
-    void init();
-
-public:
-    void PadControl(float elapsedTime); // テスト用カメラの直接回転操作           ※ カメラの挙動の前に処理させる
+    void init(const DirectX::XMFLOAT3 position_ = {},
+        const DirectX::XMFLOAT3 target_ = {},
+        const DirectX::XMFLOAT3 up_ = { 0,1,0 },
+        const DirectX::XMFLOAT3 angle_ = { 0.718f,0,0 },
+        const float range_ = 1.0f,
+        const CAMERA camera_state_ = CAMERA::NONE);
 
 public: // Get関数
     bool GetCameraShake() { return camera_shake; }
+    float& GerRange() { return range; }
 
 public: // Set関数
     void Set(const DirectX::XMFLOAT3 position_, const DirectX::XMFLOAT3 target_, const DirectX::XMFLOAT3 up_);
@@ -43,9 +47,11 @@ public: // Set関数
     void SetPosition(const DirectX::XMFLOAT3& pos) { this->position = pos; }
     void SetCameraShake() { camera_shake = true; }
     void SetCameraBehavior(CAMERA next_camera);
+    void SetRange(float range_);
 
 private: //      カメラの挙動      //
     void Behavior(float elapsedTime);
+    void PadControl(float elapsedTime);             // カメラの直接回転操作
     void NormalTracking(float elapsedTime);         // 追うだけ
     void TranslationTracking(float elapsedTime);    // 平行移動しながら追う
 
@@ -58,12 +64,12 @@ private: // 変数
 
     // 姿勢表現
     DirectX::XMFLOAT3 position = {};
-    DirectX::XMFLOAT3 target = { 0,0,0 };
-    DirectX::XMFLOAT3 up = { 0.0f,1.0f,0.0f };
-    DirectX::XMFLOAT3 angle = { 0.718f,0,0 };           // 0.718f　は　斜め下にカメラを傾けるための値
+    DirectX::XMFLOAT3 target = {};
+    DirectX::XMFLOAT3 up = {};
+    DirectX::XMFLOAT3 angle = {};
 
     // 注視点とカメラの距離感
-    float range = 170.0f;
+    float range = 0.0f;
 
     // カメラの挙動状態
     CAMERA now_camera_state;

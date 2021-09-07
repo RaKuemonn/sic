@@ -451,9 +451,8 @@ void Sprite::Textout(ID3D11DeviceContext* dc,
 	float r, float g, float b, float a) const
 {
 	// 1文字の幅と高さを計算
-	int div = 1 / 16;
-	float sw = static_cast<float>(textureWidth * div);
-	float sh = static_cast<float>(textureHeight * div);
+	float sw = static_cast<float>(textureWidth / 16);
+	float sh = static_cast<float>(textureHeight / 16);
 
 	// 現在の文字位置(相対位置)
 	float carriage = 0;
@@ -479,9 +478,8 @@ void Sprite::Textout_Number(ID3D11DeviceContext* dc,
 	float r, float g, float b, float a) const
 {
 	//　1文字の幅と高さを計算
-	int div = 1 / 16;
-	float sw = static_cast<float>(textureWidth * div);
-	float sh = static_cast<float>(textureHeight * div);
+	float sw = static_cast<float>(textureWidth / 16);
+	float sh = static_cast<float>(textureHeight / 16);
 
 	// 現在の文字位置(相対位置)
 	float carriage = 0;

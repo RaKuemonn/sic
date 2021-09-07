@@ -31,18 +31,22 @@ void CameraController::Update(float elapsedTime)
 }
 
 
-void CameraController::init()
+void CameraController::init(const DirectX::XMFLOAT3 position_, const DirectX::XMFLOAT3 target_, const DirectX::XMFLOAT3 up_, const DirectX::XMFLOAT3 angle_, const float range_, const CAMERA camera_state_)
 {
-    position = {};
-    target = {};
-    up = { 0.0f,1.0f,0.0f };
-    angle = { 0.718f,0,0 };
+    position = position_;
+    target = target_;
+    up = up_;
+    angle = angle_;
+
+    range = range_;
 
     DirectX::XMFLOAT3 last_position = {};
 
     camera_shake = false;
     shake_timer = DEFAULT_SHAKE_TIMER;
     shake_power = {};
+
+    now_camera_state = camera_state_;
 }
 
 
@@ -74,6 +78,17 @@ void CameraController::PadControl(float elapsedTime)
     //X軸カメラ回転の制限
     if (angle.y < -DirectX::XM_PI) angle.y += DirectX::XM_2PI;
     if (angle.y > DirectX::XM_PI)  angle.y -= DirectX::XM_2PI;
+
+
+    DirectX::XMMATRIX Transform = DirectX::XMMatrixRotationRollPitchYaw(angle.x, angle.y, angle.z);
+
+    DirectX::XMVECTOR Front = Transform.r[2];
+    DirectX::XMFLOAT3 front;
+    DirectX::XMStoreFloat3(&front, Front);
+
+    position.x = target.x - front.x * range;
+    position.y = target.y - front.y * range;
+    position.z = target.z - front.z * range;
 }
 
 
@@ -81,6 +96,10 @@ void CameraController::Behavior(float elapsedTime)
 {
     // 自由状態
     if (now_camera_state == CAMERA::NONE) {}
+
+    // 右スティックで回転操作
+    if (now_camera_state == CAMERA::PADCONTROL)
+        PadControl(elapsedTime);
 
     // 通常追尾
     if (now_camera_state == CAMERA::NORMAL_TRACKING)
@@ -194,5 +213,12 @@ void CameraController::SetCameraBehavior(CAMERA next_camera)
     if (now_camera_state == next_camera) return;
 
 
-    next_camera_state = next_camera_state;
+    next_camera_state = next_camera;
+}
+
+void CameraController::SetRange(float range_)
+{
+    if (range_ < 0) return;
+
+    range = range_;
 }

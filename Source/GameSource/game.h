@@ -3,6 +3,7 @@
 #include "scene.h"
 #include "Graphics/Graphics.h"
 #include "Graphics/Sprite.h"
+#include <memory>
 
 
 
@@ -31,5 +32,8 @@ private:
     void CameraSet();
 
 private:
-    int* a = nullptr;
+    float number = 0;
+    std::unique_ptr<Sprite> spr_font = nullptr;
+    std::unique_ptr<Model> mdl_cube = nullptr;
+    std::unique_ptr<Model> mdl_room = nullptr;
 };
