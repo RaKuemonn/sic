@@ -72,7 +72,7 @@ void Game::ImGui()
 {
 	ImGui::Text("scene : Game");
 
-	ImGui::SliderFloat("camera range", &CameraController::Instance()->GerRange(), 1, 10);
+	ImGui::SliderFloat("camera range", &CameraController::Instance()->GerRange(), 1, 1000);
 }
 
 
