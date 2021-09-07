@@ -11,7 +11,7 @@
 class Result : public Scene
 {
 public:
-    Result(SceneManager& sceneManager_) : Scene(sceneManager_) {}
+    Result() {}
     ~Result()override {}
 
     void Update(float elapsedTime)override;

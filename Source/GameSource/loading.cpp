@@ -24,7 +24,7 @@ void Loading::Update(float elapsedTime)
 
 	if (scene->IsSceneLoaded())
 	{
-		sceneManager.SetNextScene(scene);
+		ChangeNextScene(scene, false);
 		scene = nullptr;
 	}
 }
@@ -70,7 +70,7 @@ void Loading::DeInit()
 
 void Loading::Set()
 {
-	std::thread thread(LoadingThread, this);
+	std::thread thread(LoadingThread, this, GetSceneManager());
 
 	thread.detach();
 }
@@ -87,11 +87,11 @@ void Loading::ImGui()
 	ImGui::Text("scene : Loading");
 }
 
-void Loading::LoadingThread(Loading* load)
+void Loading::LoadingThread(Loading* load, SceneManager* scene_manager_)
 {
 	CoInitialize(nullptr);
 
-	load->scene->Init();
+	load->scene->Init(scene_manager_);
 
 	CoUninitialize();
 

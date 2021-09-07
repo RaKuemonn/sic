@@ -12,7 +12,7 @@ void Title::Update(float elapsedTime)
 {
 
 	// "Game"にシーン変更
-	ChangeNextScene(new Game(sceneManager), GamePad::BTN_SPACE);
+	ChangeNextScene(new Game(), GamePad::BTN_SPACE);
 
 	//	↓	　入力処理とかいろいろ書く　	↓	　//
 

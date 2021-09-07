@@ -11,7 +11,7 @@
 class Title : public Scene
 {
 public:
-    Title(SceneManager& sceneManager_) : Scene(sceneManager_) {}
+    Title(){}
     ~Title()override{}
 
     void Update(float elapsedTime)override;

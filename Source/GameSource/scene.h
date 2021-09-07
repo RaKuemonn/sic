@@ -11,7 +11,7 @@ class SceneManager;
 class Scene
 {
 public:
-    Scene(SceneManager& sceneManager_) : sceneManager(sceneManager_) {};
+    Scene() {};
     virtual ~Scene() {};
 
     virtual void Update(float elapsedTime) = 0;
@@ -26,7 +26,7 @@ public:
     virtual void DeInit() = 0;
 
     // シーンの初期処理
-    void Init();
+    void Init(SceneManager* sceneManager);
 
     // 設定
     virtual void Set() = 0;
@@ -41,15 +41,16 @@ public: // Get関数
 public: // Set関数
     void SetSceneLoaded() { scene_loaded = true; }
     void ChangeNextScene(Scene* next_scene_, GamePadButton buttom, bool isloading = true);
-
+    void ChangeNextScene(Scene* next_scene_, bool isloading = true);
 
 public:
     DirectX::XMFLOAT4 back_color = { 1.0f,0.0f,1.0f,1.0f }; // 背景色
 
 protected:
-    SceneManager& sceneManager;
+    SceneManager* GetSceneManager() { return scene_manager; }
 
 private:
+    SceneManager* scene_manager = nullptr;
     bool scene_loaded = false;  // ロードされたか
 
 };

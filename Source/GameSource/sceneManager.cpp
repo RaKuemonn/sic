@@ -31,7 +31,7 @@ void SceneManager::Update(float elapsedTime)
     // シーンが未選択の場合 タイトルに自動設定
     if (now_scene == nullptr)
     {
-        next_scene = new Title(*this);
+        next_scene = new Title();
     }
 
 
@@ -135,7 +135,7 @@ void SceneManager::Render(float elapsedTime)
 
 void SceneManager::Init()
 {
-    now_scene->Init();
+    now_scene->Init(this);
 }
 
 
@@ -152,7 +152,7 @@ void SceneManager::SetLoadNextScene(Scene* next_scene_)
 {
     if (next_scene) return;
 
-    next_scene = new Loading(*this, next_scene_);
+    next_scene = new Loading(next_scene_);
 }
 
 

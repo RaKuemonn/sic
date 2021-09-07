@@ -14,7 +14,7 @@ void Game::Update(float elapsedTime)
 {
 
 	// シーン変更
-	ChangeNextScene(new Result(sceneManager), GamePad::BTN_SPACE, false);
+	ChangeNextScene(new Result(), GamePad::BTN_SPACE, false);
 
 
 	//	↓	　入力処理とかいろいろ書く　	↓	　//
@@ -26,6 +26,9 @@ void Game::Update(float elapsedTime)
 	constexpr DirectX::XMFLOAT4X4 cube_trandform = { 1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1 };
 	mdl_cube->UpdateTransform(cube_trandform);
 	mdl_room->UpdateTransform(cube_trandform);
+	mdl_enemy1->UpdateTransform(cube_trandform);
+	mdl_enemy2->UpdateTransform(cube_trandform);
+	mdl_sky->UpdateTransform(cube_trandform);
 
 	CameraController::Instance()->Update(elapsedTime);
 }
@@ -36,6 +39,9 @@ void Game::ModelRender(ID3D11DeviceContext* dc, Shader* shader)
 	/* 3Dモデルの描画 */
 	shader->Draw(dc, mdl_cube.get());
 	shader->Draw(dc, mdl_room.get());
+	shader->Draw(dc, mdl_enemy1.get());
+	shader->Draw(dc, mdl_enemy2.get());
+	shader->Draw(dc, mdl_sky.get());
 }
 
 
@@ -63,8 +69,12 @@ void Game::Set()
 void Game::Load()
 {
 	spr_font = std::make_unique<Sprite>("Data/Font/font2_a.png");
-	mdl_cube = std::make_unique<Model>("Data/Model/Cube.mdl");
-	mdl_room = std::make_unique<Model>("Data/Model/test_wall_floor.mdl");
+
+	mdl_cube	= std::make_unique<Model>("Data/Model/Test/test_chara.mdl");
+	mdl_room	= std::make_unique<Model>("Data/Model/Test/test_wall_floor.mdl");
+	mdl_enemy1	= std::make_unique<Model>("Data/Model/Test/test_enemy1.mdl");
+	mdl_enemy2	= std::make_unique<Model>("Data/Model/Test/test_enemy2.mdl");
+	mdl_sky		= std::make_unique<Model>("Data/Model/Test/test_sky.mdl");
 }
 
 

@@ -12,7 +12,7 @@
 class Loading : public Scene
 {
 public:
-    Loading(SceneManager& sceneManager_, Scene* load_scene): Scene(sceneManager_), scene(load_scene) {}
+    Loading(Scene* load_scene) : scene(load_scene) {}
     ~Loading()override {}
 
     void Update(float elapsedTime)override;
@@ -27,7 +27,7 @@ public:
     void Load()override;
 
 private:
-    static void LoadingThread(Loading* load);
+    static void LoadingThread(Loading* load, SceneManager* scene_manager_);
 
 private:
     Scene* scene = nullptr;

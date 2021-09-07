@@ -14,9 +14,9 @@ void Result::Update(float elapsedTime)
 
 	// ÉVÅ[ÉìïœçX
 	{
-		ChangeNextScene(new Title(sceneManager), GamePad::BTN_SPACE);
+		ChangeNextScene(new Title(), GamePad::BTN_SPACE);
 		
-		ChangeNextScene(new Game(sceneManager), GamePad::BTN_R);
+		ChangeNextScene(new Game(), GamePad::BTN_R);
 	}
 
 

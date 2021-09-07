@@ -12,7 +12,7 @@
 class Game : public Scene
 {
 public:
-    Game(SceneManager& sceneManager_) : Scene(sceneManager_) {}
+    Game() {}
     ~Game()override{}
 
     void Update(float elapsedTime)override;
@@ -34,6 +34,10 @@ private:
 private:
     float number = 0;
     std::unique_ptr<Sprite> spr_font = nullptr;
+
     std::unique_ptr<Model> mdl_cube = nullptr;
     std::unique_ptr<Model> mdl_room = nullptr;
+    std::unique_ptr<Model> mdl_enemy1 = nullptr;
+    std::unique_ptr<Model> mdl_enemy2 = nullptr;
+    std::unique_ptr<Model> mdl_sky = nullptr;
 };

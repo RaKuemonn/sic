@@ -5,9 +5,9 @@
 
 
 
-void Scene::Init()
+void Scene::Init(SceneManager* scene_manager_)
 {
-
+    scene_manager = scene_manager_;
     Load();
     Set();
 }
@@ -16,7 +16,7 @@ void Scene::ChangeNextScene(Scene* next_scene_, GamePadButton buttom, bool isloa
 {
     if (Input::Instance().GetGamePad().GetButtonDown() & buttom)
     {
-        isloading ? /* true */sceneManager.SetLoadNextScene(next_scene_) : /* false */sceneManager.SetNextScene(next_scene_);
+        isloading ? /* true */scene_manager->SetLoadNextScene(next_scene_) : /* false */scene_manager->SetNextScene(next_scene_);
 
         next_scene_ = nullptr;
     }
@@ -28,4 +28,12 @@ void Scene::ChangeNextScene(Scene* next_scene_, GamePadButton buttom, bool isloa
         // ŽÀ‚Í ChangeNextSceneŠÖ”‚ªŒÄ‚Î‚ê‚é“x‚É,ˆø”‚Ånew‚É‚æ‚Á‚Ä¶¬‚³‚ê‚Ä‚¢‚é‚½‚ßíœ‚µ‚È‚¯‚ê‚Î‚È‚ç‚È‚¢ (ƒJƒX)
         safe_delete(next_scene_);
     }
+}
+
+
+void Scene::ChangeNextScene(Scene* next_scene_, bool isloading)
+{
+    isloading ? /* true */scene_manager->SetLoadNextScene(next_scene_) : /* false */scene_manager->SetNextScene(next_scene_);
+
+    next_scene_ = nullptr;
 }
