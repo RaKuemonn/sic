@@ -8,9 +8,6 @@
 // コモンヘッダー(共通で扱う変数、マクロの宣言)
 
 
-// 名前空間省略
-using namespace std;
-
 
 // マクロ
 #define CAST_I(num)  static_cast<int>(num);

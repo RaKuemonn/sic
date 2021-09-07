@@ -37,6 +37,12 @@
     <Filter Include="Source\gp">
       <UniqueIdentifier>{1d6d45dc-609c-4b7d-9b22-c6cd6fc44ce8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Actor">
+      <UniqueIdentifier>{1a4b5885-4732-41b0-96df-e192bb450f98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\System">
+      <UniqueIdentifier>{2cba9cbe-2292-47e0-bad5-238474f273a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="External\imgui\imconfig.h">
@@ -160,6 +166,12 @@
     <ClInclude Include="Source\GameSource\Misc.h">
       <Filter>Source\gp</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Actor\transform.h">
+      <Filter>Source\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\System\timer.h">
+      <Filter>Source\System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\imgui\imgui.cpp">
@@ -263,6 +275,9 @@
     </ClCompile>
     <ClCompile Include="Source\GameSource\scene.cpp">
       <Filter>Source\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\System\timer.cpp">
+      <Filter>Source\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

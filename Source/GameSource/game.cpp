@@ -20,8 +20,7 @@ void Game::Update(float elapsedTime)
 	//	↓	　入力処理とかいろいろ書く　	↓	　//
 
 	// TODO: ゲーム処理
-
-	number += elapsedTime;
+	timer->Update(elapsedTime);
 
 	constexpr DirectX::XMFLOAT4X4 cube_trandform = { 1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1 };
 	mdl_cube->UpdateTransform(cube_trandform);
@@ -48,7 +47,7 @@ void Game::ModelRender(ID3D11DeviceContext* dc, Shader* shader)
 void Game::SpriteRender(ID3D11DeviceContext* dc)
 {
 	/* 2Dスプライトの描画 */
-	spr_font->Textout_Number(dc, (int)number, { 0,0 }, { 50,50 }, { 1,1,1,1 });
+	timer->SpriteRender(dc);
 }
 
 
@@ -68,7 +67,7 @@ void Game::Set()
 
 void Game::Load()
 {
-	spr_font = std::make_unique<Sprite>("Data/Font/font2_a.png");
+	timer		= std::make_unique<Timer>(COUNT::UP, true);
 
 	mdl_cube	= std::make_unique<Model>("Data/Model/Test/test_chara.mdl");
 	mdl_room	= std::make_unique<Model>("Data/Model/Test/test_wall_floor.mdl");

@@ -5,6 +5,9 @@
 #include "Graphics/Sprite.h"
 #include <memory>
 
+// í«â¡
+#include "timer.h"
+
 
 
 // ÉQÅ[ÉÄÉVÅ[Éì
@@ -32,8 +35,7 @@ private:
     void CameraSet();
 
 private:
-    float number = 0;
-    std::unique_ptr<Sprite> spr_font = nullptr;
+    std::unique_ptr<Timer> timer = nullptr;
 
     std::unique_ptr<Model> mdl_cube = nullptr;
     std::unique_ptr<Model> mdl_room = nullptr;

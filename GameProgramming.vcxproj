@@ -125,7 +125,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\Source;.\External\DirectXTex;.\External\imgui;.\External\cereal-1.3.0\include;.\External\stb;.\External\Effekseer153a\include\Effekseer;.\External\Effekseer153a\include\EffekseerRendererDX11;.\Source\GameSource;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\Source;.\External\DirectXTex;.\External\imgui;.\External\cereal-1.3.0\include;.\External\stb;.\External\Effekseer153a\include\Effekseer;.\External\Effekseer153a\include\EffekseerRendererDX11;.\Source\GameSource;.\Source\System;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
@@ -217,6 +217,7 @@
     <ClInclude Include="External\imgui\imstb_rectpack.h" />
     <ClInclude Include="External\imgui\imstb_textedit.h" />
     <ClInclude Include="External\imgui\imstb_truetype.h" />
+    <ClInclude Include="Source\Actor\transform.h" />
     <ClInclude Include="Source\Audio\Audio.h" />
     <ClInclude Include="Source\Audio\AudioResource.h" />
     <ClInclude Include="Source\Audio\AudioSource.h" />
@@ -251,6 +252,7 @@
     <ClInclude Include="Source\Input\Input.h" />
     <ClInclude Include="Source\Input\Mouse.h" />
     <ClInclude Include="Source\memo.h" />
+    <ClInclude Include="Source\System\timer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\DirectXTex\WICTextureLoader.cpp" />
@@ -287,6 +289,7 @@
     <ClCompile Include="Source\Input\GamePad.cpp" />
     <ClCompile Include="Source\Input\Input.cpp" />
     <ClCompile Include="Source\Input\Mouse.cpp" />
+    <ClCompile Include="Source\System\timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="HLSL\Debug.hlsli" />
