@@ -17,7 +17,7 @@ enum class COUNT
 class Timer : public Digits<float>
 {
 public:
-    Timer(COUNT count, bool render = false, float default_start_time_ = 0.0f);
+    Timer(COUNT count,const float default_start_time_, const bool render = false);
     ~Timer() {};
 
 public:
@@ -30,6 +30,8 @@ public: // Get関数
 public: // Set関数
     void AddTime(const float add) { Add(add); }
     void SubtractTime(const float subtract) { Subtract(subtract); }
+    void Stop() { stop = true; }
+    void UnlockStop() { stop = false; }
 
 private:
     //　関数ポインタ //
@@ -47,5 +49,5 @@ private: // 定数
 private: // 変数
     std::unique_ptr<Sprite> spr_number = nullptr;   // スプライト
     DirectX::XMFLOAT2 number_size = {};             // 一文字の大きさ
-
+    bool stop = false;                              // 一時停止
 };

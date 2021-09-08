@@ -8,6 +8,9 @@
 #include "Camera.h"
 #include "CameraController.h"
 
+// 追加
+#include "gameSystem.h"
+
 
 
 void Game::Update(float elapsedTime)
@@ -20,11 +23,11 @@ void Game::Update(float elapsedTime)
 	//	↓	　入力処理とかいろいろ書く　	↓	　//
 
 	// TODO: ゲーム処理
-	timer->Update(elapsedTime);
+	GameSystem::Instance().Update(elapsedTime);
 
 	if (Input::Instance().GetGamePad().GetButtonDown() & GamePad::BTN_R)
 	{
-		score->AddScore(1);
+		GameSystem::Instance().AddScore(1);
 	}
 
 	constexpr DirectX::XMFLOAT4X4 cube_trandform = { 1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1 };
@@ -52,8 +55,7 @@ void Game::ModelRender(ID3D11DeviceContext* dc, Shader* shader)
 void Game::SpriteRender(ID3D11DeviceContext* dc)
 {
 	/* 2Dスプライトの描画 */
-	timer->SpriteRender(dc);
-	score->SpriteRender(dc);
+	GameSystem::Instance().SpriteRender(dc);
 }
 
 
@@ -68,14 +70,13 @@ void Game::Set()
 	back_color = { 1,0,0,1 };
 
 	CameraSet();
+
+	GameSystem::Instance().Init();
 }
 
 
 void Game::Load()
 {
-	timer		= std::make_unique<Timer>(COUNT::UP, true);
-	score		= std::make_unique<Score>(true);
-
 	mdl_cube	= std::make_unique<Model>("Data/Model/Test/test_chara.mdl");
 	mdl_room	= std::make_unique<Model>("Data/Model/Test/test_wall_floor.mdl");
 	mdl_enemy1	= std::make_unique<Model>("Data/Model/Test/test_enemy1.mdl");
@@ -92,8 +93,8 @@ void Game::ImGui()
 
 	ImGui::Spacing();
 
-	ImGui::Text("now_time : %.1f", timer->NowTime());
-	ImGui::Text("score : %d", score->NowScore());
+	ImGui::Text("now_time : %.1f", GameSystem::Instance().NowTime());
+	ImGui::Text("score : %d", GameSystem::Instance().NowScore());
 }
 
 
