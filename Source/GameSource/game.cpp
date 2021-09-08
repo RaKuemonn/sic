@@ -22,6 +22,11 @@ void Game::Update(float elapsedTime)
 	// TODO: ƒQ[ƒ€ˆ—
 	timer->Update(elapsedTime);
 
+	if (Input::Instance().GetGamePad().GetButtonDown() & GamePad::BTN_R)
+	{
+		score->AddScore(1);
+	}
+
 	constexpr DirectX::XMFLOAT4X4 cube_trandform = { 1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1 };
 	mdl_cube->UpdateTransform(cube_trandform);
 	mdl_room->UpdateTransform(cube_trandform);
@@ -38,8 +43,8 @@ void Game::ModelRender(ID3D11DeviceContext* dc, Shader* shader)
 	/* 3Dƒ‚ƒfƒ‹‚Ì•`‰æ */
 	shader->Draw(dc, mdl_cube.get());
 	shader->Draw(dc, mdl_room.get());
-	shader->Draw(dc, mdl_enemy1.get());
-	shader->Draw(dc, mdl_enemy2.get());
+	//shader->Draw(dc, mdl_enemy1.get());
+	//shader->Draw(dc, mdl_enemy2.get());
 	shader->Draw(dc, mdl_sky.get());
 }
 
@@ -48,6 +53,7 @@ void Game::SpriteRender(ID3D11DeviceContext* dc)
 {
 	/* 2DƒXƒvƒ‰ƒCƒg‚Ì•`‰æ */
 	timer->SpriteRender(dc);
+	score->SpriteRender(dc);
 }
 
 
@@ -68,6 +74,7 @@ void Game::Set()
 void Game::Load()
 {
 	timer		= std::make_unique<Timer>(COUNT::UP, true);
+	score		= std::make_unique<Score>(true);
 
 	mdl_cube	= std::make_unique<Model>("Data/Model/Test/test_chara.mdl");
 	mdl_room	= std::make_unique<Model>("Data/Model/Test/test_wall_floor.mdl");
@@ -82,6 +89,11 @@ void Game::ImGui()
 	ImGui::Text("scene : Game");
 
 	ImGui::SliderFloat("camera range", &CameraController::Instance()->GerRange(), 1, 1000);
+
+	ImGui::Spacing();
+
+	ImGui::Text("now_time : %.1f", timer->NowTime());
+	ImGui::Text("score : %d", score->NowScore());
 }
 
 

@@ -175,6 +175,9 @@
     <ClInclude Include="Source\System\digits.h">
       <Filter>Source\System</Filter>
     </ClInclude>
+    <ClInclude Include="Source\System\score.h">
+      <Filter>Source\System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\imgui\imgui.cpp">
@@ -280,6 +283,9 @@
       <Filter>Source\cpp</Filter>
     </ClCompile>
     <ClCompile Include="Source\System\timer.cpp">
+      <Filter>Source\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\System\score.cpp">
       <Filter>Source\System</Filter>
     </ClCompile>
   </ItemGroup>

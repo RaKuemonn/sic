@@ -7,6 +7,7 @@
 
 // ’Ç‰Á
 #include "timer.h"
+#include "score.h"
 
 
 
@@ -36,6 +37,7 @@ private:
 
 private:
     std::unique_ptr<Timer> timer = nullptr;
+    std::unique_ptr<Score> score = nullptr;
 
     std::unique_ptr<Model> mdl_cube = nullptr;
     std::unique_ptr<Model> mdl_room = nullptr;
