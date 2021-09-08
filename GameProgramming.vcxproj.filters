@@ -172,6 +172,9 @@
     <ClInclude Include="Source\System\timer.h">
       <Filter>Source\System</Filter>
     </ClInclude>
+    <ClInclude Include="Source\System\digits.h">
+      <Filter>Source\System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\imgui\imgui.cpp">
