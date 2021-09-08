@@ -43,6 +43,9 @@
     <Filter Include="Source\System">
       <UniqueIdentifier>{2cba9cbe-2292-47e0-bad5-238474f273a7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Charater">
+      <UniqueIdentifier>{b7b74be7-d2a5-4dc5-9133-216e17c87025}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="External\imgui\imconfig.h">
@@ -108,7 +111,6 @@
     <ClInclude Include="Source\Input\Mouse.h">
       <Filter>Source\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Source\memo.h" />
     <ClInclude Include="Source\Graphics\ResourceManager.h">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
@@ -180,6 +182,27 @@
     </ClInclude>
     <ClInclude Include="Source\System\gameSystem.h">
       <Filter>Source\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Charactor\BombEnemy.h">
+      <Filter>Source\Charater</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Charactor\Character.h">
+      <Filter>Source\Charater</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Charactor\Enemy.h">
+      <Filter>Source\Charater</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Charactor\EnemyManager.h">
+      <Filter>Source\Charater</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\memo.h">
+      <Filter>Source\Charater</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Charactor\NormalEnemy.h">
+      <Filter>Source\Charater</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Charactor\Player.h">
+      <Filter>Source\Charater</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -293,6 +316,24 @@
     </ClCompile>
     <ClCompile Include="Source\System\gameSystem.cpp">
       <Filter>Source\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Charactor\BombEnemy.cpp">
+      <Filter>Source\Charater</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Charactor\Character.cpp">
+      <Filter>Source\Charater</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Charactor\Enemy.cpp">
+      <Filter>Source\Charater</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Charactor\EnemyManager.cpp">
+      <Filter>Source\Charater</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Charactor\NormalEnemy.cpp">
+      <Filter>Source\Charater</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Charactor\Player.cpp">
+      <Filter>Source\Charater</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

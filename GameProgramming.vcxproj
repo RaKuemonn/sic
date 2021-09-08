@@ -222,7 +222,6 @@
     <ClInclude Include="Source\Audio\AudioResource.h" />
     <ClInclude Include="Source\Audio\AudioSource.h" />
     <ClInclude Include="Source\Charactor\Character.h" />
-    <ClInclude Include="Source\Charactor\Collision.h" />
     <ClInclude Include="Source\Charactor\Enemy.h" />
     <ClInclude Include="Source\Charactor\EnemyManager.h" />
     <ClInclude Include="Source\Charactor\NormalEnemy.h" />
@@ -274,7 +273,6 @@
     <ClCompile Include="Source\Audio\AudioResource.cpp" />
     <ClCompile Include="Source\Audio\AudioSource.cpp" />
     <ClCompile Include="Source\Charactor\Character.cpp" />
-    <ClCompile Include="Source\Charactor\Collision.cpp" />
     <ClCompile Include="Source\Charactor\Enemy.cpp" />
     <ClCompile Include="Source\Charactor\EnemyManager.cpp" />
     <ClCompile Include="Source\Charactor\NormalEnemy.cpp" />
