@@ -62,8 +62,6 @@ void Game::Set()
 	back_color = { 1,0,0,1 };
 
 	CameraSet();
-
-	timer->AddTime(9990.0f);
 }
 
 

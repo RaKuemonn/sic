@@ -26,7 +26,7 @@ protected:
 
             int place = static_cast<int>(digits_ * pow(0.1f, f_index));
             digits_place.at(index) = static_cast<T>(place);
-            digits_ += static_cast<T>(-digits_place.at(index) * pow(10, index));
+            digits_ += static_cast<T>(-digits_place.at(index) * pow(10, f_index));
         }
 
         if (static_cast<int>(digits_) <= 0) return;

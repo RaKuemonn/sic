@@ -42,8 +42,8 @@ private:
     void CountDown(float elapsedTime);
 
 private: // 定数
-    static constexpr float zero_time = 0.0f;
-    static constexpr float max_time = 9999.0f;
+    static constexpr float zero_time = 0.0f;        // ゼロ
+    static constexpr float max_time = 9999.0f;      // 最大値
 
 private: // 変数
     std::unique_ptr<Sprite> spr_number = nullptr;   // スプライト
