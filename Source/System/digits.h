@@ -12,7 +12,7 @@ class Digits
 {
 public:
     Digits(T default_start_digits_/*‰Šú’l*/, size_t max_digits_place_/*Å‘åŒ…”*/) : default_start_digits(default_start_digits_), max_digits_place(max_digits_place_) {};
-    virtual ~Digits() {};
+    virtual ~Digits() { digit = 0; };
 
 protected: // GetŠÖ”
     T GetDigit() { return digit; }

@@ -178,6 +178,9 @@
     <ClInclude Include="Source\System\score.h">
       <Filter>Source\System</Filter>
     </ClInclude>
+    <ClInclude Include="Source\System\gameSystem.h">
+      <Filter>Source\System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\imgui\imgui.cpp">
@@ -286,6 +289,9 @@
       <Filter>Source\System</Filter>
     </ClCompile>
     <ClCompile Include="Source\System\score.cpp">
+      <Filter>Source\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\System\gameSystem.cpp">
       <Filter>Source\System</Filter>
     </ClCompile>
   </ItemGroup>

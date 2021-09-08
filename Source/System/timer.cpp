@@ -1,11 +1,13 @@
 
+
 #include "timer.h"
 #include "common.h"
 
 
 
-Timer::Timer(COUNT count, bool render, float default_start_time_) : Digits(default_start_time_, 4)
+Timer::Timer(COUNT count, const float default_start_time_, const bool render) : Digits(default_start_time_, 4)
 {
+    stop = false;
 
     // 三項演算子
     pCount = static_cast<int>(count) ? /* DOWN = true */&Timer::CountDown : /* Up = false */&Timer::CountUp;
@@ -24,6 +26,8 @@ Timer::Timer(COUNT count, bool render, float default_start_time_) : Digits(defau
 
 void Timer::Update(float elapsedTime)
 {
+    if (stop) return;
+
     // 時間の更新
     (this->*pCount)(elapsedTime);
 }
