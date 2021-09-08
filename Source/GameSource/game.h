@@ -6,7 +6,7 @@
 #include <memory>
 
 // ’Ç‰Á
-
+#include "Charactor/Player.h"
 
 
 // ƒQ[ƒ€ƒV[ƒ“
@@ -39,4 +39,6 @@ private:
     std::unique_ptr<Model> mdl_enemy1 = nullptr;
     std::unique_ptr<Model> mdl_enemy2 = nullptr;
     std::unique_ptr<Model> mdl_sky = nullptr;
+
+    Player* player = nullptr;
 };

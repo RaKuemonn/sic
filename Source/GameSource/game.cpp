@@ -37,6 +37,8 @@ void Game::Update(float elapsedTime)
 	mdl_enemy2->UpdateTransform(cube_trandform);
 	mdl_sky->UpdateTransform(cube_trandform);
 
+	player->Update(elapsedTime);
+
 	CameraController::Instance()->Update(elapsedTime);
 }
 
@@ -49,6 +51,8 @@ void Game::ModelRender(ID3D11DeviceContext* dc, Shader* shader)
 	//shader->Draw(dc, mdl_enemy1.get());
 	//shader->Draw(dc, mdl_enemy2.get());
 	shader->Draw(dc, mdl_sky.get());
+
+	player->Render(dc, shader);
 }
 
 
@@ -61,7 +65,12 @@ void Game::SpriteRender(ID3D11DeviceContext* dc)
 
 void Game::DeInit()
 {
-
+	// プレイヤー終了化
+	if (player != nullptr)
+	{
+		delete player;
+		player = nullptr;
+	}
 }
  
 
@@ -82,6 +91,10 @@ void Game::Load()
 	mdl_enemy1	= std::make_unique<Model>("Data/Model/Test/test_enemy1.mdl");
 	mdl_enemy2	= std::make_unique<Model>("Data/Model/Test/test_enemy2.mdl");
 	mdl_sky		= std::make_unique<Model>("Data/Model/Test/test_sky.mdl");
+
+	// プレイヤー初期化
+	player = new Player();
+	player->SetPosition(DirectX::XMFLOAT3(0, 0, 0));
 }
 
 
