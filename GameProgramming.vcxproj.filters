@@ -43,9 +43,6 @@
     <Filter Include="Source\System">
       <UniqueIdentifier>{2cba9cbe-2292-47e0-bad5-238474f273a7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Charactor">
-      <UniqueIdentifier>{ecddd163-5ef7-4500-8b66-93b31f7ce055}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="External\imgui\imconfig.h">
@@ -178,26 +175,8 @@
     <ClInclude Include="Source\System\digits.h">
       <Filter>Source\System</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Charactor\Character.h">
-      <Filter>Source\Charactor</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Charactor\Enemy.h">
-      <Filter>Source\Charactor</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Charactor\EnemyManager.h">
-      <Filter>Source\Charactor</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Charactor\Player.h">
-      <Filter>Source\Charactor</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Charactor\Collision.h">
-      <Filter>Source\Charactor</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Charactor\NormalEnemy.h">
-      <Filter>Source\Charactor</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Charactor\BombEnemy.h">
-      <Filter>Source\Charactor</Filter>
+    <ClInclude Include="Source\System\score.h">
+      <Filter>Source\System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -306,26 +285,8 @@
     <ClCompile Include="Source\System\timer.cpp">
       <Filter>Source\System</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Charactor\Character.cpp">
-      <Filter>Source\Charactor</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Charactor\Enemy.cpp">
-      <Filter>Source\Charactor</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Charactor\EnemyManager.cpp">
-      <Filter>Source\Charactor</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Charactor\Player.cpp">
-      <Filter>Source\Charactor</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Charactor\Collision.cpp">
-      <Filter>Source\Charactor</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Charactor\NormalEnemy.cpp">
-      <Filter>Source\Charactor</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Charactor\BombEnemy.cpp">
-      <Filter>Source\Charactor</Filter>
+    <ClCompile Include="Source\System\score.cpp">
+      <Filter>Source\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

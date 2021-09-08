@@ -53,22 +53,6 @@ void Timer::SpriteRender(ID3D11DeviceContext* dc)
 }
 
 
-void Timer::AddTime(const float add)
-{
-    if (add < 0) return;
-
-    digit += add;
-}
-
-
-void Timer::SubtractTime(const float subtract)
-{
-    if (subtract > 0) return;
-
-    digit += subtract;
-}
-
-
 void Timer::CountUp(float elapsedTime)
 {
     // タイマーが限界値になったら更新しない

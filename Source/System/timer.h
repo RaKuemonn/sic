@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Graphics/Graphics.h"
 #include "Graphics/Sprite.h"
 #include <memory>
 #include "digits.h"
@@ -26,11 +25,11 @@ public:
     void SpriteRender(ID3D11DeviceContext* dc);
 
 public: // Get関数
-    float NowTime() const { return digit; }
+    float NowTime() { return GetDigit(); }
 
 public: // Set関数
-    void AddTime(const float add);
-    void SubtractTime(const float subtract);
+    void AddTime(const float add) { Add(add); }
+    void SubtractTime(const float subtract) { Subtract(subtract); }
 
 private:
     //　関数ポインタ //

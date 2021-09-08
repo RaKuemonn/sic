@@ -14,6 +14,24 @@ public:
     Digits(T default_start_digits_/*‰Šú’l*/, size_t max_digits_place_/*Å‘åŒ…”*/) : default_start_digits(default_start_digits_), max_digits_place(max_digits_place_) {};
     virtual ~Digits() {};
 
+protected: // GetŠÖ”
+    T GetDigit() { return digit; }
+
+protected: // SetŠÖ”
+    void Add(const T add)
+    {
+        if (add < 0) return;
+
+        digit += add;
+    }
+
+    void Subtract(const T subtract)
+    {
+        if (subtract > 0) return;
+
+        digit += subtract;
+    }
+
 protected:
     // Œ…‚²‚Æ‚É”’l‚ğ•ª‰ğ
     void SliceDigits(T digits_, std::vector<T>& digits_place)
@@ -24,7 +42,7 @@ protected:
             size_t index = i - 1;
             float f_index = static_cast<float>(index);
 
-            int place = static_cast<int>(digits_ * pow(0.1f, f_index));
+            int place = static_cast<int>(static_cast<float>(digits_) * pow(0.1f, f_index));
             digits_place.at(index) = static_cast<T>(place);
             digits_ += static_cast<T>(-digits_place.at(index) * pow(10, f_index));
         }
