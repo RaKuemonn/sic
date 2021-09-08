@@ -39,6 +39,7 @@ void Game::Update(float elapsedTime)
 
 	player->Update(elapsedTime);
 
+	CameraController::Instance()->SetTarget(player->GetPosition());
 	CameraController::Instance()->Update(elapsedTime);
 }
 
@@ -65,7 +66,7 @@ void Game::SpriteRender(ID3D11DeviceContext* dc)
 
 void Game::DeInit()
 {
-	// プレイヤー終了化
+	// ・ｽv・ｽ・ｽ・ｽC・ｽ・ｽ・ｽ[・ｽI・ｽ・ｽ・ｽ・ｽ
 	if (player != nullptr)
 	{
 		delete player;
@@ -92,7 +93,7 @@ void Game::Load()
 	mdl_enemy2	= std::make_unique<Model>("Data/Model/Test/test_enemy2.mdl");
 	mdl_sky		= std::make_unique<Model>("Data/Model/Test/test_sky.mdl");
 
-	// プレイヤー初期化
+	// ・ｽv・ｽ・ｽ・ｽC・ｽ・ｽ・ｽ[・ｽ・ｽ・ｽ・ｽ・ｽ・ｽ
 	player = new Player();
 	player->SetPosition(DirectX::XMFLOAT3(0, 0, 0));
 }

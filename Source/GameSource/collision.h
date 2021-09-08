@@ -19,24 +19,63 @@ struct HitResult
 
 // コリジョンクラス (衝突判定)
 
-class Collision
+class Collision3D
 {
 public:
 
     // A押す方、B押し出される方
-    static bool BallvsBall(
-        const DirectX::XMFLOAT3& posA,
-        const float radiusA_,
-        const DirectX::XMFLOAT3& posB,
-        const float radiusB_,
-        DirectX::XMFLOAT3& outPosB
+    static bool BallVsBallAndExtrusion(
+        const DirectX::XMFLOAT3& pos_A,
+        const float radius_A,
+        const DirectX::XMFLOAT3& pos_B,
+        const float radius_B,
+        DirectX::XMFLOAT3& out_pos_B
     );
 
-    static bool RayPickvsModel(
+    static bool RayPickVsModel(
         const DirectX::XMFLOAT3& start,
         const DirectX::XMFLOAT3& end,
         const Model* model,
         HitResult& result
     );
+};
 
+
+class Collision2D
+{
+public:
+
+    // 円と円の判定
+    static bool CircleVsCircle(
+        const DirectX::XMFLOAT2& pos_A,
+        const float radius_A,
+        const DirectX::XMFLOAT2& pos_B,
+        const float radius_B
+    );
+
+    // 円と円の判定と押し出し
+    static bool CircleVsCircleAndExtrusion(
+        const DirectX::XMFLOAT2& pos_A,
+        const float radius_A,
+        const DirectX::XMFLOAT2& pos_B,
+        const float radius_B,
+        DirectX::XMFLOAT2& out_pos_B
+    );
+
+    // 矩形と矩形の判定 ※回転非対応
+    static bool RectVsRect(
+        const DirectX::XMFLOAT2& rect_A_center_pos,
+        const DirectX::XMFLOAT2& rect_A_size,
+        const DirectX::XMFLOAT2& rect_B_center_pos,
+        const DirectX::XMFLOAT2& rect_B_size
+    );
+
+    // 矩形と矩形の判定と押し出し ※回転非対応
+    static bool RectVsRectAndExtrusion(
+        const DirectX::XMFLOAT2& rect_A_center_pos,
+        const DirectX::XMFLOAT2& rect_A_size,
+        const DirectX::XMFLOAT2& rect_B_center_pos,
+        const DirectX::XMFLOAT2& rect_B_size,
+        DirectX::XMFLOAT2& rect_B_out_center_pos
+    );
 };

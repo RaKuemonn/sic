@@ -4,13 +4,12 @@
 
 
 
-bool Collision::BallvsBall(
+bool Collision3D::BallVsBallAndExtrusion(
     const DirectX::XMFLOAT3& pivotA,
     const float radiusA_,
     const DirectX::XMFLOAT3& pivotB,
     const float radiusB_,
-    DirectX::XMFLOAT3& outPosB
-)
+    DirectX::XMFLOAT3& outPosB )
 {
     DirectX::XMVECTOR PivotA      = DirectX::XMLoadFloat3(&pivotA);
     DirectX::XMVECTOR PivotB      = DirectX::XMLoadFloat3(&pivotB);
@@ -34,7 +33,7 @@ bool Collision::BallvsBall(
 }
 
 
-bool Collision::RayPickvsModel(
+bool Collision3D::RayPickVsModel(
     const DirectX::XMFLOAT3& start,
     const DirectX::XMFLOAT3& end,
     const Model* model,
@@ -231,4 +230,147 @@ bool Collision::RayPickvsModel(
 
 
     return hit;
+}
+
+
+bool Collision2D::CircleVsCircle(
+    const DirectX::XMFLOAT2& pos_A,
+    const float radius_A,
+    const DirectX::XMFLOAT2& pos_B,
+    const float radius_B)
+{
+    float length = 0.0f;
+    DirectX::XMStoreFloat(&length, DirectX::XMVector2Length(DirectX::XMVectorSet(pos_B.x - pos_A.x, pos_B.y - pos_A.y, 0.0f, 1.0f)));
+
+    return (length > radius_A + radius_B);
+}
+
+
+bool Collision2D::CircleVsCircleAndExtrusion(
+    const DirectX::XMFLOAT2& pos_A,
+    const float radius_A,
+    const DirectX::XMFLOAT2& pos_B,
+    const float radius_B,
+    DirectX::XMFLOAT2& out_pos_B)
+{
+    DirectX::XMVECTOR AtoB_vec = DirectX::XMVectorSubtract(DirectX::XMLoadFloat2(&pos_B), DirectX::XMLoadFloat2(&pos_A));
+    float length = 0.0f;
+    DirectX::XMStoreFloat(&length, DirectX::XMVector2Length(AtoB_vec));
+
+    if (length < radius_A + radius_B) return false;
+
+
+    float subtract = radius_A + radius_B - length;
+
+    DirectX::XMStoreFloat2(&out_pos_B, DirectX::XMVectorAdd(DirectX::XMLoadFloat2(&pos_B), DirectX::XMVectorScale(DirectX::XMVector2Normalize(AtoB_vec), subtract)));
+
+
+    return true;
+}
+
+
+bool Collision2D::RectVsRect(
+    const DirectX::XMFLOAT2& rect_A_center_pos,
+    const DirectX::XMFLOAT2& rect_A_size,
+    const DirectX::XMFLOAT2& rect_B_center_pos,
+    const DirectX::XMFLOAT2& rect_B_size)
+{
+    float rect_A_half_size_width = rect_A_size.x * 0.5f;
+    float rect_A_half_size_height = rect_A_size.y * 0.5f;
+
+    DirectX::XMFLOAT2 A_min = { rect_A_center_pos.x - rect_A_half_size_width, rect_A_center_pos.y - rect_A_half_size_height };
+    DirectX::XMFLOAT2 A_max = { rect_A_center_pos.x + rect_A_half_size_width, rect_A_center_pos.y + rect_A_half_size_height };
+
+
+    float rect_B_half_size_width = rect_B_size.x * 0.5f;
+    float rect_B_half_size_height = rect_B_size.y * 0.5f;
+
+    DirectX::XMFLOAT2 B_min = { rect_B_center_pos.x - rect_B_half_size_width, rect_B_center_pos.y - rect_B_half_size_height };
+    DirectX::XMFLOAT2 B_max = { rect_B_center_pos.x + rect_B_half_size_width, rect_B_center_pos.y + rect_B_half_size_height };
+
+
+    if (A_min.x > B_max.x) return false;
+    if (A_max.x < B_min.x) return false;
+    if (A_min.y > B_max.y) return false;
+    if (A_max.y < B_min.y) return false;
+
+    return true;
+}
+
+
+bool Collision2D::RectVsRectAndExtrusion(
+    const DirectX::XMFLOAT2& rect_A_center_pos,
+    const DirectX::XMFLOAT2& rect_A_size,
+    const DirectX::XMFLOAT2& rect_B_center_pos,
+    const DirectX::XMFLOAT2& rect_B_size,
+    DirectX::XMFLOAT2& rect_B_out_center_pos)
+{
+
+    // 点
+    DirectX::XMFLOAT2 point_position = rect_B_center_pos;
+
+    // 矩形の最小点と最大点
+    DirectX::XMFLOAT2 min = { rect_A_center_pos.x - rect_A_size.x * 0.5f - rect_B_size.x * 0.5f, rect_A_center_pos.y - rect_A_size.y * 0.5f - rect_B_size.x * 0.5f };
+    DirectX::XMFLOAT2 max = { rect_A_center_pos.x + rect_A_size.x * 0.5f + rect_B_size.x * 0.5f, rect_A_center_pos.y + rect_A_size.y * 0.5f + rect_B_size.x * 0.5f };
+
+
+    auto ClampOnRange = [](const float num, const float min, const float max) -> float
+    {
+        if (num < min) return min;
+        if (num > max) return max;
+
+        return num;
+    };
+
+    // 矩形内で円の中心点に最も近い点を算出する
+    DirectX::XMFLOAT2 rect_point_pos = {};
+    rect_point_pos.x = ClampOnRange(point_position.x, min.x, max.x);
+    rect_point_pos.y = ClampOnRange(point_position.y, min.y, max.y);
+
+    // 最近点と円で衝突判定をする
+    DirectX::XMVECTOR vec_circle_to_rect_point = DirectX::XMLoadFloat2(&DirectX::XMFLOAT2({ rect_point_pos.x - point_position.x,rect_point_pos.y - point_position.y }));
+    float length;
+    DirectX::XMStoreFloat(&length, DirectX::XMVector2Length(vec_circle_to_rect_point));
+
+    if (0.1f <= length)
+    {
+        // 衝突していない
+        return false;
+    }
+
+    // 衝突していたら... //
+
+    // 矩形の内部までめり込んでしまっていたら ※雑
+    if (length <= 0.0f)
+    {
+        float temp_length[2] = {};
+        DirectX::XMVECTOR vec = DirectX::XMLoadFloat2(&DirectX::XMFLOAT2({ min.x - point_position.x, min.y - point_position.y }));
+        DirectX::XMStoreFloat(&temp_length[0], DirectX::XMVector2Length(vec));
+
+        vec = DirectX::XMLoadFloat2(&DirectX::XMFLOAT2({ max.x - point_position.x, max.y - point_position.y }));
+        DirectX::XMStoreFloat(&temp_length[1], DirectX::XMVector2Length(vec));
+
+        if (temp_length[0] < temp_length[1])
+        {
+            length = temp_length[0];
+            vec_circle_to_rect_point = { min.x - point_position.x, min.y - point_position.y };
+        }
+
+        else
+        {
+            length = temp_length[1];
+            vec_circle_to_rect_point = { max.x - point_position.x, max.y - point_position.y };
+        }
+    }
+
+    // めり込んでる距離を計算
+    length = 0.1f - length;
+
+    // めり込んでいる分押し出しするベクトルを代入
+    DirectX::XMFLOAT2 n_vec;
+    DirectX::XMStoreFloat2(&n_vec, DirectX::XMVector2Normalize(vec_circle_to_rect_point));
+
+    rect_B_out_center_pos = { rect_B_center_pos.x - n_vec.x * length, rect_B_center_pos.y - n_vec.y * length };
+
+    return true;
 }

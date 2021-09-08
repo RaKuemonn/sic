@@ -195,14 +195,14 @@
     <ClInclude Include="Source\Charactor\EnemyManager.h">
       <Filter>Source\Charater</Filter>
     </ClInclude>
-    <ClInclude Include="Source\memo.h">
-      <Filter>Source\Charater</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Charactor\NormalEnemy.h">
       <Filter>Source\Charater</Filter>
     </ClInclude>
     <ClInclude Include="Source\Charactor\Player.h">
       <Filter>Source\Charater</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\memo.h">
+      <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
