@@ -4,6 +4,8 @@ NormalEnemy::NormalEnemy()
 {
 	model = new Model("Data/Model/Test/test_enemy1.mdl");
 
+	enemy_tag = NORMAL;
+
 	scale.x = scale.y = scale.z = 1.0f;
 
 	// •A‚‚³Ý’è
@@ -38,7 +40,7 @@ void NormalEnemy::Render(ID3D11DeviceContext* dc, Shader* shader)
 	shader->Draw(dc, model);
 }
 
-float NormalEnemy::inhale()
+float NormalEnemy::inhaled()
 {
 	constexpr float STAGE_1_SCALING_VALUE = 0.1f;
 
@@ -46,6 +48,7 @@ float NormalEnemy::inhale()
 	{
 	case 1:
 		return par.scaling_value = STAGE_1_SCALING_VALUE;
+		Is_inhaling = true;
 		break;
 	default:
 		break;
