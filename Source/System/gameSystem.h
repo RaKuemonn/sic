@@ -6,6 +6,7 @@
 // 追加
 #include "timer.h"
 #include "score.h"
+#include "fileIO.h"
 
 
 
@@ -44,5 +45,5 @@ public: // Set関数
 private:
     std::unique_ptr<Timer> timer = nullptr;     // 残り時間
     std::unique_ptr<Score> score = nullptr;     // 総スコア
-
+    FileData data_ranking = {};                 // ランキングデータ
 };

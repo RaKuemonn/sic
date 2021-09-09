@@ -26,8 +26,6 @@ void FileIO::Open(const char* filename, FileData& data_)
 
         fin.read((char*)&data_.data_array.at(i), sizeof(int));
         //文字列ではないデータを読みこむ
-        std::cout << data_.data_array.at(i) << std::endl;
-
         i++;
     }
 
@@ -52,7 +50,7 @@ void FileIO::Write(const char* filename, FileData& data_)
 
         fout.write((char*)&data_.data_array.at(i), sizeof(int));
         //文字列ではないデータをかきこむ
-        // 「sizeof( double )」バイトの「char *」ポインタ「a[i]」をデータとして出力
+        // 「sizeof( int )」バイトの「char *」ポインタ「data_array.at(i)」をデータとして出力
     }
 
     fout.close();  //ファイルを閉じる
