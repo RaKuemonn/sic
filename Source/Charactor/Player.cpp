@@ -113,8 +113,8 @@ void Player::InputMove(float elapsedTime)
 	// 移動処理
 	Move(elapsedTime, moveVec.x, moveVec.z, moveSpeed);
 
-	// 
-
+	// プレイヤーとエネミーの衝突処理
+	CollisionPlayerVsEnemies();
 }
 
 // 描画処理
