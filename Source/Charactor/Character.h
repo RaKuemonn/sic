@@ -73,4 +73,10 @@ protected:
 		RARE_ENEMY,	// レアモブ
 		BOMB_ENEMY,	// デメリットモブ
 	};
+
+public:
+	struct Parameter
+	{
+		float scaling_value = 0; // 吸い込んだ物によって＋or－
+	}par;
 };

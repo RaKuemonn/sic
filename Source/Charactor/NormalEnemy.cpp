@@ -1,8 +1,10 @@
 #include "NormalEnemy.h"
 
+#define STAGE_1_SCALING_VALUE (0.1f)
+
 NormalEnemy::NormalEnemy()
 {
-	model = new Model("Data/Model/target/target_demo.mdl");
+	model = new Model("Data/Model/Test/test_enemy1.mdl");
 
 	scale.x = scale.y = scale.z = 1.0f;
 
@@ -36,4 +38,16 @@ void NormalEnemy::Update(float elapsedTime)
 void NormalEnemy::Render(ID3D11DeviceContext* dc, Shader* shader)
 {
 	shader->Draw(dc, model);
+}
+
+float NormalEnemy::inhale()
+{
+	switch ( 1 /* stage */)
+	{
+	case 1:
+		return par.scaling_value = STAGE_1_SCALING_VALUE;
+		break;
+	default:
+		break;
+	}
 }

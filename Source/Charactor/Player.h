@@ -21,6 +21,9 @@ public:
 	// 移動入力値処理
 	void InputMove(float elapsedTime);
 
+	// プレイヤーとエネミーの衝突処理
+	void CollisionPlayerVsEnemies();
+
 	// デバッグプリミティブ描画
 	void DrawDebugPrimitive();
 

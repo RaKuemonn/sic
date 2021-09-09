@@ -35,8 +35,5 @@ public:
 	void Clear();
 
 private:
-	// エネミー同士の衝突判定
-	void CollisionEnemyVsEnemies();
-
 	std::vector<Enemy*>		enemies;
 };

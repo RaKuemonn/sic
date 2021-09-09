@@ -32,7 +32,7 @@ void EnemyManager::DrawDebugPrimitive()
 void EnemyManager::Register(Enemy* enemy, int tag)
 {
 	enemies.emplace_back(enemy);
-	enemy->objtag = tag;
+	enemy->enemy_tag = tag;
 }
 void EnemyManager::Clear()
 {

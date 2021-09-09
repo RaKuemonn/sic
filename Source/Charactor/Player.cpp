@@ -4,7 +4,7 @@
 #include "Camera.h"
 #include "Graphics/Graphics.h"
 #include "EnemyManager.h"
-#include "Collision.h"
+#include "collision.h"
 
 // コンストラクタ
 Player::Player()
@@ -113,12 +113,59 @@ void Player::InputMove(float elapsedTime)
 	// 移動処理
 	Move(elapsedTime, moveVec.x, moveVec.z, moveSpeed);
 
+	// 
+
 }
 
 // 描画処理
 void Player::Render(ID3D11DeviceContext* dc, Shader* shader)
 {
 	shader->Draw(dc, model);
+}
+
+// プレイヤーとエネミーの衝突処理
+void Player::CollisionPlayerVsEnemies()
+{
+	EnemyManager& enemyManager = EnemyManager::Instance();
+
+	int enemyCount = enemyManager.GetEnemyCount();
+	for (int i = 0; i < 1; ++i)
+	{
+		Player* player = {};
+
+		for (int j = 0; j < enemyCount; ++j)
+		{
+			Enemy* enemy = enemyManager.GetEnemy(j);
+
+			// 衝突処理
+			DirectX::XMFLOAT3 outPosition;
+			if (Collision3D::BallVsBallAndExtrusion/*collision::IntersectSqhereVsXYCircle*/(
+				player->GetPosition(),
+				player->GetRadius(),
+				enemy->GetPosition(),
+				enemy->GetRadius(),
+				/*enemy->GetHeight(),*/
+				outPosition
+			))
+			{
+				switch (enemy->enemy_tag)
+				{
+				case Enemy::ENEMYTAG::NORMAL:
+					//Hit->Play(false, HIT_VOLUME);
+					enemy->inhale();
+					break;
+				case Enemy::ENEMYTAG::RARE:
+					break;
+				case Enemy::ENEMYTAG::BOMB:
+					enemy->inhale();
+					break;
+				default:
+					break;
+				}
+			}
+		}
+
+	}
 }
 
 // デバッグプリミティブ描画

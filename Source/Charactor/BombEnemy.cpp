@@ -1,8 +1,10 @@
 #include "BombEnemy.h"
 
+#define STAGE_1_SCALING_VALUE (0.1f)
+
 BombEnemy::BombEnemy()
 {
-	model = new Model("Data/Model/obstacle/Cube.mdl");
+	model = new Model("Data/Model/Test/test_enemy2.mdl");
 
 	scale.x = scale.y = scale.z = 1.0f;
 
@@ -37,3 +39,14 @@ void BombEnemy::Render(ID3D11DeviceContext* dc, Shader* shader)
 	shader->Draw(dc, model);
 }
 
+float BombEnemy::inhale()
+{
+	switch ( 1 /* stage */)
+	{
+	case 1:
+		return par.scaling_value = STAGE_1_SCALING_VALUE;
+		break;
+	default:
+		break;
+	}
+}
