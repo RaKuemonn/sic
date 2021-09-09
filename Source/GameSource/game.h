@@ -7,6 +7,7 @@
 
 // í«â¡
 #include "Charactor/Player.h"
+#include "stage_room.h"
 
 
 // ÉQÅ[ÉÄÉVÅ[Éì
@@ -35,10 +36,10 @@ private:
 
 private:
     std::unique_ptr<Model> mdl_cube = nullptr;
-    std::unique_ptr<Model> mdl_room = nullptr;
     std::unique_ptr<Model> mdl_enemy1 = nullptr;
     std::unique_ptr<Model> mdl_enemy2 = nullptr;
     std::unique_ptr<Model> mdl_sky = nullptr;
 
     Player* player = nullptr;
+    std::unique_ptr<Stage> stage = nullptr;
 };
