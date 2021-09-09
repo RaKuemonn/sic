@@ -47,7 +47,10 @@ public: // Set関数
 private:
     void CompareScoreAndRanking();
 
-private:
+private: // 定数
+    static constexpr size_t max_data_ranking_size = 3;
+
+private: // 変数
     std::unique_ptr<Timer> timer = nullptr;     // 残り時間
     std::unique_ptr<Score> score = nullptr;     // 総スコア
     FileData data_ranking = {};                 // ランキングデータ

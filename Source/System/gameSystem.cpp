@@ -56,11 +56,12 @@ void GameSystem::ResultDataSave()
 
 void GameSystem::CompareScoreAndRanking()
 {
-    constexpr size_t max_ranking_size = 3;
-
+    // 現在のスコアをランキングデータに追加して
     data_ranking.data_array.emplace_back(score->NowScore());
 
+    //　降順にソート
     std::sort(data_ranking.data_array.begin(), data_ranking.data_array.end(), std::greater<int>());
 
-    data_ranking.data_array.erase(data_ranking.data_array.begin() + 3);
+    // 始め(0)から３つ目(3)の要素を削除 { 0 ~ 2 までの要素数３に抑える }
+    data_ranking.data_array.erase(data_ranking.data_array.begin() + max_data_ranking_size);
 }
