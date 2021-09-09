@@ -148,7 +148,7 @@ void Player::CollisionPlayerVsEnemies()
 				outPosition
 			))
 			{
-				enemy->inhale();
+				enemy->inhaled();
 				//switch (enemy->enemy_tag)
 				//{
 				//case Enemy::ENEMYTAG::NORMAL:
