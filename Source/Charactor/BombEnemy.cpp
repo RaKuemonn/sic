@@ -1,6 +1,5 @@
 #include "BombEnemy.h"
 
-#define STAGE_1_SCALING_VALUE (0.1f)
 
 BombEnemy::BombEnemy()
 {
@@ -41,6 +40,8 @@ void BombEnemy::Render(ID3D11DeviceContext* dc, Shader* shader)
 
 float BombEnemy::inhale()
 {
+	constexpr float STAGE_1_SCALING_VALUE = -0.1f;
+
 	switch ( 1 /* stage */)
 	{
 	case 1:

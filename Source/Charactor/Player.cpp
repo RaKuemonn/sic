@@ -148,20 +148,19 @@ void Player::CollisionPlayerVsEnemies()
 				outPosition
 			))
 			{
-				switch (enemy->enemy_tag)
-				{
-				case Enemy::ENEMYTAG::NORMAL:
-					//Hit->Play(false, HIT_VOLUME);
-					enemy->inhale();
-					break;
-				case Enemy::ENEMYTAG::RARE:
-					break;
-				case Enemy::ENEMYTAG::BOMB:
-					enemy->inhale();
-					break;
-				default:
-					break;
-				}
+				enemy->inhale();
+				//switch (enemy->enemy_tag)
+				//{
+				//case Enemy::ENEMYTAG::NORMAL:
+				//	//Hit->Play(false, HIT_VOLUME);
+				//	break;
+				//case Enemy::ENEMYTAG::RARE:
+				//	break;
+				//case Enemy::ENEMYTAG::BOMB:
+				//	break;
+				//default:
+				//	break;
+				//}
 			}
 		}
 
