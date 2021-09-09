@@ -259,6 +259,7 @@
     <ClInclude Include="Source\Input\Mouse.h" />
     <ClInclude Include="Source\memo.h" />
     <ClInclude Include="Source\System\digits.h" />
+    <ClInclude Include="Source\System\fileIO.h" />
     <ClInclude Include="Source\System\gameSystem.h" />
     <ClInclude Include="Source\System\score.h" />
     <ClInclude Include="Source\System\timer.h" />
@@ -304,6 +305,7 @@
     <ClCompile Include="Source\Input\GamePad.cpp" />
     <ClCompile Include="Source\Input\Input.cpp" />
     <ClCompile Include="Source\Input\Mouse.cpp" />
+    <ClCompile Include="Source\System\fileIO.cpp" />
     <ClCompile Include="Source\System\gameSystem.cpp" />
     <ClCompile Include="Source\System\score.cpp" />
     <ClCompile Include="Source\System\timer.cpp" />

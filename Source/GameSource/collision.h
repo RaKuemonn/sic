@@ -70,6 +70,7 @@ public:
         const DirectX::XMFLOAT2& rect_B_size
     );
 
+    // –¢Š®¬
     // ‹éŒ`‚Æ‹éŒ`‚Ì”»’è‚Æ‰Ÿ‚µo‚µ ¦‰ñ“]”ñ‘Î‰
     static bool RectVsRectAndExtrusion(
         const DirectX::XMFLOAT2& rect_A_center_pos,

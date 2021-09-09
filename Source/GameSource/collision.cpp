@@ -303,10 +303,10 @@ bool Collision2D::RectVsRectAndExtrusion(
     const DirectX::XMFLOAT2& rect_A_size,
     const DirectX::XMFLOAT2& rect_B_center_pos,
     const DirectX::XMFLOAT2& rect_B_size,
-    DirectX::XMFLOAT2& rect_B_out_center_pos)
+    DirectX::XMFLOAT2& rect_A_out_center_pos)
 {
-
-    // 点
+    
+    /*// 点
     DirectX::XMFLOAT2 point_position = rect_B_center_pos;
 
     // 矩形の最小点と最大点
@@ -328,49 +328,43 @@ bool Collision2D::RectVsRectAndExtrusion(
     rect_point_pos.y = ClampOnRange(point_position.y, min.y, max.y);
 
     // 最近点と円で衝突判定をする
-    DirectX::XMVECTOR vec_circle_to_rect_point = DirectX::XMLoadFloat2(&DirectX::XMFLOAT2({ rect_point_pos.x - point_position.x,rect_point_pos.y - point_position.y }));
-    float length;
-    DirectX::XMStoreFloat(&length, DirectX::XMVector2Length(vec_circle_to_rect_point));
-
-    if (0.1f <= length)
-    {
-        // 衝突していない
-        return false;
-    }
+    
 
     // 衝突していたら... //
 
-    // 矩形の内部までめり込んでしまっていたら ※雑
-    if (length <= 0.0f)
-    {
-        float temp_length[2] = {};
-        DirectX::XMVECTOR vec = DirectX::XMLoadFloat2(&DirectX::XMFLOAT2({ min.x - point_position.x, min.y - point_position.y }));
-        DirectX::XMStoreFloat(&temp_length[0], DirectX::XMVector2Length(vec));
-
-        vec = DirectX::XMLoadFloat2(&DirectX::XMFLOAT2({ max.x - point_position.x, max.y - point_position.y }));
-        DirectX::XMStoreFloat(&temp_length[1], DirectX::XMVector2Length(vec));
-
-        if (temp_length[0] < temp_length[1])
-        {
-            length = temp_length[0];
-            vec_circle_to_rect_point = { min.x - point_position.x, min.y - point_position.y };
-        }
-
-        else
-        {
-            length = temp_length[1];
-            vec_circle_to_rect_point = { max.x - point_position.x, max.y - point_position.y };
-        }
-    }
+    
 
     // めり込んでる距離を計算
-    length = 0.1f - length;
 
     // めり込んでいる分押し出しするベクトルを代入
     DirectX::XMFLOAT2 n_vec;
-    DirectX::XMStoreFloat2(&n_vec, DirectX::XMVector2Normalize(vec_circle_to_rect_point));
 
     rect_B_out_center_pos = { rect_B_center_pos.x - n_vec.x * length, rect_B_center_pos.y - n_vec.y * length };
 
-    return true;
+    return true;*/
+
+    bool isHit = false;
+
+	/*if (rect_A_center_pos.x - rect_A_size.x <= rect_B_center_pos.x - rect_B_size.x)
+	{
+        rect_A_out_center_pos.x = rect_B_center_pos.x - rect_B_size.x + rect_A_size.x;
+		isHit = true;
+	}
+	if (rect_B_center_pos.x + rect_B_size.x <= rect_A_center_pos.x + rect_A_size.x)
+	{
+        rect_A_out_center_pos.x = rect_B_center_pos.x + rect_B_size.x - rect_A_size.x;
+		isHit = true;
+	}
+	if (rect_A_center_pos.y - rect_A_size.y <= rect_B_center_pos.y - rect_B_size.y)
+	{
+        rect_A_out_center_pos.y = rect_B_center_pos.y - rect_B_size.y + rect_A_size.y;
+		isHit = true;
+	}
+	if (rect_B_center_pos.y + rect_B_size.y <= rect_A_center_pos.y + rect_A_size.y)
+	{
+        rect_A_out_center_pos.y = rect_B_center_pos.y + rect_B_size.y - rect_A_size.y;
+		isHit = true;
+	}*/
+
+	return isHit;
 }

@@ -204,6 +204,9 @@
     <ClInclude Include="Source\memo.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="Source\System\fileIO.h">
+      <Filter>Source\System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\imgui\imgui.cpp">
@@ -334,6 +337,9 @@
     </ClCompile>
     <ClCompile Include="Source\Charactor\Player.cpp">
       <Filter>Source\Charater</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\System\fileIO.cpp">
+      <Filter>Source\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
