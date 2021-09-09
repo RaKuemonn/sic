@@ -7,17 +7,20 @@
 #include "loading.h"
 
 #include "EffectManager.h"
+#include "gameSystem.h"
 
 
 
 SceneManager::SceneManager()
 {
-
+    GameSystem::Instance().Init();
 }
 
 
 SceneManager::~SceneManager()
 {
+    GameSystem::Instance().DeInit();
+
     if (now_scene) now_scene->DeInit();
     safe_delete(now_scene);
 

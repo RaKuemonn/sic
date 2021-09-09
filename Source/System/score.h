@@ -21,8 +21,9 @@ public: // GetŠÖ”
     int NowScore() { return GetDigit(); }
 
 public: // SetŠÖ”
-    void AddScore(const int add) { Add(add); }
-    void SubtractScore(const int subtract) { Subtract(subtract); }
+    void Reset() { Digits::Reset(); }
+    void Add(const int add) { Digits::Add(add); }
+    void Subtract(const int subtract) { Digits::Subtract(subtract); }
 
 private: // ’è”
     static constexpr int zero_score = 0;            // ƒ[ƒ

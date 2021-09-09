@@ -6,6 +6,9 @@
 #include "common.h"
 #include "Input/Input.h"
 
+// ’Ç‰Á
+#include "gameSystem.h"
+
 
 
 void Title::Update(float elapsedTime)
@@ -56,4 +59,9 @@ void Title::Load()
 void Title::ImGui()
 {
 	ImGui::Text("scene : TiTle");
+
+	for (size_t i = 0; i < GameSystem::Instance().DataRanking().Size(); ++i)
+	{
+		ImGui::Text("%d place : %d score", i + 1, GameSystem::Instance().DataRanking().data_array.at(i));
+	}
 }

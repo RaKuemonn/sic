@@ -18,15 +18,16 @@ void FileIO::Open(const char* filename, FileData& data_)
     //  ファイルが開けなかったときの対策
 
 
-    size_t i = 0;
+    int value;
 
-    while (!fin.eof()) {  //ファイルの最後まで続ける
+    while (true) {  //ファイルの最後まで続ける
 
-        if (data_.data_array.size() <= i) break;
+        fin.read((char*)&value, sizeof(int));
 
-        fin.read((char*)&data_.data_array.at(i), sizeof(int));
+        if (fin.eof()) break;
+
+        data_.data_array.emplace_back(value);
         //文字列ではないデータを読みこむ
-        i++;
     }
 
     fin.close();  //ファイルを閉じる

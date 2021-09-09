@@ -81,7 +81,7 @@ void Game::Set()
 
 	CameraSet();
 
-	GameSystem::Instance().Init();
+	GameSystem::Instance().GameStart();
 }
 
 

@@ -18,6 +18,11 @@ protected: // GetŠÖ”
     T GetDigit() { return digit; }
 
 protected: // SetŠÖ”
+    void Reset()
+    {
+        digit = default_start_digits;
+    }
+
     void Add(const T add)
     {
         if (add < 0) return;

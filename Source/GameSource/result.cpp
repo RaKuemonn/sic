@@ -7,6 +7,9 @@
 #include "common.h"
 #include "Input/Input.h"
 
+// ’Ç‰Á
+#include "gameSystem.h"
+
 
 
 void Result::Update(float elapsedTime)
@@ -47,13 +50,13 @@ void Result::DeInit()
 
 void Result::Set()
 {
-	
+	GameSystem::Instance().ResultDataSave();
 }
 
 
 void Result::Load()
 {
-
+	
 }
 
 

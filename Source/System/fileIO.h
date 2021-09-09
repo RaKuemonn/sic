@@ -29,4 +29,9 @@ struct FileData
     {
         data_array.emplace_back(data_);
     }
+
+    size_t Size()
+    {
+        return data_array.size();
+    }
 };

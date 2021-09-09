@@ -35,12 +35,17 @@ public:
 public: // GetŠÖ”
     float NowTime() { return timer->NowTime(); }
     int NowScore() { return score->NowScore(); }
+    FileData& DataRanking() { return data_ranking; }
 
 public: // SetŠÖ”
-    void AddScore(const int add) { score->AddScore(add); }
+    void GameStart();
+    void ResultDataSave();
+    void AddScore(const int add) { score->Add(add); }
     void StopTime() { timer->Stop(); }
     void UnlockStopTime() { timer->UnlockStop(); }
 
+private:
+    void CompareScoreAndRanking();
 
 private:
     std::unique_ptr<Timer> timer = nullptr;     // Žc‚èŽžŠÔ

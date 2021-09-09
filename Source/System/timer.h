@@ -28,8 +28,9 @@ public: // Getä÷êî
     float NowTime() { return GetDigit(); }
 
 public: // Setä÷êî
-    void AddTime(const float add) { Add(add); }
-    void SubtractTime(const float subtract) { Subtract(subtract); }
+    void Reset() { Digits::Reset(); }
+    void Add(const float add) { Digits::Add(add); }
+    void Subtract(const float subtract) { Digits::Subtract(subtract); }
     void Stop() { stop = true; }
     void UnlockStop() { stop = false; }
 
