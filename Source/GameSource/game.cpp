@@ -145,7 +145,8 @@ void Game::ImGui()
 
 void Game::DebugRender()
 {
-	
+	player->DrawDebugPrimitive();
+	EnemyManager::Instance().DrawDebugPrimitive();
 }
 
 

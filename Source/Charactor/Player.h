@@ -18,17 +18,23 @@ public:
 	void Update(float elapsedTime);
 	void Render(ID3D11DeviceContext* dc, Shader* shader);
 
-	// 移動入力値処理
-	void InputMove(float elapsedTime);
-
-	// プレイヤーとエネミーの衝突処理
-	void CollisionPlayerVsEnemies();
-
 	// デバッグプリミティブ描画
 	void DrawDebugPrimitive();
 
 	// デバッグ用GUI描画
-	void DrawDebugGUI(DirectX::XMFLOAT3 wind_velocity);
+	void DrawDebugGUI();
+
+private:
+	void Input(float elapsedTime);
+
+	// 移動入力値処理
+	void InputMove(float elapsedTime);
+
+	void InputInhale();
+
+	// プレイヤーとエネミーの衝突処理
+	void CollisionPlayerVsEnemies();
+
 
 private:
 	DirectX::XMFLOAT3 GetMoveVec() const;
@@ -39,10 +45,12 @@ private:
 	float	moveSpeed = 50.0f;
 	float	turnSpeed = DirectX::XMConvertToRadians(720);
 
-	float	velocity_calc = 0;
+	bool is_during_inhale = false;
+
+	//float	velocity_calc = 0;
 
 public:
-
 	/*std::unique_ptr<AudioSource> Shot;
 	std::unique_ptr<AudioSource> Hit;*/
+
 };

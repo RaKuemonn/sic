@@ -237,17 +237,17 @@ void CameraController::NormalTracking(float elapsedTime)
 
 
     // 前回位置からrange分離れた位置
-    position.x = last_position.x;
-    position.y = last_position.y;
-    position.z = last_position.z;
+    new_position.x = last_position.x;
+    new_position.y = last_position.y;
+    new_position.z = last_position.z;
 
 
     //  ※前回がなければ原点
     if (last_position.x == 0.0f && last_position.y == 0.0f && last_position.z == 0.0f)
     {
-        position.x = 0.0f - front.x * range;
-        position.y = 0.0f - front.y * range;
-        position.z = 0.0f - front.z * range;
+        new_position.x = 0.0f - front.x * range;
+        new_position.y = 0.0f - front.y * range;
+        new_position.z = 0.0f - front.z * range;
     }
 
 
@@ -266,9 +266,9 @@ void CameraController::TranslationTracking(float elapsedTime)
 
     //DirectX::XMFLOAT3 eye;
     // ターゲットからrange分離れた位置
-    position.x = target.x - front.x * range;
-    position.y = target.y - front.y * range;
-    position.z = target.z - front.z * range;
+    new_position.x = target.x - front.x * range;
+    new_position.y = target.y - front.y * range;
+    new_position.z = target.z - front.z * range;
 }
 
 
@@ -284,8 +284,8 @@ void CameraController::Shake(float elapsedTime)
 
 
     // シェイク分の加算     ※基本 0
-    position.x += shake_power.x;
-    position.y += shake_power.y;
+    new_position.x += shake_power.x;
+    new_position.y += shake_power.y;
     //position.z += shake_power.z;
 }
 

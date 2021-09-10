@@ -69,7 +69,7 @@ protected:
 		0,0,0,1
 	};
 	
-	float				radius = 0.5f;
+	float				radius = 1.5f;
 
 	float				gravity = -1.0f;
 	DirectX::XMFLOAT3	velocity = { 0,0,0 };
