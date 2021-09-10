@@ -10,6 +10,8 @@
 #include "Charactor/EnemyManager.h"
 #include "Charactor/NormalEnemy.h"
 #include "Charactor/BombEnemy.h"
+#include "Charactor/Enemy_Arrangement.h"
+
 
 // ƒQ[ƒ€ƒV[ƒ“
 
@@ -42,4 +44,5 @@ private:
     std::unique_ptr<Model> mdl_sky = nullptr;
 
     Player* player = nullptr;
+    Enemy_Arrangement* enemy_Arrangement = nullptr;
 };

@@ -81,6 +81,8 @@ void Game::DeInit()
 		player = nullptr;
 	}
 
+	safe_delete(enemy_Arrangement);
+
 	// エネミー終了化
 	EnemyManager::Instance().Clear();
 
@@ -110,7 +112,7 @@ void Game::Load()
 	player->SetPosition(DirectX::XMFLOAT3(0, 0, 0));
 
 	// エネミー初期化
-	EnemyManager& enemyManager = EnemyManager::Instance();
+	/*EnemyManager& enemyManager = EnemyManager::Instance();
 
 	for (int i = 0; i < 2; ++i)
 	{
@@ -124,7 +126,10 @@ void Game::Load()
 		BombEnemy* bombEnemy = new BombEnemy();
 		bombEnemy->SetPosition(DirectX::XMFLOAT3(-2.0f + i * 4.0f, 0, 10));
 		enemyManager.Register(bombEnemy, Enemy::ENEMYTAG::BOMB);
-	}
+	}*/
+
+	enemy_Arrangement = new Enemy_Arrangement();
+	enemy_Arrangement->enemy_produce();
 
 	StageManager::Instance().AddStage(new StageRoom());
 }
