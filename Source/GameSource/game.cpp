@@ -75,12 +75,9 @@ void Game::SpriteRender(ID3D11DeviceContext* dc)
 void Game::DeInit()
 {
 	// プレイヤー終了化
-	if (player != nullptr)
-	{
-		delete player;
-		player = nullptr;
-	}
+	safe_delete(player);
 
+	// 敵の配置終了化
 	safe_delete(enemy_Arrangement);
 
 	// エネミー終了化
