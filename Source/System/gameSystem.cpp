@@ -48,6 +48,14 @@ void GameSystem::GameStart()
 
 void GameSystem::ResultDataSave()
 {
+    if (data_ranking.Size() <= 0)
+    {
+        for (size_t i = 0; i < 3; ++i)
+        {
+            data_ranking.SetData(0);
+        }
+    }
+
     CompareScoreAndRanking();
 
     FileIO::Write("Data/Binary/test.box", data_ranking);
