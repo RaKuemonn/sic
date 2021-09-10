@@ -219,9 +219,6 @@
     <ClInclude Include="Source\Stage\stageManager.h">
       <Filter>Source\Stage</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Charactor\Enemy_Arrangement.h">
-      <Filter>Source\Charater</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\imgui\imgui.cpp">
@@ -364,9 +361,6 @@
     </ClCompile>
     <ClCompile Include="Source\Stage\stageManager.cpp">
       <Filter>Source\Stage</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Charactor\Enemy_Arrangement.cpp">
-      <Filter>Source\Charater</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
