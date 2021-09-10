@@ -127,6 +127,24 @@ void Title::SpriteRender(ID3D11DeviceContext* dc)
 			angle,										// 角度
 			1, 1, 1, 1);								// 色情報(r,g,b,a)
 	}
+
+
+	if (GameSystem::Instance().DataRanking().Size() <= 0) return;
+
+	for (int i = 0; i < GameSystem::Instance().DataRanking().Size(); ++i)
+	{
+		spr_font->Textout_Number(dc, i + 1,
+			{ 0, 0 + static_cast<float>(60 * i) },
+			{ 50,50 },
+			{ 0,0,0,1 });
+
+		spr_font->Textout_Number(dc, GameSystem::Instance().DataRanking().data_array.at(i),
+			{ 70, 0 + static_cast<float>(60 * i) },
+			{ 50,50 },
+			{ 1,0,0,1 });
+	}
+
+
 }
 
 
@@ -147,6 +165,7 @@ void Title::Load()
 	spr_title_logo	= std::make_unique<Sprite>("Data/Sprite/タイトルロゴ.jpg");
 	spr_play		= std::make_unique<Sprite>("Data/Sprite/play.png");
 	spr_end 		= std::make_unique<Sprite>("Data/Sprite/title.png");
+	spr_font		= std::make_unique<Sprite>("Data/Font/font2_a.png");
 }
 
 
