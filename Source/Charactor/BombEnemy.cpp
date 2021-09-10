@@ -30,9 +30,6 @@ void BombEnemy::Update(float elapsedTime)
 
 	// モデル行列更新
 	model->UpdateTransform(transform);
-	
-	// オブジェクト行列を更新
-	UpdateTransform();
 }
 
 void BombEnemy::Render(ID3D11DeviceContext* dc, Shader* shader)

@@ -30,9 +30,6 @@ void NormalEnemy::Update(float elapsedTime)
 	// モデル行列更新
 	model->UpdateTransform(transform);
 
-	// オブジェクト行列を更新
-	UpdateTransform();
-
 }
 
 void NormalEnemy::Render(ID3D11DeviceContext* dc, Shader* shader)
