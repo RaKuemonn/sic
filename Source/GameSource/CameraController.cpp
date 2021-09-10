@@ -183,7 +183,7 @@ void CameraController::PadControl(float elapsedTime)
 
 
     constexpr float maxAngle = DirectX::XMConvertToRadians(45);
-    constexpr float minAngle = DirectX::XMConvertToRadians(-45);
+    constexpr float minAngle = DirectX::XMConvertToRadians(0);
 
     //XŽ²ƒJƒƒ‰‰ñ“]‚Ì§ŒÀ
     if (angle.x > maxAngle) angle.x = maxAngle;

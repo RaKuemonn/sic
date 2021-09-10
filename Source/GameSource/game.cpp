@@ -171,4 +171,5 @@ void Game::CameraSet()
 
 	CameraController::Instance()->init();
 	CameraController::Instance()->SetCameraBehavior(CAMERA::PADCONTROL);
+	CameraController::Instance()->SetRange(20.0f);
 }
