@@ -40,14 +40,19 @@ public:
 public: // Get関数
     bool GetCameraShake() { return camera_shake; }
     float& GerRange() { return range; }
+    DirectX::XMFLOAT3 GetPosition() { return this->position; }
 
 public: // Set関数
     void Set(const DirectX::XMFLOAT3 position_, const DirectX::XMFLOAT3 target_, const DirectX::XMFLOAT3 up_);
-    void SetTarget(const DirectX::XMFLOAT3& target) { this->target = target; }
+    void SetTarget(const DirectX::XMFLOAT3& new_target_) { this->new_target = new_target_; }
     void SetPosition(const DirectX::XMFLOAT3& pos) { this->position = pos; }
     void SetCameraShake() { camera_shake = true; }
     void SetCameraBehavior(CAMERA next_camera);
     void SetRange(float range_);
+    void SetCollision(bool flag_) { is_collision = flag_; }
+
+private:
+    void Collision();
 
 private: //      カメラの挙動      //
     void Behavior(float elapsedTime);
@@ -74,6 +79,7 @@ private: // 変数
     // カメラの挙動状態
     CAMERA now_camera_state;
     CAMERA next_camera_state;
+    bool is_collision = false;
     DirectX::XMFLOAT3 last_position = {};               // 切り替え前のカメラ位置
 
     // カメラの効果用
@@ -81,4 +87,7 @@ private: // 変数
     const float DEFAULT_SHAKE_TIMER = 0.1f;
     float shake_timer = DEFAULT_SHAKE_TIMER;
     DirectX::XMFLOAT3 shake_power = {};
+
+    DirectX::XMFLOAT3 new_position = {};
+    DirectX::XMFLOAT3 new_target = {};
 };

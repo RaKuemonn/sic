@@ -79,4 +79,13 @@ public:
         const DirectX::XMFLOAT2& rect_B_size,
         DirectX::XMFLOAT2& rect_B_out_center_pos
     );
+
+    // ‹éŒ`‚Æ‰~‚Ì”»’è‚Æ‰Ÿ‚µo‚µ@¦‰ñ“]”ñ‘Î‰
+    static bool RectVsCircleAndExtrusion(
+        const DirectX::XMFLOAT2 rect_center_pos,
+        const DirectX::XMFLOAT2 rect_size,
+        const DirectX::XMFLOAT2 circle_center_pos,
+        const float circle_radius,
+        DirectX::XMFLOAT2& circle_out_center_pos);
+
 };

@@ -3,6 +3,8 @@
 #include "CameraController.h"
 #include "Camera.h"
 #include "Input/Input.h"
+#include "stageManager.h"
+#include "collision.h"
 
 
 
@@ -21,9 +23,31 @@ void CameraController::Update(float elapsedTime)
     // カメラの挙動
     Behavior(elapsedTime);
 
+    // 当たり判定
+    //Collision();
     
     // カメラシェイク
     Shake(elapsedTime);
+
+    // 地形との当たり判定を行う
+    HitResult	hitResult;
+    if (StageManager::Instance().RayCast(new_target, new_position, hitResult))
+    {
+        DirectX::XMVECTOR	p = DirectX::XMLoadFloat3(&hitResult.position);
+        DirectX::XMVECTOR	cuv = DirectX::XMVectorSet(0, 1, 0, 0);
+        p = DirectX::XMVectorMultiplyAdd(DirectX::XMVectorReplicate(4), cuv, p);
+        DirectX::XMStoreFloat3(&new_position, p);
+    }
+
+
+    // 徐々に目標に近づける
+    static	constexpr	float	Speed = 1.0f / 8.0f;
+    position.x += (new_position.x - position.x) * Speed;
+    position.y += (new_position.y - position.y) * Speed;
+    position.z += (new_position.z - position.z) * Speed;
+    target.x += (new_target.x - target.x) * Speed;
+    target.y += (new_target.y - target.y) * Speed;
+    target.z += (new_target.z - target.z) * Speed;
 
 
     Camera::Instance().SetLookAt(position, target, up);
@@ -47,6 +71,96 @@ void CameraController::init(const DirectX::XMFLOAT3 position_, const DirectX::XM
     shake_power = {};
 
     now_camera_state = camera_state_;
+}
+
+
+void CameraController::Collision()
+{
+    if (is_collision == false) return;
+
+
+    constexpr float wall_size = 500.0f;
+    constexpr float wall_thickness = 50.0f;
+
+    constexpr float camera_radius = 3.0f;
+
+    // 押し出し位置と注視点から求まる長さをとカメラのrangeを辺として使い、カメラの高さと位置を算出したい
+    auto ClampPosition = [](const DirectX::XMFLOAT2 out, const DirectX::XMFLOAT2 target, const float range) -> DirectX::XMFLOAT3
+    {
+        float length;
+        // xz平面　で計算した底辺の長さ
+        DirectX::XMStoreFloat(&length, DirectX::XMVector2Length(DirectX::XMVectorSubtract(DirectX::XMLoadFloat2(&out), DirectX::XMLoadFloat2(&target))));
+
+        // 位置の算出
+        DirectX::XMFLOAT3 pos = {};
+        pos.x = out.x;
+        pos.y += sqrtf(range * range - length * length);   // 斜辺の２乗　- 底辺の２乗 = 高さの２乗
+        pos.z = out.y;
+
+        return pos;
+    };
+
+    DirectX::XMFLOAT2 out_position = {};
+
+    // x,z = max,0
+    if (Collision2D::RectVsCircleAndExtrusion({ wall_size * 0.5f + wall_thickness * 0.5f ,0 }, { wall_thickness,wall_size }, { position.x,position.z }, camera_radius, out_position))
+    {
+        /*DirectX::XMFLOAT3 n_vec_old;
+        DirectX::XMStoreFloat3(&n_vec_old, DirectX::XMVector3Normalize(DirectX::XMVectorSubtract(DirectX::XMLoadFloat3(&position), DirectX::XMLoadFloat3(&target))));*/
+
+        position = ClampPosition(out_position, DirectX::XMFLOAT2(target.x, target.z), range);
+
+        float range_new;
+        DirectX::XMStoreFloat(&range_new, DirectX::XMVector3Length(DirectX::XMVectorSubtract(DirectX::XMLoadFloat3(&position), DirectX::XMLoadFloat3(&target))));
+        range = range_new;
+        
+        /*
+        // 軸ごとの角度を調節しようとしたけど、内積から求まった角度をどうつかって調節できるのかわからなかった！
+        DirectX::XMFLOAT3 n_vec_new;
+        DirectX::XMStoreFloat3(&n_vec_new, DirectX::XMVector3Normalize(DirectX::XMVectorSubtract(DirectX::XMLoadFloat3(&position), DirectX::XMLoadFloat3(&target))));
+
+        float dot;  // 大きさが１のベクトル同士の内積は　cosΘ = a・b　となるので、Θ = arccos(a・b)
+        DirectX::XMStoreFloat(&dot, DirectX::XMVector3Dot(DirectX::XMLoadFloat3(&n_vec_old), DirectX::XMLoadFloat3(&n_vec_new)));
+        */
+
+        out_position = {};
+    }
+
+    // x,z = 0,max
+    if (Collision2D::RectVsCircleAndExtrusion({ 0,wall_size * 0.5f + wall_thickness * 0.5f }, { wall_size,wall_thickness }, { position.x,position.z }, camera_radius, out_position))
+    {
+        position = ClampPosition(out_position, DirectX::XMFLOAT2(target.x, target.z), range);
+
+        float range_new;
+        DirectX::XMStoreFloat(&range_new, DirectX::XMVector3Length(DirectX::XMVectorSubtract(DirectX::XMLoadFloat3(&position), DirectX::XMLoadFloat3(&target))));
+        range = range_new;
+
+        out_position = {};
+    }
+
+    // x,z = min,0
+    if (Collision2D::RectVsCircleAndExtrusion({ -wall_size * 0.5f - wall_thickness * 0.5f ,0 }, { wall_thickness,wall_size }, { position.x,position.z }, camera_radius, out_position))
+    {
+        position = ClampPosition(out_position, DirectX::XMFLOAT2(target.x, target.z), range);
+
+        float range_new;
+        DirectX::XMStoreFloat(&range_new, DirectX::XMVector3Length(DirectX::XMVectorSubtract(DirectX::XMLoadFloat3(&position), DirectX::XMLoadFloat3(&target))));
+        range = range_new;
+
+        out_position = {};
+    }
+
+    // x,z = 0,min
+    if (Collision2D::RectVsCircleAndExtrusion({ 0,-wall_size * 0.5f - wall_thickness * 0.5f }, { wall_size,wall_thickness }, { position.x,position.z }, camera_radius, out_position))
+    {
+        position = ClampPosition(out_position, DirectX::XMFLOAT2(target.x, target.z), range);
+
+        float range_new;
+        DirectX::XMStoreFloat(&range_new, DirectX::XMVector3Length(DirectX::XMVectorSubtract(DirectX::XMLoadFloat3(&position), DirectX::XMLoadFloat3(&target))));
+        range = range_new;
+
+        out_position = {};
+    }
 }
 
 
@@ -86,9 +200,9 @@ void CameraController::PadControl(float elapsedTime)
     DirectX::XMFLOAT3 front;
     DirectX::XMStoreFloat3(&front, Front);
 
-    position.x = target.x - front.x * range;
-    position.y = target.y - front.y * range;
-    position.z = target.z - front.z * range;
+    new_position.x = target.x - front.x * range;
+    new_position.y = target.y - front.y * range;
+    new_position.z = target.z - front.z * range;
 }
 
 

@@ -368,3 +368,72 @@ bool Collision2D::RectVsRectAndExtrusion(
 
 	return isHit;
 }
+
+
+bool Collision2D::RectVsCircleAndExtrusion(DirectX::XMFLOAT2 rect_center_position, DirectX::XMFLOAT2 rect_size, DirectX::XMFLOAT2 circle_center_position, float circle_radius, DirectX::XMFLOAT2& circle_out_center_position)
+{
+    auto ClampOnRange = [](const float num, const float min, const float max) -> float
+    {
+        if (num < min) return min;
+        if (num > max) return max;
+
+        return num;
+    };
+    // 矩形の最小点と最大点
+    DirectX::XMFLOAT2 min = { rect_center_position.x - rect_size.x * 0.5f, rect_center_position.y - rect_size.y * 0.5f };
+    DirectX::XMFLOAT2 max = { rect_center_position.x + rect_size.x * 0.5f, rect_center_position.y + rect_size.y * 0.5f };
+
+
+    // 矩形内で円の中心点に最も近い点を算出する
+    DirectX::XMFLOAT2 rect_point_pos = {};
+    rect_point_pos.x = ClampOnRange(circle_center_position.x, min.x, max.x);
+    rect_point_pos.y = ClampOnRange(circle_center_position.y, min.y, max.y);
+
+    // 最近点と円で衝突判定をする
+    DirectX::XMVECTOR vec_circle_to_rect_point = DirectX::XMLoadFloat2(&DirectX::XMFLOAT2({ rect_point_pos.x - circle_center_position.x,rect_point_pos.y - circle_center_position.y }));
+    float length;
+    DirectX::XMStoreFloat(&length, DirectX::XMVector2Length(vec_circle_to_rect_point));
+
+    if (circle_radius <= length)
+    {
+        // 衝突していない
+        return false;
+    }
+
+    // 衝突していたら... //
+
+    // 矩形の内部までめり込んでしまっていたら
+    // """""""""""""""""""""""""""""""""ここ**雑**""""""""""""""""""""""""""""""
+    if (length <= 0.0f)
+    {
+        float temp_length[2] = {};
+        DirectX::XMVECTOR vec = DirectX::XMLoadFloat2(&DirectX::XMFLOAT2({ min.x - circle_center_position.x, min.y - circle_center_position.y }));
+        DirectX::XMStoreFloat(&temp_length[0], DirectX::XMVector2Length(vec));
+
+        vec = DirectX::XMLoadFloat2(&DirectX::XMFLOAT2({ max.x - circle_center_position.x, max.y - circle_center_position.y }));
+        DirectX::XMStoreFloat(&temp_length[1], DirectX::XMVector2Length(vec));
+
+        if (temp_length[0] < temp_length[1])
+        {
+            length = temp_length[0];
+            vec_circle_to_rect_point = { min.x - circle_center_position.x, min.y - circle_center_position.y };
+        }
+
+        else
+        {
+            length = temp_length[1];
+            vec_circle_to_rect_point = { max.x - circle_center_position.x, max.y - circle_center_position.y };
+        }
+    }
+
+    // めり込んでる距離を計算
+    length = circle_radius - length;
+
+    // めり込んでいる分押し出しするベクトルを代入
+    DirectX::XMFLOAT2 n_vec;
+    DirectX::XMStoreFloat2(&n_vec, DirectX::XMVector2Normalize(vec_circle_to_rect_point));
+
+    circle_out_center_position = { circle_center_position.x - n_vec.x * length, circle_center_position.y - n_vec.y * length };
+
+    return true;
+}
