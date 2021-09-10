@@ -26,5 +26,19 @@ public:
     void ImGui()override;
 
 private:
+    std::unique_ptr<Sprite> spr_title_logo = nullptr;
+    std::unique_ptr<Sprite> spr_play = nullptr;
+    std::unique_ptr<Sprite> spr_end = nullptr;
+
+    int selecting = 0;
+    int select_timer = 0;
+
+    float angle = 0.0f;
+
+    enum Select
+    {
+        START,
+        END,
+    };
     
 };

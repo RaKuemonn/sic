@@ -7,7 +7,9 @@
 
 // í«â¡
 #include "Charactor/Player.h"
-
+#include "Charactor/EnemyManager.h"
+#include "Charactor/NormalEnemy.h"
+#include "Charactor/BombEnemy.h"
 
 // ÉQÅ[ÉÄÉVÅ[Éì
 
@@ -34,9 +36,9 @@ private:
     void CameraSet();
 
 private:
-    std::unique_ptr<Model> mdl_cube = nullptr;
-    std::unique_ptr<Model> mdl_enemy1 = nullptr;
-    std::unique_ptr<Model> mdl_enemy2 = nullptr;
+    //std::unique_ptr<Model> mdl_cube = nullptr;
+    //std::unique_ptr<Model> mdl_enemy1 = nullptr;
+    //std::unique_ptr<Model> mdl_enemy2 = nullptr;
     std::unique_ptr<Model> mdl_sky = nullptr;
 
     Player* player = nullptr;

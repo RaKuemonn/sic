@@ -16,6 +16,9 @@
 // êÇíºìØä˙ä‘äuê›íË
 static const int syncInterval = 1;
 
+// ÉQÅ[ÉÄèIóπóp
+bool game_exit = false;
+
 
 
 Framework::Framework(HWND hWnd)
@@ -101,23 +104,30 @@ int Framework::Run()
 
 	while (WM_QUIT != msg.message)
 	{
-		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+		if (!game_exit)
 		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
+			if (PeekMessage(&msg, NULL, 0, 0,	PM_REMOVE))
+			{
+				TranslateMessage(&msg);
+				DispatchMessage(&msg);
+			}
+			else
+			{
+				timer.Tick();
+				CalculateFrameStats();
+
+				float elapsedTime = syncInterval == 0
+					? timer.TimeInterval()
+					: syncInterval / 60.0f
+					;
+
+				Update(elapsedTime);
+				Render(elapsedTime);
+			}
 		}
 		else
 		{
-			timer.Tick();
-			CalculateFrameStats();
-
-			float elapsedTime = syncInterval == 0
-				? timer.TimeInterval()
-				: syncInterval / 60.0f
-				;
-
-			Update(elapsedTime);
-			Render(elapsedTime);
+			break;
 		}
 	}
 	return static_cast<int>(msg.wParam);

@@ -131,8 +131,6 @@ void Player::CollisionPlayerVsEnemies()
 	int enemyCount = enemyManager.GetEnemyCount();
 	for (int i = 0; i < 1; ++i)
 	{
-		Player* player = {};
-
 		for (int j = 0; j < enemyCount; ++j)
 		{
 			Enemy* enemy = enemyManager.GetEnemy(j);
@@ -140,8 +138,8 @@ void Player::CollisionPlayerVsEnemies()
 			// Õ“Ëˆ—
 			DirectX::XMFLOAT3 outPosition;
 			if (Collision3D::BallVsBallAndExtrusion/*collision::IntersectSqhereVsXYCircle*/(
-				player->GetPosition(),
-				player->GetRadius(),
+				this->GetPosition(),
+				this->GetRadius(),
 				enemy->GetPosition(),
 				enemy->GetRadius(),
 				/*enemy->GetHeight(),*/
