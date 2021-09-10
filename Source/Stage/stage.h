@@ -15,6 +15,8 @@ public:
     virtual ~Stage() {};
 
 public:
+    virtual void Update(float elapsedTime) {};
+
     void ModelRender(ID3D11DeviceContext* dc, Shader* shader)
     {
         if (mdl_stage.get() == nullptr) return;

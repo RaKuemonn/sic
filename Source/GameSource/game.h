@@ -7,7 +7,6 @@
 
 // ’Ç‰Á
 #include "Charactor/Player.h"
-#include "stage_room.h"
 
 
 // ƒQ[ƒ€ƒV[ƒ“
@@ -41,5 +40,4 @@ private:
     std::unique_ptr<Model> mdl_sky = nullptr;
 
     Player* player = nullptr;
-    std::unique_ptr<Stage> stage = nullptr;
 };

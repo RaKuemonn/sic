@@ -10,6 +10,7 @@
 
 // ’Ç‰Á
 #include "gameSystem.h"
+#include "stageManager.h"
 
 
 
@@ -36,6 +37,8 @@ void Game::Update(float elapsedTime)
 	mdl_enemy2->UpdateTransform(cube_trandform);
 	mdl_sky->UpdateTransform(cube_trandform);
 
+	StageManager::Instance().Update(elapsedTime);
+
 	player->Update(elapsedTime);
 
 	CameraController::Instance()->SetTarget(player->GetPosition());
@@ -47,7 +50,7 @@ void Game::ModelRender(ID3D11DeviceContext* dc, Shader* shader)
 {
 	/* 3Dƒ‚ƒfƒ‹‚Ì•`‰æ */
 	shader->Draw(dc, mdl_cube.get());
-	stage->ModelRender(dc, shader);
+	StageManager::Instance().ModelRender(dc, shader);
 	//shader->Draw(dc, mdl_enemy1.get());
 	//shader->Draw(dc, mdl_enemy2.get());
 	shader->Draw(dc, mdl_sky.get());
@@ -71,6 +74,8 @@ void Game::DeInit()
 		delete player;
 		player = nullptr;
 	}
+
+	StageManager::Instance().AllClear();
 }
  
 
@@ -95,7 +100,7 @@ void Game::Load()
 	player = new Player();
 	player->SetPosition(DirectX::XMFLOAT3(0, 0, 0));
 
-	stage		= std::make_unique<StageRoom>();
+	StageManager::Instance().AddStage(new StageRoom());
 }
 
 

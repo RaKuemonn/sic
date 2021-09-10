@@ -259,6 +259,7 @@
     <ClInclude Include="Source\Input\Mouse.h" />
     <ClInclude Include="Source\memo.h" />
     <ClInclude Include="Source\Stage\stage.h" />
+    <ClInclude Include="Source\Stage\stageManager.h" />
     <ClInclude Include="Source\Stage\stage_room.h" />
     <ClInclude Include="Source\System\digits.h" />
     <ClInclude Include="Source\System\fileIO.h" />
@@ -308,6 +309,7 @@
     <ClCompile Include="Source\Input\Input.cpp" />
     <ClCompile Include="Source\Input\Mouse.cpp" />
     <ClCompile Include="Source\Stage\stage.cpp" />
+    <ClCompile Include="Source\Stage\stageManager.cpp" />
     <ClCompile Include="Source\Stage\stage_room.cpp" />
     <ClCompile Include="Source\System\fileIO.cpp" />
     <ClCompile Include="Source\System\gameSystem.cpp" />
