@@ -30,11 +30,6 @@ public:
 	// デバッグ用GUI描画
 	void DrawDebugGUI(DirectX::XMFLOAT3 wind_velocity);
 
-protected:
-
-	// 移動処理
-	void Move(float elapsedTime, float vx, float vz, float speed);
-
 private:
 	DirectX::XMFLOAT3 GetMoveVec() const;
 

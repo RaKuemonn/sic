@@ -96,14 +96,6 @@ void Player::Update(float elapsedTime)
 
 }
 
-// 移動処理
-void Player::Move(float elapsedTime, float vx, float vz, float speed)
-{
-	speed *= elapsedTime;
-	position.x += vx * speed;
-	position.z += vz * speed;
-}
-
 // 移動入力処理
 void Player::InputMove(float elapsedTime)
 {
@@ -111,7 +103,8 @@ void Player::InputMove(float elapsedTime)
 	DirectX::XMFLOAT3 moveVec = GetMoveVec();
 
 	// 移動処理
-	Move(elapsedTime, moveVec.x, moveVec.z, moveSpeed);
+	Move(moveVec.x, moveVec.z, moveSpeed);
+
 
 	// プレイヤーとエネミーの衝突処理
 	CollisionPlayerVsEnemies();
