@@ -68,6 +68,8 @@ protected:
 		0,0,1,0,
 		0,0,0,1
 	};
+	DirectX::XMFLOAT3 foot_pos = { 0,0,0 };
+	float foot_length = 1.5f;
 	
 	float				radius = 1.5f;
 

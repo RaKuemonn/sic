@@ -119,10 +119,14 @@ void Character::UpdateVerticalMove(float elapsedTime)
     // ˆÚ“®ˆ—
     position.y += velocity.y * elapsedTime;
 
+    foot_pos.y = position.y - foot_length;
+
     // ’n–Ê”»’è
-    if (position.y < 0.0f)
+    if (foot_pos.y < 0.0f)
     {
-        position.y = 0.0f;
+        foot_pos.y = 0.0f;
+        position.y = foot_length;
+
         velocity.y = 0.0f;
 
         isGround = true;
