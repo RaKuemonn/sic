@@ -1,9 +1,8 @@
-
+#include <imgui.h>
 #include "Player.h"
-#include "Graphics/Graphics.h"
 #include "Input/Input.h"
 #include "Camera.h"
-#include "common.h"
+#include "Graphics/Graphics.h"
 #include "EnemyManager.h"
 #include "collision.h"
 
@@ -27,7 +26,8 @@ Player::Player()
 // デストラクタ
 Player::~Player()
 {
-	safe_delete(model);
+	delete model;
+	model = NULL;
 }
 
 
@@ -83,30 +83,26 @@ DirectX::XMFLOAT3 Player::GetMoveVec() const
 // 更新処理
 void Player::Update(float elapsedTime)
 {
-	
-	Input(elapsedTime);							// 入力処理
-
-	
-	UpdateVelocity(elapsedTime, KIND::PLAYER);	// 速力更新処理
-
-	
-	UpdateTransform();							// オブジェクト行列を更新
-	model->UpdateTransform(transform);			// モデル行列更新
-	
-	
-	CollisionPlayerVsEnemies();					// プレイヤーとエネミーの衝突処理
-
-}
-
-void Player::Input(float elapsedTime)
-{
-	// 移動入力処理
 	InputMove(elapsedTime);
 
-	// 吸い込みの入力処理
-	InputInhale();
+	// 速力更新処理
+	UpdateVelocity(elapsedTime, KIND::PLAYER);
+
+	// オブジェクト行列を更新
+	UpdateTransform();
+		
+	// モデル行列更新
+	model->UpdateTransform(transform);
+
 }
 
+// 移動処理
+void Player::Move(float elapsedTime, float vx, float vz, float speed)
+{
+	speed *= elapsedTime;
+	position.x += vx * speed;
+	position.z += vz * speed;
+}
 
 // 移動入力処理
 void Player::InputMove(float elapsedTime)
@@ -115,21 +111,11 @@ void Player::InputMove(float elapsedTime)
 	DirectX::XMFLOAT3 moveVec = GetMoveVec();
 
 	// 移動処理
-	Move(moveVec.x, moveVec.z, moveSpeed);
+	Move(elapsedTime, moveVec.x, moveVec.z, moveSpeed);
+
+	// プレイヤーとエネミーの衝突処理
+	CollisionPlayerVsEnemies();
 }
-
-
-void Player::InputInhale()
-{
-
-	is_during_inhale = false;
-
-	if (Input::Instance().GetGamePad().GetButton() & GamePad::BTN_A /*Z key*/)
-	{
-		is_during_inhale = true;
-	}
-}
-
 
 // 描画処理
 void Player::Render(ID3D11DeviceContext* dc, Shader* shader)
@@ -140,48 +126,42 @@ void Player::Render(ID3D11DeviceContext* dc, Shader* shader)
 // プレイヤーとエネミーの衝突処理
 void Player::CollisionPlayerVsEnemies()
 {
-	if (is_during_inhale == false) return;
-	// 吸い込み動作中なら実行
-
-
 	EnemyManager& enemyManager = EnemyManager::Instance();
 
 	int enemyCount = enemyManager.GetEnemyCount();
-
-	for (int j = 0; j < enemyCount; ++j)
+	for (int i = 0; i < 1; ++i)
 	{
-		Enemy* enemy = enemyManager.GetEnemy(j);
-
-		// 衝突処理
-		DirectX::XMFLOAT3 outPosition;
-		if (Collision3D::BallVsBallAndExtrusion/*collision::IntersectSqhereVsXYCircle*/(
-			this->GetPosition(),
-			this->GetRadius(),
-			enemy->GetPosition(),
-			enemy->GetRadius(),
-			/*enemy->GetHeight(),*/
-			outPosition
-		))
+		for (int j = 0; j < enemyCount; ++j)
 		{
-			float add_scale = enemy->inhaled();
+			Enemy* enemy = enemyManager.GetEnemy(j);
 
-			scale.y += add_scale;
-
-			break;
-
-			//switch (enemy->enemy_tag)
-			//{
-			//case Enemy::ENEMYTAG::NORMAL:
-			//	//Hit->Play(false, HIT_VOLUME);
-			//	break;
-			//case Enemy::ENEMYTAG::RARE:
-			//	break;
-			//case Enemy::ENEMYTAG::BOMB:
-			//	break;
-			//default:
-			//	break;
-			//}
+			// 衝突処理
+			DirectX::XMFLOAT3 outPosition;
+			if (Collision3D::BallVsBallAndExtrusion/*collision::IntersectSqhereVsXYCircle*/(
+				this->GetPosition(),
+				this->GetRadius(),
+				enemy->GetPosition(),
+				enemy->GetRadius(),
+				/*enemy->GetHeight(),*/
+				outPosition
+			))
+			{
+				enemy->inhaled();
+				//switch (enemy->enemy_tag)
+				//{
+				//case Enemy::ENEMYTAG::NORMAL:
+				//	//Hit->Play(false, HIT_VOLUME);
+				//	break;
+				//case Enemy::ENEMYTAG::RARE:
+				//	break;
+				//case Enemy::ENEMYTAG::BOMB:
+				//	break;
+				//default:
+				//	break;
+				//}
+			}
 		}
+
 	}
 }
 
@@ -191,11 +171,36 @@ void Player::DrawDebugPrimitive()
 	DebugRenderer* debugRenderer = Graphics::Instance().GetDebugRenderer();
 	
 	// 衝突判定用のデバッグ円柱を描画
-	debugRenderer->DrawSphere(position, radius, DirectX::XMFLOAT4(0, 0, 0, 1));
+	debugRenderer->DrawCylinder(position, radius, height, DirectX::XMFLOAT4(0, 0, 0, 1));
 }
 
 // デバッグ用GUI描画
-void Player::DrawDebugGUI()
+void Player::DrawDebugGUI(DirectX::XMFLOAT3 wind_velocity)
 {
+
+	ImGui::SetNextWindowPos (ImVec2(10, 10)  , ImGuiCond_FirstUseEver);
+	ImGui::SetNextWindowSize(ImVec2(300, 300), ImGuiCond_FirstUseEver);
+
+	if (ImGui::Begin("Player", nullptr, ImGuiWindowFlags_None))
+	{
+		// トランスフォーム
+		if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
+		{
+			// 位置
+			ImGui::InputFloat3("Position", &position.x);
+			// 回転
+			DirectX::XMFLOAT3 a;
+			a.x = DirectX::XMConvertToDegrees(angle.x);
+			a.y = DirectX::XMConvertToDegrees(angle.y);
+			a.z = DirectX::XMConvertToDegrees(angle.z);
+			ImGui::InputFloat3("Angle", &a.x);
+			angle.x = DirectX::XMConvertToRadians(a.x);
+			angle.y = DirectX::XMConvertToRadians(a.y);
+			angle.z = DirectX::XMConvertToRadians(a.z);
+			// スケール
+			ImGui::InputFloat3("Scale", &scale.x);
+		}
+	}
+	ImGui::End();
 
 }

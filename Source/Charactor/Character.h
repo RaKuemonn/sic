@@ -36,7 +36,7 @@ public:
 protected:
 
 	// 移動処理
-	void Move(float vx, float vz, float speed);
+	void Move(float elapsedTime, float vx, float vz, float speed);
 
 	// 旋回処理
 	void Turn(float elapsedTime, float vx, float vz, float speed);
@@ -46,17 +46,6 @@ protected:
 
 	// 速力処理更新
 	void UpdateVelocity(float elapsedTime, int kind);
-
-
-private:
-	// 垂直速力の更新
-	void UpdateVerticalVelocity(float elapsedFrame, int kind);
-	// 垂直移動の更新
-	void UpdateVerticalMove(float elapsedTime);
-	// 水平速力の更新
-	void UpdateHorizontalVelocity(float elapsedFrame);
-	// 水平移動の更新
-	void UpdateHorizontalMove(float elapsedTime);
 
 protected:
 	DirectX::XMFLOAT3	position = { 0, 0, 0 };
@@ -69,7 +58,7 @@ protected:
 		0,0,0,1
 	};
 	
-	float				radius = 1.5f;
+	float				radius = 0.5f;
 
 	float				gravity = -1.0f;
 	DirectX::XMFLOAT3	velocity = { 0,0,0 };
@@ -77,15 +66,6 @@ protected:
 	bool				isGround = false;
 
 	float				height = 2.0f;
-
-
-	float friction = 0.5f;
-	float acceleration = 1.0f;
-	float maxMoveSpeed = 5.0f;
-	float moveVecX = 0.0f;
-	float moveVecZ = 0.0f;
-
-	float stepOffset = 1.0f;
 
 	enum KIND{
 		PLAYER,		// プレイヤー
