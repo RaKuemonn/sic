@@ -47,7 +47,8 @@ void Enemy_Arrangement::enemy_produce()
     {
         for (int x = 0; x < CHIP_NUM_X; x++)
         {
-            constexpr int Reference_point_correction = -125;
+            // 基準点補正　ステージの左上の座標から始まるように
+            constexpr float Reference_point_correction = -249;
 
             if (Arrangement[y][x].num == Enemy::ENEMYTAG::NORMAL)
             {

@@ -17,15 +17,34 @@ void Result::Update(float elapsedTime)
 
 	// シーン変更
 	{
-		ChangeNextScene(new Title(), GamePad::BTN_SPACE);
+		if (selecting == RETRY)
+		ChangeNextScene(new Game(), GamePad::BTN_SPACE);
 		
-		ChangeNextScene(new Game(), GamePad::BTN_R);
+		if (selecting == END)
+		ChangeNextScene(new Title(), GamePad::BTN_SPACE);
 	}
 
 
 	//	↓	　入力処理とかいろいろ書く　	↓	　//
 
 	// TODO: 結果処理
+	GamePad& gamePad = Input::Instance().GetGamePad();
+
+	if (gamePad.GetButtonDown() & GamePad::BTN_UP)
+	{
+		selecting -= 1;
+
+		if (selecting < 0) selecting = RETRY;
+		else select_timer = 0;
+	}
+	if (gamePad.GetButtonDown() & GamePad::BTN_DOWN)
+	{
+		selecting += 1;
+
+		if (selecting > 1) selecting = END;
+		else select_timer = 0;
+	}
+	if (elapsedTime) select_timer++;
 
 }
 
@@ -38,7 +57,78 @@ void Result::ModelRender(ID3D11DeviceContext* dc, Shader* shader)
 
 void Result::SpriteRender(ID3D11DeviceContext* dc)
 {
-	
+	/* 2Dスプライトの描画 */
+	Graphics& graphics = Graphics::Instance();
+
+	float screenWidth = CAST_F(graphics.GetScreenWidth());
+	float screenHeight = CAST_F(graphics.GetScreenHeight());
+	float spr_classWidth = CAST_F(spr_class->GetTextureWidth());
+	float spr_classHeight = CAST_F(spr_class->GetTextureHeight());
+	float spr_retryWidth = CAST_F(spr_retry->GetTextureWidth());
+	float spr_retryHeight = CAST_F(spr_retry->GetTextureHeight());
+	float spr_endWidth = CAST_F(spr_end->GetTextureWidth());
+	float spr_endHeight = CAST_F(spr_end->GetTextureHeight());
+
+	spr_class->Render2(dc,
+		0, 0,						// 表示位置
+		1.0f, 1.0f,									// スケール
+		0, 0,										// 画像切り抜き位置
+		spr_classWidth, spr_classHeight,				// 画像切り抜きサイズ
+		0, 0,	// 画像基準点
+		angle,										// 角度
+		1, 1, 1, 1);								// 色情報(r,g,b,a)
+
+	if (selecting == RETRY)
+	{
+		if (select_timer >> 5 & 0x01)
+		{
+			spr_retry->Render2(dc,
+				screenWidth / 2 - spr_retryWidth / 2, screenHeight - spr_retryHeight * 3,						// 表示位置
+				1.0f, 1.0f,									// スケール
+				0, 0,										// 画像切り抜き位置
+				spr_retryWidth, spr_retryHeight,				// 画像切り抜きサイズ
+				0, 0,	// 画像基準点
+				angle,										// 角度
+				1, 1, 1, 1);								// 色情報(r,g,b,a)
+		}
+	}
+	else
+	{
+		spr_retry->Render2(dc,
+			screenWidth / 2 - spr_retryWidth / 2, screenHeight - spr_retryHeight * 3,						// 表示位置
+			1.0f, 1.0f,									// スケール
+			0, 0,										// 画像切り抜き位置
+			spr_retryWidth, spr_retryHeight,				// 画像切り抜きサイズ
+			0, 0,	// 画像基準点
+			angle,										// 角度
+			1, 1, 1, 1);								// 色情報(r,g,b,a)
+	}
+
+	if (selecting == END)
+	{
+		if (select_timer >> 5 & 0x01)
+		{
+			spr_end->Render2(dc,
+				screenWidth / 2 - spr_endWidth / 2, screenHeight - spr_endHeight * 1.75f,						// 表示位置
+				1.0f, 1.0f,									// スケール
+				0, 0,										// 画像切り抜き位置
+				spr_endWidth, spr_endHeight,				// 画像切り抜きサイズ
+				0, 0,	// 画像基準点
+				angle,										// 角度
+				1, 1, 1, 1);								// 色情報(r,g,b,a)
+		}
+	}
+	else
+	{
+		spr_end->Render2(dc,
+			screenWidth / 2 - spr_endWidth / 2, screenHeight - spr_endHeight * 1.75f,						// 表示位置
+			1.0f, 1.0f,									// スケール
+			0, 0,										// 画像切り抜き位置
+			spr_endWidth, spr_endHeight,				// 画像切り抜きサイズ
+			0, 0,	// 画像基準点
+			angle,										// 角度
+			1, 1, 1, 1);								// 色情報(r,g,b,a)
+	}
 }
 
 
@@ -56,7 +146,9 @@ void Result::Set()
 
 void Result::Load()
 {
-	
+	spr_class = std::make_unique<Sprite>("Data/Sprite/~級.png");
+	spr_retry = std::make_unique<Sprite>("Data/Sprite/retry.png");
+	spr_end = std::make_unique<Sprite>("Data/Sprite/title.png");
 }
 
 
