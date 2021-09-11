@@ -38,7 +38,16 @@ public: // Get関数
 public: // Set関数
 
     // 姿勢行列からワールド行列への変換 //
-    void ConvertToWorldMatrixFromMatrixTransform();
+    void ConvertToWorldMatrixFromMatrixTransform()
+    {
+        DirectX::XMMATRIX S = DirectX::XMMatrixScaling(scale.x, scale.y, scale.z);
+        DirectX::XMMATRIX R = DirectX::XMMatrixRotationRollPitchYaw(angle.x, angle.y, angle.z);
+        DirectX::XMMATRIX T = DirectX::XMMatrixTranslation(position.x, position.y, position.z);
+
+        DirectX::XMMATRIX W = S * R * T;
+
+        DirectX::XMStoreFloat4x4(&matrix_transform, W);
+    }
 
     // 任意の処理でワールド行列への変換 //
     virtual void ConvertToWorldMatrix_Customize() {};
@@ -55,15 +64,3 @@ public: // 変数
         0,0,0,1
     };
 };
-
-
-void Transform::ConvertToWorldMatrixFromMatrixTransform()
-{
-    DirectX::XMMATRIX S = DirectX::XMMatrixScaling(scale.x, scale.y, scale.z);
-    DirectX::XMMATRIX R = DirectX::XMMatrixRotationRollPitchYaw(angle.x, angle.y, angle.z);
-    DirectX::XMMATRIX T = DirectX::XMMatrixTranslation(position.x, position.y, position.z);
-
-    DirectX::XMMATRIX W = S * R * T;
-
-    DirectX::XMStoreFloat4x4(&matrix_transform, W);
-}

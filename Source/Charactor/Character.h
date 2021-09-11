@@ -39,7 +39,7 @@ protected:
 	void Move(float vx, float vz, float speed);
 
 	// ù‰ñˆ—
-	void Turn(float elapsedTime, float vx, float vz, float speed);
+	virtual void Turn(float elapsedTime, float vx, float vz, float speed);
 
 	// ƒWƒƒƒ“ƒvˆ—
 	//void Jump(float speed);

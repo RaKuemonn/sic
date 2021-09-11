@@ -225,9 +225,11 @@
     <ClInclude Include="Source\Charactor\Enemy.h" />
     <ClInclude Include="Source\Charactor\EnemyManager.h" />
     <ClInclude Include="Source\Charactor\Enemy_Arrangement.h" />
+    <ClInclude Include="Source\Charactor\inhale.h" />
     <ClInclude Include="Source\Charactor\NormalEnemy.h" />
     <ClInclude Include="Source\Charactor\BombEnemy.h" />
     <ClInclude Include="Source\Charactor\Player.h" />
+    <ClInclude Include="Source\easy_math.h" />
     <ClInclude Include="Source\GameSource\Camera.h" />
     <ClInclude Include="Source\GameSource\CameraController.h" />
     <ClInclude Include="Source\GameSource\collision.h" />
@@ -281,6 +283,7 @@
     <ClCompile Include="Source\Charactor\Enemy.cpp" />
     <ClCompile Include="Source\Charactor\EnemyManager.cpp" />
     <ClCompile Include="Source\Charactor\Enemy_Arrangement.cpp" />
+    <ClCompile Include="Source\Charactor\inhale.cpp" />
     <ClCompile Include="Source\Charactor\NormalEnemy.cpp" />
     <ClCompile Include="Source\Charactor\BombEnemy.cpp" />
     <ClCompile Include="Source\Charactor\Player.cpp" />
