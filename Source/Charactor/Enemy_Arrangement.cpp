@@ -41,7 +41,7 @@ void Enemy_Arrangement::enemy_produce()
     EnemyManager& enemyManager = EnemyManager::Instance();
     
 
-    csv_load(Arrangement,"Data/map/enemy_arrangement..csv");
+    csv_load(Arrangement,"Data/map/enemy_arrangement._–{”Ô—p.csv");
 
     for (int y = 0; y < CHIP_NUM_Y; y++)
     {
