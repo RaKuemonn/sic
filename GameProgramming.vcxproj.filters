@@ -228,6 +228,9 @@
     <ClInclude Include="Source\easy_math.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Actor\scaleManager.h">
+      <Filter>Source\Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\imgui\imgui.cpp">
@@ -376,6 +379,9 @@
     </ClCompile>
     <ClCompile Include="Source\Charactor\inhale.cpp">
       <Filter>Source\Charater</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Actor\scaleManager.cpp">
+      <Filter>Source\Actor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -8,14 +8,14 @@
 #include "Player.h"
 #include "EnemyManager.h"
 #include "collision.h"
+#include "gameSystem.h"
 
 
 
 Inhale::Inhale(Player* player_) : player(player_)
 {
-	float test_scale = 2.0f;
 	// スケールに合わせたポジション
-	nozzle.position = float3SUM(player->GetPosition(), float3Scaling(player->GetFront(), test_scale /*TODO: プレイヤーのスケール値にする*/));
+	nozzle.position = float3SUM(player->GetPosition(), float3Scaling(player->GetFront(), player->GetScaleManager()->TotalScaleValue()));
 
 }
 
@@ -53,8 +53,14 @@ void Inhale::InputInhale()
 
 void Inhale::UpdateNozzlePosition()
 {
-	float test_scale = 2.0f;
-	nozzle.position = float3SUM(player->GetPosition(), float3Scaling(player->GetFront(), test_scale /*TODO: プレイヤーのスケール値にする*/));
+	float average_scale_value = player->GetScaleManager()->TotalScaleValue() / 3 /* 3次元 x,y,z */;
+
+	// ノズルが本体からどれぐらい先にあるのかを計算
+	float scale_factor = average_scale_value;
+	nozzle.position = float3SUM(player->GetPosition(), float3Scaling(player->GetFront(), scale_factor));
+
+	// 当たり判定の大きさも変更する
+	radius = average_scale_value;
 }
 
 
@@ -84,7 +90,24 @@ void Inhale::Collision()
 		))
 		{
 			float add_scale = enemy->inhaled();
-			player->AddScaleY(add_scale);
+
+			if (add_scale > 0)
+			{
+				player->GetScaleManager()->AddScaleX(add_scale);
+				player->GetScaleManager()->AddScaleY(add_scale);
+				player->GetScaleManager()->AddScaleZ(add_scale);
+			}
+
+			if (add_scale < 0)
+			{
+				player->GetScaleManager()->SubtractScaleX(add_scale);
+				player->GetScaleManager()->SubtractScaleY(add_scale);
+				player->GetScaleManager()->SubtractScaleZ(add_scale);
+			}
+			
+
+			// TODO: スコア加算の仮実装, 変更する
+			GameSystem::Instance().AddScore(static_cast<int>(add_scale * 10.0f));
 
 			break;
 

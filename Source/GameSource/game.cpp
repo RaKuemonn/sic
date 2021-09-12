@@ -26,16 +26,6 @@ void Game::Update(float elapsedTime)
 	// TODO: ゲーム処理
 	GameSystem::Instance().Update(elapsedTime);
 
-	if (Input::Instance().GetGamePad().GetButtonDown() & GamePad::BTN_R)
-	{
-		GameSystem::Instance().AddScore(1);
-	}
-
-	constexpr DirectX::XMFLOAT4X4 cube_trandform = { 1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1 };
-	//mdl_cube->UpdateTransform(cube_trandform);
-	//mdl_enemy1->UpdateTransform(cube_trandform);
-	//mdl_enemy2->UpdateTransform(cube_trandform);
-	mdl_sky->UpdateTransform(cube_trandform);
 
 	StageManager::Instance().Update(elapsedTime);
 
@@ -52,10 +42,7 @@ void Game::Update(float elapsedTime)
 void Game::ModelRender(ID3D11DeviceContext* dc, Shader* shader)
 {
 	/* 3Dモデルの描画 */
-	//shader->Draw(dc, mdl_cube.get());
 	StageManager::Instance().ModelRender(dc, shader);
-	//shader->Draw(dc, mdl_enemy1.get());
-	//shader->Draw(dc, mdl_enemy2.get());
 	shader->Draw(dc, mdl_sky.get());
 
 	player->Render(dc, shader);
@@ -99,31 +86,11 @@ void Game::Set()
 
 void Game::Load()
 {
-	//mdl_cube	= std::make_unique<Model>("Data/Model/Test/test_chara.mdl");
-	//mdl_enemy1	= std::make_unique<Model>("Data/Model/Test/test_enemy1.mdl");
-	//mdl_enemy2	= std::make_unique<Model>("Data/Model/Test/test_enemy2.mdl");
 	mdl_sky		= std::make_unique<Model>("Data/Model/Test/test_sky.mdl");
 
 	// プレイヤー初期化
 	player = new Player();
 	player->SetPosition(DirectX::XMFLOAT3(0, 0, 0));
-
-	// エネミー初期化
-	/*EnemyManager& enemyManager = EnemyManager::Instance();
-
-	for (int i = 0; i < 2; ++i)
-	{
-		NormalEnemy* normalEnemy = new NormalEnemy();
-		normalEnemy->SetPosition(DirectX::XMFLOAT3(-2.0f + i * 4.0f, 0, 5));
-		enemyManager.Register(normalEnemy, Enemy::ENEMYTAG::NORMAL);
-	}
-
-	for (int i = 0; i < 2; ++i)
-	{
-		BombEnemy* bombEnemy = new BombEnemy();
-		bombEnemy->SetPosition(DirectX::XMFLOAT3(-2.0f + i * 4.0f, 0, 10));
-		enemyManager.Register(bombEnemy, Enemy::ENEMYTAG::BOMB);
-	}*/
 
 	enemy_Arrangement = new Enemy_Arrangement();
 	enemy_Arrangement->enemy_produce();
@@ -142,6 +109,17 @@ void Game::ImGui()
 
 	ImGui::Text("now_time : %.1f", GameSystem::Instance().NowTime());
 	ImGui::Text("score : %d", GameSystem::Instance().NowScore());
+
+	DirectX::XMFLOAT3 pos = player->GetPosition();
+	ImGui::Text("player pos %.1f, %.1f, %.1f", pos.x, pos.y, pos.z);
+
+	ImGui::Text("player total_scale %.1f", player->GetScaleManager()->TotalScaleValue());
+
+	float right_length;
+	DirectX::XMStoreFloat(&right_length, DirectX::XMVector3Dot(DirectX::XMLoadFloat3(&player->GetVelocity()), DirectX::XMLoadFloat3(&player->GetRight())));
+	ImGui::Text("right velo length : %.1f", right_length);
+	DirectX::XMFLOAT3 velo = player->GetVelocity();
+	ImGui::Text("player velo %.1f, %.1f, %.1f", velo.x, velo.y, velo.z);
 }
 
 

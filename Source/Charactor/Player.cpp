@@ -11,10 +11,12 @@
 Player::Player()
 {
 	model = new Model("Data/Model/Test/test_chara.mdl");
-	inhale = new Inhale(this);
 
 	// モデルが大きいのでスケーリング
 	scale.x = scale.y = scale.z = 1.0f;
+	scale_manager = new ScaleManager(&scale);
+
+	inhale = new Inhale(this);
 
 	//音
 	/*Audio& audio1 = Audio::Instance();
@@ -29,6 +31,7 @@ Player::Player()
 Player::~Player()
 {
 	safe_delete(model);
+	safe_delete(scale_manager);
 	safe_delete(inhale);
 }
 
@@ -37,7 +40,7 @@ DirectX::XMFLOAT3 Player::GetMoveVec() const
 {
 	// 入力情報を取得
 	GamePad& gamePad = Input::Instance().GetGamePad();
-	float ax = gamePad.GetAxisLX();
+	float ax = /*gamePad.GetAxisLX()*/0.0f;
 	float ay = gamePad.GetAxisLY();
 
 	// カメラ方向とスティックの入力値によって進行方向を計算
@@ -92,6 +95,7 @@ void Player::Update(float elapsedTime)
 	UpdateVelocity(elapsedTime, KIND::PLAYER);	// 速力更新処理
 
 	inhale->Update(elapsedTime);				// 掃除機機能の更新
+	scale_manager->Update();
 	
 	UpdateTransform();							// オブジェクト行列を更新
 	model->UpdateTransform(transform);			// モデル行列更新

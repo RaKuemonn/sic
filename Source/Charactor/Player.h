@@ -4,6 +4,7 @@
 #include "Graphics/Model.h"
 #include "Character.h"
 #include "inhale.h"
+#include "Actor/scaleManager.h"
 
 //#include "Audio/Audio.h"
 
@@ -27,11 +28,12 @@ public:
 
 public:	// Get関数
 	DirectX::XMFLOAT3 GetFront() { return DirectX::XMFLOAT3(transform._31, transform._32, transform._33); }
+	DirectX::XMFLOAT3 GetRight() { return DirectX::XMFLOAT3(transform._11, transform._12, transform._13); }
+	DirectX::XMFLOAT3 GetVelocity() { return velocity; }
+	ScaleManager* GetScaleManager() { return scale_manager; }
 	
 public: // Set関数
-	void AddScaleX(const float x) { scale.x += x; }
-	void AddScaleY(const float y) { scale.y += y; }
-	void AddScaleZ(const float z) { scale.z += z; }
+
 
 private:
 
@@ -51,10 +53,11 @@ private:
 private:
 	Model* model = nullptr;
 
-	float	moveSpeed = 50.0f;
+	float	moveSpeed = 25.0f;
 	float	turnSpeed = DirectX::XMConvertToRadians(720);
 
-	Inhale* inhale = nullptr;		// 吸い込み関係の処理クラス
+	Inhale* inhale = nullptr;				// 吸い込み関係の処理クラス
+	ScaleManager* scale_manager = nullptr;	// スケール値管理クラス
 
 	//float	velocity_calc = 0;
 
