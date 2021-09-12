@@ -9,6 +9,24 @@ void EnemyManager::Update(float elapsedTime)
 		enemy->Update(elapsedTime);
 	}
 
+	// 破棄処理
+	// ※enemiesの範囲for文中でerase()すると不具合が発生してしまうため、
+	// 　更新処理が終わった後に破棄リストに積まれたオブジェクトを削除する。
+	for (Enemy* enemy : removes)
+	{
+		// std::vectorから要素を削除する場合はイテレーターで削除しなければならない
+		std::vector<Enemy*>::iterator it = std::find(enemies.begin(), enemies.end(), enemy);
+
+		if (it != enemies.end())
+		{
+			enemies.erase(it);
+		}
+
+		// エネミーの破棄処理
+		delete enemy;
+	}
+	// 破棄リストをクリア
+	removes.clear();
 }
 
 void EnemyManager::Render(ID3D11DeviceContext* context, Shader* shader)
@@ -46,6 +64,12 @@ void EnemyManager::Clear()
 			delete enemy;
 		}
 	}
+}
+
+// エネミー削除
+void EnemyManager::Remove(Enemy* enemy)
+{
+	removes.emplace_back(enemy);
 }
 
 // エネミー同士の衝突判定

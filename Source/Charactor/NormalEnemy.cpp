@@ -1,4 +1,5 @@
 #include "NormalEnemy.h"
+#include "EnemyManager.h"
 
 NormalEnemy::NormalEnemy()
 {
@@ -44,8 +45,9 @@ float NormalEnemy::inhaled()
 	switch ( 1 /* stage */)
 	{
 	case 1:
-		return par.scaling_value = STAGE_1_SCALING_VALUE;
 		Is_inhaling = true;
+		EnemyManager::Instance().Remove(this);
+		return par.scaling_value = STAGE_1_SCALING_VALUE;
 		break;
 	default:
 		break;

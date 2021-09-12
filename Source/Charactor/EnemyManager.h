@@ -31,9 +31,13 @@ public:
 	// エネミー取得
 	Enemy* GetEnemy(int index) { return enemies.at(index); }
 
-	//// エネミー全削除
+	// エネミー全削除
 	void Clear();
+
+	// エネミー削除
+	void Remove(Enemy* enemy);
 
 private:
 	std::vector<Enemy*>		enemies;
+	std::vector<Enemy*>		removes;
 };
