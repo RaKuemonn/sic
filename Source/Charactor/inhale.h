@@ -20,12 +20,14 @@ public:
 
 public: // Get関数
     float GetHitRadius() { return radius; }
+    bool IsDuringInhale() { return is_during_inhale; }
 
 public: // Set関数
 
 private:
-    void UpdateNozzlePosition();        // ノズルの位置の更新用
-    void Collision();                   // 当たり判定
+    void UpdateNozzlePosition();                                        // ノズルの位置の更新用
+    void Collision();                                                   // 当たり判定
+    void KnockBack(DirectX::XMFLOAT3 pos_a, DirectX::XMFLOAT3 pos_b);   // ノックバック処理
 
 
 private:

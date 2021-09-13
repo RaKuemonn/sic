@@ -207,14 +207,29 @@ void Character::UpdateHorizontalVelocity(float elapsedFrame)
             // 最大速度の制限
             if (length > maxMoveSpeed)
             {
-                    // Xの最大速度よりXの速力(絶対値)が大きければ
-                if (fabsf(velocity.x) > fabsf(moveVecX * maxMoveSpeed))
-                    velocity.x = moveVecX * maxMoveSpeed;
+                DirectX::XMFLOAT3 normalized = {};
+                length = 1 / length;
+                normalized.x = velocity.x * length;
+                normalized.z = velocity.z * length;
 
-                // Zの最大速度よりZの速力(絶対値)が大きければ
-                if (fabsf(velocity.z) > fabsf(moveVecZ * maxMoveSpeed))
-                    velocity.z = moveVecZ * maxMoveSpeed;
+                if (velocity.x < 0.0f)
+                {
+                    velocity.x = normalized.x * maxMoveSpeed;
+                }
+                else
+                {
+                    velocity.x = normalized.x * maxMoveSpeed;
+                }
 
+
+                if (velocity.z < 0.0f)
+                {
+                    velocity.z = normalized.z * maxMoveSpeed;
+                }
+                else
+                {
+                    velocity.z = normalized.z * maxMoveSpeed;
+                }
             }
 
         }

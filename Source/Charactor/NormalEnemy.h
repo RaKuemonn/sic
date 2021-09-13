@@ -12,7 +12,7 @@ public:
 	void Update(float elapsedTime) override;
 	void Render(ID3D11DeviceContext* dc, Shader* shader) override;
 
-	Parameter inhaled() override;
+	DirectX::XMFLOAT3 inhaled() override;
 
 private:
 	Model*		model = nullptr;

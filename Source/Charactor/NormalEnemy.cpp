@@ -12,6 +12,20 @@ NormalEnemy::NormalEnemy()
 	// 幅、高さ設定
 	radius = 1.0f;
 	height = 2.0f;
+
+	// 吸い込み用のパラメータ設定
+	{
+
+		float total_scale_value = (scale.x + scale.y + scale.z);
+
+
+		// 吸い込めるようになる最低限のスケール
+		par.enough_total_scale_value = total_scale_value * 0.87f;
+
+		// 消化できるようになる最低限のスケール
+		// ※ありえない数値を入れておく
+		par.can_be_digestion_total_scale_value = FLT_MAX;
+	}
 }
 
 NormalEnemy::~NormalEnemy()
@@ -38,7 +52,7 @@ void NormalEnemy::Render(ID3D11DeviceContext* dc, Shader* shader)
 	shader->Draw(dc, model);
 }
 
-Parameter NormalEnemy::inhaled()
+DirectX::XMFLOAT3 NormalEnemy::inhaled()
 {
 	constexpr float STAGE_1_SCALING_VALUE = 0.1f;
 
@@ -47,8 +61,8 @@ Parameter NormalEnemy::inhaled()
 	case 1:
 		Is_inhaling = true;
 		EnemyManager::Instance().Remove(this);
-		par.scaling_value = STAGE_1_SCALING_VALUE;
-		return par;
+		par.scaling_value = { STAGE_1_SCALING_VALUE, STAGE_1_SCALING_VALUE, STAGE_1_SCALING_VALUE };
+		return par.scaling_value;
 		break;
 	default:
 		break;

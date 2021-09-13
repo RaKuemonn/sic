@@ -21,6 +21,9 @@ public:
 
 public: // Getä÷êî
     float TotalScaleValue() { return total_scale_value; }
+    float GetScaleX() { return (*p_scale).x; }
+    float GetScaleY() { return (*p_scale).y; }
+    float GetScaleZ() { return (*p_scale).z; }
 
 
 public: // Setä÷êî

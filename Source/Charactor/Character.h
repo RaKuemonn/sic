@@ -2,9 +2,13 @@
 
 #include <DirectXMath.h>
 
+
+
 struct Parameter
 {
-	float scaling_value = 0; // ‹z‚¢‚ñ‚¾•¨‚É‚æ‚Á‚Ä{or|
+	DirectX::XMFLOAT3 scaling_value = {0,0,0};		// ‹z‚¢‚ñ‚¾•¨‚É‚æ‚Á‚Ä{or|
+	float enough_total_scale_value = 0.0f;			// ‹z‚¢‚ß‚éÅ’áƒ‰ƒCƒ“
+	float can_be_digestion_total_scale_value = 0.0f;// Á‰»‚Å‚«‚éÅ’áƒ‰ƒCƒ“
 };
 
 
@@ -51,10 +55,10 @@ protected:
 	//void Jump(float speed);
 
 	// ‘¬—Íˆ—XV
-	void UpdateVelocity(float elapsedTime, int kind);
+	virtual void UpdateVelocity(float elapsedTime, int kind);
 
 
-private:
+protected:
 	// ‚’¼‘¬—Í‚ÌXV
 	void UpdateVerticalVelocity(float elapsedFrame, int kind);
 	// ‚’¼ˆÚ“®‚ÌXV
@@ -88,7 +92,7 @@ protected:
 
 	float friction = 0.5f;
 	float acceleration = 1.0f;
-	float maxMoveSpeed;
+	float maxMoveSpeed = 5.0f;
 	float moveVecX = 0.0f;
 	float moveVecZ = 0.0f;
 

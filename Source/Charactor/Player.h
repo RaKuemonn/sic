@@ -33,6 +33,7 @@ public:	// Getä÷êî
 	ScaleManager* GetScaleManager() { return scale_manager; }
 	
 public: // Setä÷êî
+	void AddImpact(const DirectX::XMFLOAT3 impact_);
 
 private:
 
@@ -55,6 +56,7 @@ private:
 		return identity_vec;
 	}
 	void UpdateStepOffset();
+	void UpdateAngleX(float elapsedTime);
 
 private:
 	Model* model = nullptr;

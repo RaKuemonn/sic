@@ -6,6 +6,9 @@
 #include "common.h"
 #include "EnemyManager.h"
 #include "collision.h"
+#include "easy_math.h"
+
+
 
 // コンストラクタ
 Player::Player()
@@ -104,7 +107,8 @@ void Player::Update(float elapsedTime, bool explaining)
 
 	inhale->Update(elapsedTime);				// 掃除機機能の更新
 	scale_manager->Update();					// スケールマネージャ
-	UpdateStepOffset();
+	UpdateStepOffset();							// 頭打ち用のstepOffset更新
+	UpdateAngleX(elapsedTime);					// 吸い込み時前傾にする
 
 	
 	UpdateTransform();							// オブジェクト行列を更新
@@ -190,6 +194,7 @@ void Player::Turn(float elapsedTime, float vx, float vz, float speed)
 void Player::InputInhale()
 {
 	inhale->InputInhale();
+
 }
 
 
@@ -208,6 +213,9 @@ void Player::DrawDebugPrimitive()
 	// 衝突判定用のデバッグ円柱を描画
 	debugRenderer->DrawSphere(position, radius, DirectX::XMFLOAT4(0, 0, 0, 1));
 
+
+	debugRenderer->DrawSphere({ position.x,position.y + stepOffset,position.z }, 0.1f, DirectX::XMFLOAT4(0, 0, 0, 1));
+
 	inhale->DebugRender();
 }
 
@@ -217,9 +225,34 @@ void Player::DrawDebugGUI()
 	// デバッグ用GUI描画
 }
 
+
+void Player::AddImpact(const DirectX::XMFLOAT3 impact_)
+{
+
+	this->velocity.x += impact_.x;
+	this->velocity.y += impact_.y;
+	this->velocity.z += impact_.z;
+}
+
+
+
 void Player::UpdateStepOffset()
 {
 	float average_scale_value = scale_manager->TotalScaleValue() / 3;
 
 	stepOffset = average_scale_value/* - average_scale_value * 0.3f*/;
+}
+
+
+void Player::UpdateAngleX(float elapsedTime)
+{
+	if (inhale->IsDuringInhale())
+	{
+		angle.x = Lerq(angle.x, 0.2f, 0.6f * elapsedTime);
+	}
+
+	else
+	{
+		angle.x = Lerq(angle.x, 0.0f, 0.9f * elapsedTime);
+	}
 }

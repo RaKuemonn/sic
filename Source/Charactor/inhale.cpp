@@ -56,7 +56,7 @@ void Inhale::UpdateNozzlePosition()
 	float average_scale_value = player->GetScaleManager()->TotalScaleValue() / 3 /* 3次元 x,y,z */;
 
 	// ノズルが本体からどれぐらい先にあるのかを計算
-	float scale_factor = average_scale_value;
+	float scale_factor = player->GetScaleManager()->GetScaleZ();
 	nozzle.position = float3SUM(player->GetPosition(), float3Scaling(player->GetFront(), scale_factor));
 
 	// 当たり判定の大きさも変更する
@@ -89,40 +89,48 @@ void Inhale::Collision()
 			outPosition
 		))
 		{
-			float add_scale = enemy->inhaled().scaling_value;
-
-			if (add_scale > 0)
+			// 吸い込めるでかさに達していなければ　吸い込まず弾き返す
+			if (player->GetScaleManager()->TotalScaleValue() < enemy->EnoughTotalScaleValue())
 			{
-				player->GetScaleManager()->AddScaleX(add_scale);
-				player->GetScaleManager()->AddScaleY(add_scale);
-				player->GetScaleManager()->AddScaleZ(add_scale);
+				KnockBack(player->GetPosition(), enemy->GetPosition());
+				continue;
 			}
 
-			if (add_scale < 0)
-			{
-				player->GetScaleManager()->SubtractScaleX(add_scale);
-				player->GetScaleManager()->SubtractScaleY(add_scale);
-				player->GetScaleManager()->SubtractScaleZ(add_scale);
-			}
+
+			// スケールの加算と吸い込み処理の確定
+			DirectX::XMFLOAT3 add_scale = enemy->inhaled();
+
+			float factor = 1.0f;
+			if (player->GetScaleManager()->TotalScaleValue() >= enemy->CanBeDigestionTotalScaleValue()) factor *= -1.0f;
+
+			add_scale = float3Scaling(add_scale, factor);
+
+			player->GetScaleManager()->AddScaleX(add_scale.x);
+			player->GetScaleManager()->AddScaleY(add_scale.y);
+			player->GetScaleManager()->AddScaleZ(add_scale.z);
+			player->GetScaleManager()->SubtractScaleX(add_scale.x);
+			player->GetScaleManager()->SubtractScaleY(add_scale.y);
+			player->GetScaleManager()->SubtractScaleZ(add_scale.z);
 			
 
+
+			float sum_add_scale = add_scale.x + add_scale.y + add_scale.z;
+
 			// TODO: スコア加算の仮実装, 変更する
-			GameSystem::Instance().AddScore(static_cast<int>(add_scale * 10.0f));
+			GameSystem::Instance().AddScore(static_cast<int>(sum_add_scale * 10.0f));
+			
 
 			break;
-
-			//switch (enemy->enemy_tag)
-			//{
-			//case Enemy::ENEMYTAG::NORMAL:
-			//	//Hit->Play(false, HIT_VOLUME);
-			//	break;
-			//case Enemy::ENEMYTAG::RARE:
-			//	break;
-			//case Enemy::ENEMYTAG::BOMB:
-			//	break;
-			//default:
-			//	break;
-			//}
 		}
 	}
+}
+
+
+
+void Inhale::KnockBack(DirectX::XMFLOAT3 pos_a, DirectX::XMFLOAT3 pos_b)
+{
+	DirectX::XMFLOAT3 impact = {};
+	DirectX::XMStoreFloat3(&impact, DirectX::XMVectorScale(DirectX::XMVector3Normalize(DirectX::XMVectorSubtract(DirectX::XMLoadFloat3(&pos_a), DirectX::XMLoadFloat3(&pos_b))), 25.0f));
+
+	player->AddImpact(impact);
 }

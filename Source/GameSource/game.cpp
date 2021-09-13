@@ -46,7 +46,7 @@ void Game::ModelRender(ID3D11DeviceContext* dc, Shader* shader)
 	StageManager::Instance().ModelRender(dc, shader);
 	shader->Draw(dc, mdl_sky.get());
 
-	player->Render(dc, shader);
+	//player->Render(dc, shader);
 
 	// エネミー描画
 	EnemyManager::Instance().Render(dc, shader);

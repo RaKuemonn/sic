@@ -11,9 +11,9 @@ void ScaleManager::Update()
     constexpr int bonus_score = 50;
 
 
-    constexpr int phase_size = 5;
+    constexpr int phase_size = 8;
 
-    static bool did[phase_size] = { false,false,false,false,false };
+    static bool did[phase_size] = { };
 
     for (int i = 0; i < phase_size; ++i)
     {
