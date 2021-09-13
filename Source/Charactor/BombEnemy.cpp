@@ -38,7 +38,7 @@ void BombEnemy::Render(ID3D11DeviceContext* dc, Shader* shader)
 	shader->Draw(dc, model);
 }
 
-float BombEnemy::inhaled()
+Parameter BombEnemy::inhaled()
 {
 	constexpr float STAGE_1_SCALING_VALUE = -0.1f;
 
@@ -47,7 +47,8 @@ float BombEnemy::inhaled()
 	case 1:
 		Is_inhaling = true;
 		EnemyManager::Instance().Remove(this);
-		return par.scaling_value = STAGE_1_SCALING_VALUE;
+		par.scaling_value = STAGE_1_SCALING_VALUE;
+		return par;
 		break;
 	default:
 		break;

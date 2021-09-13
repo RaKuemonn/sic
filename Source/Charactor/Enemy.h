@@ -13,7 +13,7 @@ public:
 	virtual void Render(ID3D11DeviceContext* context, Shader* shader) = 0;
 
 	// inhaled(形容詞で吸い込まれた)
-	virtual float inhaled() = 0;
+	virtual Parameter inhaled() = 0;
 
 	// デバッグプリミティブ描画
 	virtual void DrawDebugPrimitive();

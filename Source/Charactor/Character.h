@@ -2,6 +2,12 @@
 
 #include <DirectXMath.h>
 
+struct Parameter
+{
+	float scaling_value = 0; // ‹z‚¢‚ñ‚¾•¨‚É‚æ‚Á‚Ä{or|
+};
+
+
 // ƒLƒƒƒ‰ƒNƒ^[	
 class Character
 {
@@ -97,8 +103,5 @@ protected:
 	};
 
 public:
-	struct Parameter
-	{
-		float scaling_value = 0; // ‹z‚¢‚ñ‚¾•¨‚É‚æ‚Á‚Ä{or|
-	}par;
+	Parameter par;
 };

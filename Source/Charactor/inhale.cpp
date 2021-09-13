@@ -89,7 +89,7 @@ void Inhale::Collision()
 			outPosition
 		))
 		{
-			float add_scale = enemy->inhaled();
+			float add_scale = enemy->inhaled().scaling_value;
 
 			if (add_scale > 0)
 			{
