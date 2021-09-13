@@ -30,9 +30,12 @@ private:
     std::unique_ptr<Sprite> spr_play = nullptr;
     std::unique_ptr<Sprite> spr_end = nullptr;
     std::unique_ptr<Sprite> spr_font = nullptr;
+    std::unique_ptr<Sprite> spr_Tutorial_moji = nullptr;
+    std::unique_ptr<Sprite> spr_Game_moji = nullptr;
 
     int selecting = 0;
     int select_timer = 0;
+    bool game_mode_select = false;
 
     float angle = 0.0f;
 
@@ -40,6 +43,8 @@ private:
     {
         START,
         END,
+        TUTORIAL,
+        GAME,
     };
     
 };
