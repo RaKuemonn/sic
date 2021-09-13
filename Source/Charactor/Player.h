@@ -34,7 +34,6 @@ public:	// Getä÷êî
 	
 public: // Setä÷êî
 
-
 private:
 
 	void Input(float elapsedTime);
@@ -55,6 +54,7 @@ private:
 		DirectX::XMStoreFloat3(&identity_vec, DirectX::XMVector3Normalize(DirectX::XMLoadFloat3(&DirectX::XMFLOAT3(x, y, z))));
 		return identity_vec;
 	}
+	void UpdateStepOffset();
 
 private:
 	Model* model = nullptr;

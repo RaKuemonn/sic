@@ -238,8 +238,8 @@ void Character::UpdateHorizontalMove(float elapsedTime)
         float mx = velocity.x * elapsedTime;
         float mz = velocity.z * elapsedTime;
 
-        DirectX::XMFLOAT3 start = { position.x,position.y + stepOffset,position.z };
-        DirectX::XMFLOAT3 end = { position.x + mx, position.y + stepOffset, position.z + mz };
+        DirectX::XMFLOAT3 start = { position.x,     position.y + stepOffset,    position.z };
+        DirectX::XMFLOAT3 end = { position.x + mx,  position.y + stepOffset,    position.z + mz };
 
         HitResult hit;
         //•Ç‚ª‚ ‚ê‚Î

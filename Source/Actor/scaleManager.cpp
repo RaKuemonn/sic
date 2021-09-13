@@ -11,7 +11,22 @@ void ScaleManager::Update()
     constexpr int bonus_score = 50;
 
 
-    static bool did3 = false;
+    constexpr int phase_size = 5;
+
+    static bool did[phase_size] = { false,false,false,false,false };
+
+    for (int i = 0; i < phase_size; ++i)
+    {
+        if (total_scale_value > 10.0f + 5.0f * i && did[i] == false)
+        {
+            CameraController::Instance()->SetRange(35.0f + 15.0f * i);
+            GameSystem::Instance().AddScore(bonus_score * (i + 1));
+            did[i] = true;
+        }
+    }
+
+
+    /*static bool did3 = false;
     if (total_scale_value > 25.0f && did3 == false)
     {
         CameraController::Instance()->SetRange(80.0f);
@@ -44,5 +59,5 @@ void ScaleManager::Update()
         CameraController::Instance()->SetRange(35.0f);
         GameSystem::Instance().AddScore(bonus_score * 1);
         did0 = true;
-    }
+    }*/
 }

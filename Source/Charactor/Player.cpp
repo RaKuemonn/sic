@@ -103,7 +103,9 @@ void Player::Update(float elapsedTime, bool explaining)
 	}
 
 	inhale->Update(elapsedTime);				// 掃除機機能の更新
-	scale_manager->Update();
+	scale_manager->Update();					// スケールマネージャ
+	UpdateStepOffset();
+
 	
 	UpdateTransform();							// オブジェクト行列を更新
 	model->UpdateTransform(transform);			// モデル行列更新
@@ -213,4 +215,11 @@ void Player::DrawDebugPrimitive()
 void Player::DrawDebugGUI()
 {
 	// デバッグ用GUI描画
+}
+
+void Player::UpdateStepOffset()
+{
+	float average_scale_value = scale_manager->TotalScaleValue() / 3;
+
+	stepOffset = average_scale_value/* - average_scale_value * 0.3f*/;
 }
