@@ -243,6 +243,7 @@
     <ClInclude Include="Source\GameSource\loading.h" />
     <ClInclude Include="Source\GameSource\Logger.h" />
     <ClInclude Include="Source\GameSource\Misc.h" />
+    <ClInclude Include="Source\GameSource\pause.h" />
     <ClInclude Include="Source\GameSource\result.h" />
     <ClInclude Include="Source\GameSource\scene.h" />
     <ClInclude Include="Source\GameSource\sceneManager.h" />
@@ -300,6 +301,7 @@
     <ClCompile Include="Source\GameSource\loading.cpp" />
     <ClCompile Include="Source\GameSource\Logger.cpp" />
     <ClCompile Include="Source\GameSource\Main.cpp" />
+    <ClCompile Include="Source\GameSource\pause.cpp" />
     <ClCompile Include="Source\GameSource\result.cpp" />
     <ClCompile Include="Source\GameSource\scene.cpp" />
     <ClCompile Include="Source\GameSource\sceneManager.cpp" />

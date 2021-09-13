@@ -11,6 +11,7 @@
 #include "Charactor/NormalEnemy.h"
 #include "Charactor/BombEnemy.h"
 #include "Charactor/Enemy_Arrangement.h"
+#include "pause.h"
 
 
 // ƒQ[ƒ€ƒV[ƒ“
@@ -38,7 +39,8 @@ private:
     void CameraSet();
 
 private:
-    std::unique_ptr<Model> mdl_sky = nullptr;
+    std::unique_ptr<Pause> pause = nullptr;
+
 
     Player* player = nullptr;
     Enemy_Arrangement* enemy_Arrangement = nullptr;

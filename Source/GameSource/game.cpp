@@ -21,6 +21,8 @@ void Game::Update(float elapsedTime)
 	// シーン変更
 	ChangeNextScene(new Result(), GamePad::BTN_SPACE, false);
 
+	// ポーズ
+	if (pause->Update(elapsedTime)) return;
 
 	//	↓	　入力処理とかいろいろ書く　	↓	　//
 
@@ -44,7 +46,6 @@ void Game::ModelRender(ID3D11DeviceContext* dc, Shader* shader)
 {
 	/* 3Dモデルの描画 */
 	StageManager::Instance().ModelRender(dc, shader);
-	shader->Draw(dc, mdl_sky.get());
 
 	//player->Render(dc, shader);
 
@@ -57,6 +58,8 @@ void Game::SpriteRender(ID3D11DeviceContext* dc)
 {
 	/* 2Dスプライトの描画 */
 	GameSystem::Instance().SpriteRender(dc);
+
+	pause->SpriteRender(dc);
 }
 
 
@@ -87,7 +90,7 @@ void Game::Set()
 
 void Game::Load()
 {
-	mdl_sky		= std::make_unique<Model>("Data/Model/Test/test_sky.mdl");
+	pause		= std::make_unique<Pause>();
 
 	// プレイヤー初期化
 	player = new Player();

@@ -9,6 +9,7 @@
 #include "EnemyManager.h"
 #include "collision.h"
 #include "gameSystem.h"
+#include "CameraController.h"
 
 
 
@@ -133,4 +134,6 @@ void Inhale::KnockBack(DirectX::XMFLOAT3 pos_a, DirectX::XMFLOAT3 pos_b)
 	DirectX::XMStoreFloat3(&impact, DirectX::XMVectorScale(DirectX::XMVector3Normalize(DirectX::XMVectorSubtract(DirectX::XMLoadFloat3(&pos_a), DirectX::XMLoadFloat3(&pos_b))), 25.0f));
 
 	player->AddImpact(impact);
+
+	CameraController::Instance()->SetCameraShake();
 }
