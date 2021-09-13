@@ -11,6 +11,7 @@
 // ’Ç‰Á
 #include "gameSystem.h"
 #include "stageManager.h"
+#include "easy_math.h"
 
 
 
@@ -37,7 +38,7 @@ void Tutorial::Update(float elapsedTime)
 
 	player->Update(elapsedTime, explaining);
 
-	CameraController::Instance()->SetTarget(player->GetPosition());
+	CameraController::Instance()->SetTarget(float3SUM(player->GetPosition(), float3Scaling(player->GetFront(), 5.0f)));
 	CameraController::Instance()->Update(elapsedTime, explaining);
 
 	switch (tutorial_state)
@@ -191,7 +192,7 @@ void Tutorial::CameraSet()
 
 	CameraController::Instance()->init();
 	CameraController::Instance()->SetCameraBehavior(CAMERA::PADCONTROL);
-	CameraController::Instance()->SetRange(20.0f);
+	CameraController::Instance()->SetRange(15.0f);
 }
 
 void Tutorial::End_of_explanation()

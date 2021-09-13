@@ -88,7 +88,7 @@ protected:
 
 	float friction = 0.5f;
 	float acceleration = 1.0f;
-	float maxMoveSpeed = 5.0f;
+	float maxMoveSpeed;
 	float moveVecX = 0.0f;
 	float moveVecZ = 0.0f;
 

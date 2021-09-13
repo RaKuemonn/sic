@@ -125,7 +125,7 @@ void Character::UpdateVerticalMove(float elapsedTime)
     if (foot_pos.y < 0.0f)
     {
         foot_pos.y = 0.0f;
-        position.y = foot_length;
+        position.y = scale.y;
 
         velocity.y = 0.0f;
 

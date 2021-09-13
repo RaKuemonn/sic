@@ -11,6 +11,7 @@
 // ’Ç‰Á
 #include "gameSystem.h"
 #include "stageManager.h"
+#include "easy_math.h"
 
 
 
@@ -34,7 +35,7 @@ void Game::Update(float elapsedTime)
 
 	player->Update(elapsedTime);
 
-	CameraController::Instance()->SetTarget(player->GetPosition());
+	CameraController::Instance()->SetTarget(float3SUM(player->GetPosition(), float3Scaling(player->GetFront(), 5.0f)));
 	CameraController::Instance()->Update(elapsedTime);
 }
 
@@ -115,9 +116,10 @@ void Game::ImGui()
 
 	ImGui::Text("player total_scale %.1f", player->GetScaleManager()->TotalScaleValue());
 
-	float right_length;
-	DirectX::XMStoreFloat(&right_length, DirectX::XMVector3Dot(DirectX::XMLoadFloat3(&player->GetVelocity()), DirectX::XMLoadFloat3(&player->GetRight())));
-	ImGui::Text("right velo length : %.1f", right_length);
+	float length;
+	DirectX::XMStoreFloat(&length, DirectX::XMVector3Length(DirectX::XMLoadFloat3(&player->GetVelocity())));
+	ImGui::Text("velo length : %.1f", length);
+
 	DirectX::XMFLOAT3 velo = player->GetVelocity();
 	ImGui::Text("player velo %.1f, %.1f, %.1f", velo.x, velo.y, velo.z);
 }
@@ -149,5 +151,5 @@ void Game::CameraSet()
 
 	CameraController::Instance()->init();
 	CameraController::Instance()->SetCameraBehavior(CAMERA::PADCONTROL);
-	CameraController::Instance()->SetRange(20.0f);
+	CameraController::Instance()->SetRange(15.0f);
 }
