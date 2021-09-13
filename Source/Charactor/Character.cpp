@@ -119,7 +119,7 @@ void Character::UpdateVerticalMove(float elapsedTime)
     // ˆÚ“®ˆ—
     position.y += velocity.y * elapsedTime;
 
-    foot_pos.y = position.y - foot_length;
+    foot_pos.y = position.y - scale.y;
 
     // ’n–Ê”»’è
     if (foot_pos.y < 0.0f)
