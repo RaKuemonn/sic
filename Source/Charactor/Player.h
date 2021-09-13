@@ -27,8 +27,8 @@ public:
 	void DrawDebugGUI();
 
 public:	// Getä÷êî
-	DirectX::XMFLOAT3 GetFront() { return DirectX::XMFLOAT3(transform._31, transform._32, transform._33); }
-	DirectX::XMFLOAT3 GetRight() { return DirectX::XMFLOAT3(transform._11, transform._12, transform._13); }
+	DirectX::XMFLOAT3 GetFront() { return ConvertToIdentityVec(transform._31, transform._32, transform._33); }
+	DirectX::XMFLOAT3 GetRight() { return ConvertToIdentityVec(transform._11, transform._12, transform._13); }
 	DirectX::XMFLOAT3 GetVelocity() { return velocity; }
 	ScaleManager* GetScaleManager() { return scale_manager; }
 	
@@ -49,6 +49,12 @@ private:
 
 private:
 	DirectX::XMFLOAT3 GetMoveVec() const;
+	DirectX::XMFLOAT3 ConvertToIdentityVec(float x, float y, float z)
+	{
+		DirectX::XMFLOAT3 identity_vec = {};
+		DirectX::XMStoreFloat3(&identity_vec, DirectX::XMVector3Normalize(DirectX::XMLoadFloat3(&DirectX::XMFLOAT3(x, y, z))));
+		return identity_vec;
+	}
 
 private:
 	Model* model = nullptr;
