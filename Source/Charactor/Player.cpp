@@ -86,13 +86,21 @@ DirectX::XMFLOAT3 Player::GetMoveVec() const
 }
 
 // 更新処理
-void Player::Update(float elapsedTime)
+void Player::Update(float elapsedTime, bool explaining)
 {
-	
-	Input(elapsedTime);							// 入力処理
+	if (explaining == false)
+	{
+		Input(elapsedTime);							// 入力処理
+		UpdateVelocity(elapsedTime, KIND::PLAYER);	// 速力更新処理
+	}
+	// 速力をなしにする (速力が摩擦以下)
+	else
+	{
 
-	
-	UpdateVelocity(elapsedTime, KIND::PLAYER);	// 速力更新処理
+		velocity.x = 0.0f;
+		velocity.z = 0.0f;
+
+	}
 
 	inhale->Update(elapsedTime);				// 掃除機機能の更新
 	scale_manager->Update();

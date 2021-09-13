@@ -38,7 +38,14 @@ public:
 
     void clear();*/
 
-    void enemy_produce();
+    void enemy_produce(int csv_file = GAME);
+
+    enum csv_file_num
+    {
+        TUTORIAL_NORMAL,
+        TUTORIAL_BOMB,
+        GAME,
+    };
 
 };
 

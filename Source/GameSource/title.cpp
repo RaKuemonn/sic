@@ -1,6 +1,7 @@
 
 
 #include "title.h"
+#include "tutorial.h"
 #include "game.h"
 #include "sceneManager.h"
 #include "common.h"
@@ -17,7 +18,7 @@ void Title::Update(float elapsedTime)
 
 	// "Game"Ç…ÉVÅ[ÉìïœçX
 	if(selecting == START)
-	ChangeNextScene(new Game(), GamePad::BTN_SPACE);
+	ChangeNextScene(new Tutorial(), GamePad::BTN_SPACE);
 
 	GamePad& gamePad = Input::Instance().GetGamePad();
 	if(selecting == END)

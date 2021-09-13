@@ -231,6 +231,9 @@
     <ClInclude Include="Source\Actor\scaleManager.h">
       <Filter>Source\Actor</Filter>
     </ClInclude>
+    <ClInclude Include="Source\GameSource\tutorial.h">
+      <Filter>Source\header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\imgui\imgui.cpp">
@@ -382,6 +385,9 @@
     </ClCompile>
     <ClCompile Include="Source\Actor\scaleManager.cpp">
       <Filter>Source\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameSource\tutorial.cpp">
+      <Filter>Source\cpp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

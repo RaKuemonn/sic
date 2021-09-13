@@ -35,13 +35,25 @@ void csv_load(Block data[][Enemy_Arrangement::CHIP_NUM_X], const char* filename)
 //
 //}
 
-void Enemy_Arrangement::enemy_produce()
+void Enemy_Arrangement::enemy_produce(int csv_file)
 {
     // エネミー初期化
     EnemyManager& enemyManager = EnemyManager::Instance();
     
-
-    csv_load(Arrangement,"Data/map/enemy_arrangement._本番用.csv");
+    switch (csv_file)
+    {
+    case TUTORIAL_NORMAL:
+        csv_load(Arrangement,"Data/map/enemy_arrangement._チュートリアル(normal).csv");
+        break;
+    case TUTORIAL_BOMB:
+        csv_load(Arrangement,"Data/map/enemy_arrangement._チュートリアル(bomb).csv");
+        break;
+    case GAME:
+        csv_load(Arrangement,"Data/map/enemy_arrangement._本番用.csv");
+        break;
+    default:
+        break;
+    }
 
     for (int y = 0; y < CHIP_NUM_Y; y++)
     {

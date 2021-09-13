@@ -29,7 +29,7 @@ public:
         return &instance;
     }
 
-    void Update(float elapsedTime);
+    void Update(float elapsedTime, bool explaining = false);
     void init(const DirectX::XMFLOAT3 position_ = {},
         const DirectX::XMFLOAT3 target_ = {},
         const DirectX::XMFLOAT3 up_ = { 0,1,0 },
@@ -55,8 +55,8 @@ private:
     void Collision();
 
 private: //      カメラの挙動      //
-    void Behavior(float elapsedTime);
-    void PadControl(float elapsedTime);             // カメラの直接回転操作
+    void Behavior(float elapsedTime, bool explaining = false);
+    void PadControl(float elapsedTime, bool explaining);             // カメラの直接回転操作
     void NormalTracking(float elapsedTime);         // 追うだけ
     void TranslationTracking(float elapsedTime);    // 平行移動しながら追う
 

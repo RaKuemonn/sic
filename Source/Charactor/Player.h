@@ -17,7 +17,7 @@ public:
 	Player();
 	~Player() override;
 
-	void Update(float elapsedTime);
+	void Update(float elapsedTime, bool explaining = false);
 	void Render(ID3D11DeviceContext* dc, Shader* shader);
 
 	// デバッグプリミティブ描画

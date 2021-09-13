@@ -8,7 +8,7 @@
 
 
 
-void CameraController::Update(float elapsedTime)
+void CameraController::Update(float elapsedTime, bool explaining)
 {
     // カメラ挙動の切り替えの有無
     if (now_camera_state != next_camera_state)
@@ -21,7 +21,7 @@ void CameraController::Update(float elapsedTime)
     }
 
     // カメラの挙動
-    Behavior(elapsedTime);
+    Behavior(elapsedTime, explaining);
 
     // 当たり判定
     //Collision();
@@ -164,7 +164,7 @@ void CameraController::Collision()
 }
 
 
-void CameraController::PadControl(float elapsedTime)
+void CameraController::PadControl(float elapsedTime, bool explaining = false)
 {
 
     constexpr float rollspeed = DirectX::XMConvertToRadians(90);
@@ -172,6 +172,7 @@ void CameraController::PadControl(float elapsedTime)
 
 
     //回転操作
+    if(explaining == false)
     {
         GamePad& gamePad = Input::Instance().GetGamePad();
         float ax = gamePad.GetAxisRX();
@@ -206,14 +207,14 @@ void CameraController::PadControl(float elapsedTime)
 }
 
 
-void CameraController::Behavior(float elapsedTime)
+void CameraController::Behavior(float elapsedTime, bool explaining)
 {
     // 自由状態
     if (now_camera_state == CAMERA::NONE) {}
 
     // 右スティックで回転操作
     if (now_camera_state == CAMERA::PADCONTROL)
-        PadControl(elapsedTime);
+        PadControl(elapsedTime, explaining);
 
     // 通常追尾
     if (now_camera_state == CAMERA::NORMAL_TRACKING)
