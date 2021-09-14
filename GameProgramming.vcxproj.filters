@@ -240,6 +240,9 @@
     <ClInclude Include="Source\System\hitStop.h">
       <Filter>Source\System</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Charactor\RareEnemy.h">
+      <Filter>Source\Charater</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\imgui\imgui.cpp">
@@ -400,6 +403,9 @@
     </ClCompile>
     <ClCompile Include="Source\System\hitStop.cpp">
       <Filter>Source\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Charactor\RareEnemy.cpp">
+      <Filter>Source\Charater</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

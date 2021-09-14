@@ -4,6 +4,7 @@
 #include "Charactor/EnemyManager.h"
 #include "Charactor/NormalEnemy.h"
 #include "Charactor/BombEnemy.h"
+#include "Charactor/RareEnemy.h"
 
 using namespace std;
 #include <string>

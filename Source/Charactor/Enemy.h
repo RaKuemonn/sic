@@ -37,7 +37,7 @@ public:
 	enum ENEMYTAG
 	{
 		NORMAL,
-		//RARE,
 		BOMB,
+		RARE,
 	};
 };

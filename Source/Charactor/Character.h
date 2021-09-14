@@ -101,8 +101,8 @@ protected:
 	enum KIND{
 		PLAYER,		// プレイヤー
 		NORMAL_ENEMY, // ノーマルモブ
-		RARE_ENEMY,	// レアモブ
 		BOMB_ENEMY,	// デメリットモブ
+		RARE_ENEMY,	// レアモブ
 	};
 
 public:

@@ -74,6 +74,12 @@ void Enemy_Arrangement::enemy_produce(int csv_file)
                 bombEnemy->SetPosition(DirectX::XMFLOAT3(Reference_point_correction + x * CHIP_SIZE, 0, Reference_point_correction + y * CHIP_SIZE));
                 enemyManager.Register(bombEnemy, Enemy::ENEMYTAG::BOMB);
             }
+            if (Arrangement[y][x].num == Enemy::ENEMYTAG::RARE)
+            {
+                RareEnemy* rareEnemy = new RareEnemy();
+                rareEnemy->SetPosition(DirectX::XMFLOAT3(Reference_point_correction + x * CHIP_SIZE, 0, Reference_point_correction + y * CHIP_SIZE));
+                enemyManager.Register(rareEnemy, Enemy::ENEMYTAG::RARE);
+            }
         }
     }
 }
