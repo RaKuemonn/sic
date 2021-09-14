@@ -14,9 +14,15 @@ public:
     ~CountDown();
 
 public:
-    bool Update(float elapsedTime);
-    void SpriteRender(ID3D11DeviceContext* dc);
+    void Update(float elapsedTime);
+    void SpriteRender(ID3D11DeviceContext* dc, DirectX::XMFLOAT2 pos = {}, DirectX::XMFLOAT2 scale = { 1,1 });
+
+public: // Getä÷êî
+    bool NowCountDonw() { return now_countdown; }
 
 private:
+    bool now_countdown = true;
     std::unique_ptr<Timer> timer = nullptr;
+    std::unique_ptr<Sprite> spr_number = nullptr;
+    DirectX::XMFLOAT2 number_size = {};
 };

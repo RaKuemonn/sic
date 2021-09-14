@@ -70,6 +70,8 @@ void Loading::DeInit()
 
 void Loading::Set()
 {
+	back_color = { 1,1,1,1 };
+
 	std::thread thread(LoadingThread, this, GetSceneManager());
 
 	thread.detach();

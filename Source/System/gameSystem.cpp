@@ -20,7 +20,7 @@ void GameSystem::SpriteRender(ID3D11DeviceContext* dc)
 
 void GameSystem::Init()
 {
-    constexpr int start_time_second = 120;
+    constexpr float start_time_second = 120.8f;
 
     timer   = std::make_unique<Timer>(COUNT::DOWN, start_time_second, true);
     score   = std::make_unique<Score>(true);

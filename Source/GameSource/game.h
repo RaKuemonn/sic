@@ -12,6 +12,8 @@
 #include "Charactor/BombEnemy.h"
 #include "Charactor/Enemy_Arrangement.h"
 #include "pause.h"
+#include "coutdown.h"
+
 
 
 // ÉQÅ[ÉÄÉVÅ[Éì
@@ -37,11 +39,18 @@ public:
 
 private:
     void CameraSet();
+    void ChangeScene(float elapsedTime);
+    void ClearedSpriteRender(ID3D11DeviceContext* dc);
 
 private:
     std::unique_ptr<Pause> pause = nullptr;
-
+    std::unique_ptr<CountDown> countdown = nullptr;
 
     Player* player = nullptr;
     Enemy_Arrangement* enemy_Arrangement = nullptr;
+
+    // çïë—
+    std::unique_ptr<Sprite> black_band = nullptr;
+    const float black_band_timer_max = 1.4f;
+    float black_band_timer = 0.0f;
 };

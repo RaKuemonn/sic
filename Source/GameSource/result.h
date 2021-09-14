@@ -26,6 +26,10 @@ public:
     void ImGui()override;
 
 private:
+    void ChangeScene(float elapsedTime);
+    void ChangeSceneSpriteRender(ID3D11DeviceContext* dc);
+
+private:
 
     std::unique_ptr<Sprite> spr_class = nullptr;
     std::unique_ptr<Sprite> spr_retry = nullptr;
@@ -42,4 +46,11 @@ private:
         END,
     };
 
+
+
+    // çïë—
+    std::unique_ptr<Sprite> black_band = nullptr;
+    const float black_band_timer_max = 1.4f;
+    float black_band_timer = 0.0f;
+    bool did_first = false;
 };

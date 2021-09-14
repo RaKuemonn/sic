@@ -11,6 +11,9 @@ void ScaleManager::Update()
     constexpr int bonus_score = 50;
 
 
+    // Updateだけど更新しているわけではなく...
+    // スケールごとのイベントを管理している
+
     constexpr int phase_size = 8;
 
     static bool did[phase_size] = { };

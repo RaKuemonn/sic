@@ -19,28 +19,35 @@ void Game::Update(float elapsedTime)
 {
 
 	// シーン変更
-	ChangeNextScene(new Result(), GamePad::BTN_SPACE, false);
+	ChangeScene(elapsedTime);
+
+	// カウントダウン
+	countdown->Update(elapsedTime);
 
 	// ポーズ
 	if (pause->Update(elapsedTime)) return;
 
 	//	↓	　入力処理とかいろいろ書く　	↓	　//
-	GameSystem::Instance().HitStopUpdate(elapsedTime);
 
 
 	// TODO: ゲーム処理
+
+	GameSystem::Instance().HitStopUpdate(elapsedTime);
+
 	StageManager::Instance().Update(elapsedTime);
 
-	// エネミー更新処理
 	EnemyManager::Instance().Update(elapsedTime);
 
-	player->Update(elapsedTime);
+	if (countdown->NowCountDonw() == false && black_band_timer == 0.0f) player->Update(elapsedTime);
+
+
 
 	DirectX::XMFLOAT3 player_pos = player->GetPosition();
 	CameraController::Instance()->SetTarget(float3SUM({player_pos.x, player_pos.y + 5.0f, player_pos.z}, float3Scaling(player->GetFront(), 5.0f)));
 	CameraController::Instance()->Update(elapsedTime);
 
-	GameSystem::Instance().Update(elapsedTime);
+
+	if (countdown->NowCountDonw() == false) GameSystem::Instance().Update(elapsedTime);
 }
 
 
@@ -61,7 +68,11 @@ void Game::SpriteRender(ID3D11DeviceContext* dc)
 	/* 2Dスプライトの描画 */
 	GameSystem::Instance().SpriteRender(dc);
 
+	countdown->SpriteRender(dc, { 960,396 }, { 1,1 });
+
 	pause->SpriteRender(dc);
+
+	ClearedSpriteRender(dc);
 }
 
 
@@ -87,12 +98,15 @@ void Game::Set()
 	CameraSet();
 
 	GameSystem::Instance().GameStart();
+
+	black_band_timer = 0.0f;
 }
 
 
 void Game::Load()
 {
 	pause		= std::make_unique<Pause>();
+	countdown	= std::make_unique<CountDown>();
 
 	// プレイヤー初期化
 	player = new Player();
@@ -100,6 +114,8 @@ void Game::Load()
 
 	enemy_Arrangement = new Enemy_Arrangement();
 	enemy_Arrangement->enemy_produce();
+
+	black_band = std::make_unique<Sprite>();
 
 	StageManager::Instance().AddStage(new StageRoom());
 }
@@ -157,4 +173,38 @@ void Game::CameraSet()
 	CameraController::Instance()->init();
 	CameraController::Instance()->SetCameraBehavior(CAMERA::PADCONTROL);
 	CameraController::Instance()->SetRange(15.0f);
+}
+
+
+void Game::ChangeScene(float elapsedTime)
+{
+#if _DEBUG
+	ChangeNextScene(new Result(), GamePad::BTN_SPACE, false);
+#endif
+
+	if (GameSystem::Instance().NowTime() > 0.0f) return;
+
+
+	// 黒帯の更新
+	black_band_timer += 1.0f * elapsedTime;
+
+
+	// 黒帯が降りきったら
+	if (black_band_timer >= 1.4f)
+	{
+		// 残り時間がゼロになった際シーン遷移をする
+		ChangeNextScene(new Result(), false);
+	}
+}
+
+
+void Game::ClearedSpriteRender(ID3D11DeviceContext* dc)
+{
+	if (black_band_timer == 0.0f) return;
+
+	// 黒帯
+	constexpr float scale = 300.0f;
+
+	black_band->Render(dc, 0, 0, 1920, scale * pow(black_band_timer, 5), 0, 0, 0, 0, 0, 1, 1, 1, 1);
+	black_band->Render(dc, 0, 1080, 1920, -scale * pow(black_band_timer, 5), 0, 0, 0, 0, 0, 1, 1, 1, 1);
 }
