@@ -268,6 +268,7 @@
     <ClInclude Include="Source\Stage\stage.h" />
     <ClInclude Include="Source\Stage\stageManager.h" />
     <ClInclude Include="Source\Stage\stage_room.h" />
+    <ClInclude Include="Source\System\coutdown.h" />
     <ClInclude Include="Source\System\digits.h" />
     <ClInclude Include="Source\System\fileIO.h" />
     <ClInclude Include="Source\System\gameSystem.h" />
@@ -325,6 +326,7 @@
     <ClCompile Include="Source\Stage\stage.cpp" />
     <ClCompile Include="Source\Stage\stageManager.cpp" />
     <ClCompile Include="Source\Stage\stage_room.cpp" />
+    <ClCompile Include="Source\System\countdown.cpp" />
     <ClCompile Include="Source\System\fileIO.cpp" />
     <ClCompile Include="Source\System\gameSystem.cpp" />
     <ClCompile Include="Source\System\hitStop.cpp" />

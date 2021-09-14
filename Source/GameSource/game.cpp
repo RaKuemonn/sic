@@ -36,8 +36,8 @@ void Game::Update(float elapsedTime)
 
 	player->Update(elapsedTime);
 
-
-	CameraController::Instance()->SetTarget(float3SUM(player->GetPosition(), float3Scaling(player->GetFront(), 5.0f)));
+	DirectX::XMFLOAT3 player_pos = player->GetPosition();
+	CameraController::Instance()->SetTarget(float3SUM({player_pos.x, player_pos.y + 5.0f, player_pos.z}, float3Scaling(player->GetFront(), 5.0f)));
 	CameraController::Instance()->Update(elapsedTime);
 
 	GameSystem::Instance().Update(elapsedTime);
