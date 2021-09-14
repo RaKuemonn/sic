@@ -6,7 +6,7 @@
 
 HitStop::HitStop()
 {
-    float during_stop_time_second = 0.3f;
+    float during_stop_time_second = 0.1f;
 
     timer = std::make_unique<Timer>(COUNT::DOWN, during_stop_time_second);
 

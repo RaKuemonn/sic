@@ -61,7 +61,7 @@ DirectX::XMFLOAT3 NormalEnemy::inhaled()
 	case 1:
 		Is_inhaling = true;
 		EnemyManager::Instance().Remove(this);
-		par.scaling_value = { STAGE_1_SCALING_VALUE, STAGE_1_SCALING_VALUE, STAGE_1_SCALING_VALUE };
+		par.scaling_value = { STAGE_1_SCALING_VALUE * scale.x, STAGE_1_SCALING_VALUE * scale.y, STAGE_1_SCALING_VALUE * scale.z };
 		return par.scaling_value;
 		break;
 	default:
