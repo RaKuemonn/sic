@@ -159,6 +159,8 @@ void Title::SpriteRender(ID3D11DeviceContext* dc)
 				1, 1, 1, 1);								// êFèÓïÒ(r,g,b,a)
 		}
 	}
+
+#if 0
 	// STARTëIëå„
 	else
 	{
@@ -214,6 +216,7 @@ void Title::SpriteRender(ID3D11DeviceContext* dc)
 				1, 1, 1, 1);								// êFèÓïÒ(r,g,b,a)
 		}
 	}
+#endif
 
 	if (GameSystem::Instance().DataRanking().Size() <= 0) return;
 
@@ -252,8 +255,8 @@ void Title::Load()
 	spr_play			= std::make_unique<Sprite>("Data/Sprite/play.png");
 	spr_end 			= std::make_unique<Sprite>("Data/Sprite/title.png");
 	spr_font			= std::make_unique<Sprite>("Data/Font/font2_a.png");
-	spr_Tutorial_moji	= std::make_unique<Sprite>("Data/Sprite/Tutorial_moji.png");
-	spr_Game_moji		= std::make_unique<Sprite>("Data/Sprite/Game_moji.png");
+	//spr_Tutorial_moji	= std::make_unique<Sprite>("Data/Sprite/Tutorial_moji.png");
+	//spr_Game_moji		= std::make_unique<Sprite>("Data/Sprite/Game_moji.png");
 }
 
 

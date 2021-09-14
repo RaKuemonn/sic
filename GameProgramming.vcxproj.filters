@@ -237,6 +237,9 @@
     <ClInclude Include="Source\GameSource\pause.h">
       <Filter>Source\header</Filter>
     </ClInclude>
+    <ClInclude Include="Source\System\hitStop.h">
+      <Filter>Source\System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\imgui\imgui.cpp">
@@ -394,6 +397,9 @@
     </ClCompile>
     <ClCompile Include="Source\GameSource\pause.cpp">
       <Filter>Source\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\System\hitStop.cpp">
+      <Filter>Source\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -22,8 +22,9 @@ void GameSystem::Init()
 {
     constexpr int start_time_second = 120;
 
-    timer = std::make_unique<Timer>(COUNT::DOWN, start_time_second, true);
-    score = std::make_unique<Score>(true);
+    timer   = std::make_unique<Timer>(COUNT::DOWN, start_time_second, true);
+    score   = std::make_unique<Score>(true);
+    hitstop = std::make_unique<HitStop>();
 
     data_ranking.data_array.clear();
     FileIO::Open("Data/Binary/test.box", data_ranking);

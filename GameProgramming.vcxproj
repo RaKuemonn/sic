@@ -270,6 +270,7 @@
     <ClInclude Include="Source\System\digits.h" />
     <ClInclude Include="Source\System\fileIO.h" />
     <ClInclude Include="Source\System\gameSystem.h" />
+    <ClInclude Include="Source\System\hitStop.h" />
     <ClInclude Include="Source\System\score.h" />
     <ClInclude Include="Source\System\timer.h" />
   </ItemGroup>
@@ -324,6 +325,7 @@
     <ClCompile Include="Source\Stage\stage_room.cpp" />
     <ClCompile Include="Source\System\fileIO.cpp" />
     <ClCompile Include="Source\System\gameSystem.cpp" />
+    <ClCompile Include="Source\System\hitStop.cpp" />
     <ClCompile Include="Source\System\score.cpp" />
     <ClCompile Include="Source\System\timer.cpp" />
   </ItemGroup>

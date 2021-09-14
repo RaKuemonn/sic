@@ -120,6 +120,7 @@ void Inhale::Collision()
 			// TODO: スコア加算の仮実装, 変更する
 			GameSystem::Instance().AddScore(static_cast<int>(sum_add_scale * 10.0f));
 			
+			GameSystem::Instance().SetHitStop();
 
 			break;
 		}

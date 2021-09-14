@@ -7,6 +7,7 @@
 #include "timer.h"
 #include "score.h"
 #include "fileIO.h"
+#include "hitStop.h"
 
 
 
@@ -32,6 +33,8 @@ public:
     void Init();
     void DeInit();
 
+    void HitStopUpdate(float& elapsedTime) { hitstop->Update(elapsedTime); }
+
 public: // Get関数
     float NowTime() { return timer->NowTime(); }
     int NowScore() { return score->NowScore(); }
@@ -43,6 +46,7 @@ public: // Set関数
     void AddScore(const int add) { score->Add(add); }
     void StopTime() { timer->Stop(); }
     void UnlockStopTime() { timer->UnlockStop(); }
+    void SetHitStop() { hitstop->SetHitStop(); }
 
 private:
     void CompareScoreAndRanking();
@@ -54,4 +58,5 @@ private: // 変数
     std::unique_ptr<Timer> timer = nullptr;     // 残り時間
     std::unique_ptr<Score> score = nullptr;     // 総スコア
     FileData data_ranking = {};                 // ランキングデータ
+    std::unique_ptr<HitStop> hitstop = nullptr; // ヒットストップ
 };

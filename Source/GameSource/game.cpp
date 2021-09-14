@@ -25,6 +25,8 @@ void Game::Update(float elapsedTime)
 	if (pause->Update(elapsedTime)) return;
 
 	//	↓	　入力処理とかいろいろ書く　	↓	　//
+	GameSystem::Instance().HitStopUpdate(elapsedTime);
+
 
 	// TODO: ゲーム処理
 	GameSystem::Instance().Update(elapsedTime);
