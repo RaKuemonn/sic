@@ -10,7 +10,6 @@ NormalEnemy::NormalEnemy()
 	scale.x = scale.y = scale.z = 1.0f;
 
 	// 幅、高さ設定
-	radius = 1.0f;
 	height = 2.0f;
 
 	// 吸い込み用のパラメータ設定
@@ -18,6 +17,8 @@ NormalEnemy::NormalEnemy()
 
 		float total_scale_value = (scale.x + scale.y + scale.z);
 
+		// 当たり判定の半径
+		radius = total_scale_value / 3;
 
 		// 吸い込めるようになる最低限のスケール
 		par.enough_total_scale_value = total_scale_value * 0.87f;
