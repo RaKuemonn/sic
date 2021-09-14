@@ -160,7 +160,7 @@ void Title::SpriteRender(ID3D11DeviceContext* dc)
 		}
 	}
 
-#if 0
+#if 1
 	// START‘I‘ðŒã
 	else
 	{
@@ -255,8 +255,8 @@ void Title::Load()
 	spr_play			= std::make_unique<Sprite>("Data/Sprite/play.png");
 	spr_end 			= std::make_unique<Sprite>("Data/Sprite/title.png");
 	spr_font			= std::make_unique<Sprite>("Data/Font/font2_a.png");
-	//spr_Tutorial_moji	= std::make_unique<Sprite>("Data/Sprite/Tutorial_moji.png");
-	//spr_Game_moji		= std::make_unique<Sprite>("Data/Sprite/Game_moji.png");
+	spr_Tutorial_moji	= std::make_unique<Sprite>("Data/Sprite/Tutorial_moji.png");
+	spr_Game_moji		= std::make_unique<Sprite>("Data/Sprite/Game_moji.png");
 }
 
 

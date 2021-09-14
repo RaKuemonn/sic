@@ -253,6 +253,6 @@ void Player::UpdateAngleX(float elapsedTime)
 
 	else
 	{
-		angle.x = Lerq(angle.x, 0.0f, 0.9f * elapsedTime);
+		angle.x = Lerq(angle.x, 0.0f, 0.98f * elapsedTime);
 	}
 }

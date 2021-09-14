@@ -29,9 +29,6 @@ void Game::Update(float elapsedTime)
 
 
 	// TODO: ゲーム処理
-	GameSystem::Instance().Update(elapsedTime);
-
-
 	StageManager::Instance().Update(elapsedTime);
 
 	// エネミー更新処理
@@ -39,8 +36,11 @@ void Game::Update(float elapsedTime)
 
 	player->Update(elapsedTime);
 
+
 	CameraController::Instance()->SetTarget(float3SUM(player->GetPosition(), float3Scaling(player->GetFront(), 5.0f)));
 	CameraController::Instance()->Update(elapsedTime);
+
+	GameSystem::Instance().Update(elapsedTime);
 }
 
 
@@ -49,7 +49,7 @@ void Game::ModelRender(ID3D11DeviceContext* dc, Shader* shader)
 	/* 3Dモデルの描画 */
 	StageManager::Instance().ModelRender(dc, shader);
 
-	//player->Render(dc, shader);
+	player->Render(dc, shader);
 
 	// エネミー描画
 	EnemyManager::Instance().Render(dc, shader);
