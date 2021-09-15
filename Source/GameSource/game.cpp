@@ -93,7 +93,7 @@ void Game::DeInit()
 
 void Game::Set()
 {
-	back_color = { 1,0,0,1 };
+	back_color = { 1,1,1,1 };
 
 	CameraSet();
 

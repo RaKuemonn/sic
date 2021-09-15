@@ -44,7 +44,7 @@ public: // SetŠÖ”
     void ChangeNextScene(Scene* next_scene_, bool isloading = true);
 
 public:
-    DirectX::XMFLOAT4 back_color = { 1.0f,0.0f,1.0f,1.0f }; // ”wŒiF
+    DirectX::XMFLOAT4 back_color = { 1.0f,1.0f,1.0f,1.0f }; // ”wŒiF
 
 protected:
     SceneManager* GetSceneManager() { return scene_manager; }
