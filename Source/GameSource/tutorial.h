@@ -42,6 +42,8 @@ private:
 private:
     std::unique_ptr<Model> mdl_sky = nullptr;
     std::unique_ptr<Sprite> spr_explanation = nullptr;
+    std::unique_ptr<Sprite> spr_space = nullptr;
+    std::unique_ptr<Sprite> spr_start = nullptr;
 
     Player* player = nullptr;
     Enemy_Arrangement* enemy_Arrangement = nullptr;
@@ -52,12 +54,13 @@ private:
     float foot_length = 1.5f;
 
     bool explaining = true; // 説明中
+    int explanation = 0;
 
     enum tutorial_contents 
     {
         PLAYER_MOVE,            // プレイヤー移動操作
         CAMERA_MOVE,            // カメラ操作
-        PLAYER_AND_CAMERA_MOVE, // プレイヤー＋カメラ操作
+        //PLAYER_AND_CAMERA_MOVE, // プレイヤー＋カメラ操作
         MERIT,                  // 良い貝
         DEMERIT,                // 悪い貝
         SHELL_SIZE,             // 大きさ関係(プレイヤーより小さい貝だけ吸える)

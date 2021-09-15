@@ -26,7 +26,12 @@ void Tutorial::Update(float elapsedTime)
 
 	// TODO: チュートリアル処理
 
-	if (Input::Instance().GetGamePad().GetButtonDown() & GamePad::BTN_SPACE) explaining = false;
+	GamePad& gamePad = Input::Instance().GetGamePad();
+
+	if (explaining && explanation < 18 && gamePad.GetButtonDown() & GamePad::BTN_SPACE)
+		explanation++;
+
+	//if (gamePad.GetButtonDown() & GamePad::BTN_SPACE) explaining = false;
 
 	constexpr DirectX::XMFLOAT4X4 cube_trandform = { 1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1 };
 	mdl_sky->UpdateTransform(cube_trandform);
@@ -41,42 +46,82 @@ void Tutorial::Update(float elapsedTime)
 	CameraController::Instance()->SetTarget(float3SUM(player->GetPosition(), float3Scaling(player->GetFront(), 5.0f)));
 	CameraController::Instance()->Update(elapsedTime, explaining);
 
+	// 行動制限
 	if (player->GetPosition().x > 15.0f) player->SetPosition({ 15.0f, player->GetPosition().y, player->GetPosition().z });
 	if (player->GetPosition().z > 30.0f) player->SetPosition({ player->GetPosition().x, player->GetPosition().y, 30.0f });
 	if (player->GetPosition().x < -15.0f) player->SetPosition({ 15.0f, player->GetPosition().y, player->GetPosition().z });
 	if (player->GetPosition().z < -15.0f) player->SetPosition({ player->GetPosition().x, player->GetPosition().y, -15.0f });
 
+	
+
 	switch (tutorial_state)
 	{
 	case PLAYER_MOVE:
-		if (explaining == false) End_of_explanation();
+		if (explanation == 4)
+		{
+			explaining = false;
+			static bool ws[2] = { false };
+			if (gamePad.GetButtonDown() & GamePad::BTN_UP)		ws[0] = true;
+			if (gamePad.GetButtonDown() & GamePad::BTN_DOWN)	ws[1] = true;
+			if (ws[0] && ws[1]) End_of_explanation(); // クリア条件を満たしたら次のstateへ
+		}
 		break;
 	case CAMERA_MOVE:
-		if (explaining == false) End_of_explanation();
+		if (explanation == 7)
+		{
+			explaining = false;
+			static bool adik[4] = { false };
+			if (gamePad.GetButtonDown() & GamePad::BTN_LEFT)	adik[0] = true;
+			if (gamePad.GetButtonDown() & GamePad::BTN_RIGHT)	adik[1] = true;
+			if (gamePad.GetButtonDown() & GamePad::BTN_I)		adik[2] = true;
+			if (gamePad.GetButtonDown() & GamePad::BTN_K)		adik[3] = true;
+			
+			if (adik[0] && adik[1] && adik[2] && adik[3])
+			{
+				End_of_explanation();
+				enemy_Arrangement->enemy_produce(Enemy_Arrangement::csv_file_num::TUTORIAL_NORMAL);
+			}
+		}
 		break;
-	case PLAYER_AND_CAMERA_MOVE:
+	/*case PLAYER_AND_CAMERA_MOVE:
 		if (explaining == false)
 		{
 			End_of_explanation();
 			enemy_Arrangement->enemy_produce(Enemy_Arrangement::csv_file_num::TUTORIAL_NORMAL);
 		}
-		break;
+		break;*/
 	case MERIT:
-		if (EnemyManager::Instance().GetEnemyCount() <= 0)
+		if (explanation == 11)
 		{
-			End_of_explanation();
-			enemy_Arrangement->enemy_produce(Enemy_Arrangement::csv_file_num::TUTORIAL_BOMB);
+			explaining = false;
+			if (EnemyManager::Instance().GetEnemyCount() <= 0)
+			{
+				End_of_explanation();
+				enemy_Arrangement->enemy_produce(Enemy_Arrangement::csv_file_num::TUTORIAL_BOMB);
+			}
 		}
 		break;
 	case DEMERIT:
-		if (EnemyManager::Instance().GetEnemyCount() <= 0) End_of_explanation();
+		if (explanation == 15)
+		{
+			explaining = false;
+			if (EnemyManager::Instance().GetEnemyCount() <= 0) End_of_explanation();
+		}
 		break;
 	case SHELL_SIZE:
-		if (explaining == false) End_of_explanation();
+		if (explanation == 18)
+		{
+			explaining = false;
+			End_of_explanation();
+		}
 		break;
 	case END:
 		//ChangeNextScene(new Game());
-		ChangeNextScene(new Game(), GamePad::BTN_SPACE); // 急にシーンが変わると不自然なので任意のタイミングで変える
+		//if (explanation == 17)
+		{
+			//explaining = false;
+			ChangeNextScene(new Game(), gamePad.GetButtonDown() & GamePad::BTN_SPACE); // 急にシーンが変わると不自然なので任意のタイミングで変える
+		}
 		break;
 	default:
 		break;
@@ -104,13 +149,37 @@ void Tutorial::SpriteRender(ID3D11DeviceContext* dc)
 	float spr_explanationWidth = CAST_F(spr_explanation->GetTextureWidth());
 	float spr_explanationHeight = CAST_F(spr_explanation->GetTextureHeight());
 
-	if(explaining)
+	if (explaining)
+	{
+		if (explanation == 18)
+		{
+			spr_start->Render2(dc,
+				0, 0,						// 表示位置
+				1.0f, 1.0f,									// スケール
+				0, 0,										// 画像切り抜き位置
+				1920, 1080,				// 画像切り抜きサイズ
+				0, 0,	// 画像基準点
+				angle,										// 角度
+				1, 1, 1, 1);								// 色情報(r,g,b,a)
+		}
+		else
+		{
+			spr_space->Render2(dc,
+				0, 0,						// 表示位置
+				1.0f, 1.0f,									// スケール
+				0, 0,										// 画像切り抜き位置
+				1920, 1080,				// 画像切り抜きサイズ
+				0, 0,	// 画像基準点
+				angle,										// 角度
+				1, 1, 1, 1);								// 色情報(r,g,b,a)
+		}
+	}
+
 	spr_explanation->Render2(dc,
-		0, 0,						// 表示位置
-		//1.0f, 1.0f,									// スケール
-		0.25f, 0.25f,
-		0, 0,										// 画像切り抜き位置
-		spr_explanationWidth, spr_explanationHeight,				// 画像切り抜きサイズ
+		320, 100,						// 表示位置
+		1.0f, 1.0f,									// スケール
+		0, 240 * explanation,										// 画像切り抜き位置
+		spr_explanationWidth, 240,				// 画像切り抜きサイズ
 		0, 0,	// 画像基準点
 		angle,										// 角度
 		1, 1, 1, 1);								// 色情報(r,g,b,a)
@@ -129,6 +198,9 @@ void Tutorial::DeInit()
 	EnemyManager::Instance().Clear();
 
 	StageManager::Instance().AllClear();
+
+	// 説明画像の初期化
+	explanation = 0;
 }
 
 
@@ -145,7 +217,9 @@ void Tutorial::Set()
 void Tutorial::Load()
 {
 	mdl_sky = std::make_unique<Model>("Data/Model/Test/test_sky.mdl");
-	spr_explanation = std::make_unique<Sprite>("Data/Sprite/explanation.jpg");
+	spr_explanation = std::make_unique<Sprite>("Data/Sprite/チュートリアル説明文2.png");
+	spr_space = std::make_unique<Sprite>("Data/Sprite/space.png");
+	spr_start = std::make_unique<Sprite>("Data/Sprite/スタート（タイトル）.png");
 
 	// プレイヤー初期化
 	player = new Player();
@@ -203,6 +277,7 @@ void Tutorial::CameraSet()
 void Tutorial::End_of_explanation()
 {
 	tutorial_state++;
+	if(explanation < 18) explanation++;
 	player->SetPosition(DirectX::XMFLOAT3(0, foot_length, 0));
 	explaining = true;
 }
