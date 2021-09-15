@@ -69,6 +69,14 @@ void Pause::SpriteRender(ID3D11DeviceContext* dc)
 	float spr_endWidth = CAST_F(spr_end->GetTextureWidth());
 	float spr_endHeight = CAST_F(spr_end->GetTextureHeight());
 
+	spr_back->Render2(dc,
+		0, 0,						// 表示位置
+		1.0f, 1.0f,									// スケール
+		0, 0,										// 画像切り抜き位置
+		spr_playWidth, spr_playHeight,				// 画像切り抜きサイズ
+		0, 0,	// 画像基準点
+		angle,										// 角度
+		1, 1, 1, 1);								// 色情報(r,g,b,a)
 
 	if (selecting == CONTINUE)
 	{
