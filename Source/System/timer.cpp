@@ -16,7 +16,7 @@ Timer::Timer(COUNT count, const float default_start_time_, const bool render) : 
     // 描画する場合のみスプライトの実体を生成
     if (render == false) return;
 
-    spr_number = std::make_unique<Sprite>("Data/Sprite/yone.png");
+    spr_number = std::make_unique<Sprite>("Data/Sprite/数字.png");
 
     number_size.x = static_cast<float>(spr_number->GetTextureWidth() / 10);
     number_size.y = static_cast<float>(spr_number->GetTextureHeight());

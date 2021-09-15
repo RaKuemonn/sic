@@ -8,7 +8,7 @@ Score::Score(bool render) : Digits(0, 5)
 {
     if (render == false) return;
 
-    spr_number = std::make_unique<Sprite>("Data/Sprite/yone.png");
+    spr_number = std::make_unique<Sprite>("Data/Sprite/”š.png");
 
     number_size.x = static_cast<float>(spr_number->GetTextureWidth() / 10);
     number_size.y = static_cast<float>(spr_number->GetTextureHeight());

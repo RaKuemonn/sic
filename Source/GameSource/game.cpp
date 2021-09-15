@@ -105,7 +105,7 @@ void Game::Set()
 
 void Game::Load()
 {
-	pause		= std::make_unique<Pause>();
+	pause		= std::make_unique<Pause>(this);
 	countdown	= std::make_unique<CountDown>();
 
 	// ƒvƒŒƒCƒ„[‰Šú‰»

@@ -2,6 +2,7 @@
 
 #include "Graphics/Sprite.h"
 #include <memory>
+#include "scene.h"
 
 
 
@@ -10,7 +11,7 @@
 class Pause
 {
 public:
-    Pause();
+    Pause(Scene* scene_);
     ~Pause();
 
 public:
@@ -22,7 +23,19 @@ public: // Getä÷êî
 
 
 private:
+    Scene* scene = nullptr;
     bool now_pause = false;
     std::unique_ptr<Sprite> spr_back = nullptr;
+    std::unique_ptr<Sprite> spr_play = nullptr;
+    std::unique_ptr<Sprite> spr_end = nullptr;
 
+    int selecting = 0;
+    int select_timer = 0;
+    float angle = 0.0f;
+
+    enum Select
+    {
+        CONTINUE,
+        END,
+    };
 };
