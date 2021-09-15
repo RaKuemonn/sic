@@ -21,11 +21,11 @@ void Game::Update(float elapsedTime)
 	// シーン変更
 	ChangeScene(elapsedTime);
 
-	// カウントダウン
-	countdown->Update(elapsedTime);
 
 	// ポーズ
 	if (pause->Update(elapsedTime)) return;
+	// カウントダウン
+	countdown->Update(elapsedTime);
 
 	//	↓	　入力処理とかいろいろ書く　	↓	　//
 
