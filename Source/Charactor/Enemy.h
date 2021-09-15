@@ -28,6 +28,7 @@ public: // GetŠÖ”
 
 public: // SetŠÖ”
 	void SetPlayerAddress(Player* player_) { player = player_; }
+	virtual void SetInhaleParameter() = 0;
 
 public:
 	int enemy_tag;

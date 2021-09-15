@@ -49,6 +49,7 @@ void EnemyManager::DrawDebugPrimitive()
 // ƒGƒlƒ~[“o˜^
 void EnemyManager::Register(Enemy* enemy, int tag)
 {
+	enemy->SetInhaleParameter();
 	enemies.emplace_back(enemy);
 	enemy->enemy_tag = tag;
 }

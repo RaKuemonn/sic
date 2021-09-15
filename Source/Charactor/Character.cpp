@@ -104,7 +104,7 @@ void Character::UpdateVelocity(float elapsedTime, int kind)
 
 void Character::UpdateVerticalVelocity(float elapsedFrame, int kind)
 {
-    if (kind == KIND::PLAYER)
+    //if (kind == KIND::PLAYER)
     {
         // d—Íˆ—
         velocity.y += gravity * elapsedFrame;
@@ -113,19 +113,22 @@ void Character::UpdateVerticalVelocity(float elapsedFrame, int kind)
 }
 
 
-void Character::UpdateVerticalMove(float elapsedTime)
+void Character::UpdateVerticalMove(float elapsedTime, int kind)
 {
 
     // ˆÚ“®ˆ—
     position.y += velocity.y * elapsedTime;
 
-    foot_pos.y = position.y - scale.y;
+    float offset = 0.0f;
+    if (kind > 0) offset = scale.y * 0.3f;
+
+    foot_pos.y = position.y - scale.y - offset;
 
     // ’n–Ê”»’è
     if (foot_pos.y < 0.0f)
     {
         foot_pos.y = 0.0f;
-        position.y = scale.y;
+        position.y = scale.y - offset;
 
         velocity.y = 0.0f;
 

@@ -62,7 +62,7 @@ protected:
 	// 垂直速力の更新
 	void UpdateVerticalVelocity(float elapsedFrame, int kind);
 	// 垂直移動の更新
-	void UpdateVerticalMove(float elapsedTime);
+	void UpdateVerticalMove(float elapsedTime, int kind = 0);
 	// 水平速力の更新
 	void UpdateHorizontalVelocity(float elapsedFrame);
 	// 水平移動の更新

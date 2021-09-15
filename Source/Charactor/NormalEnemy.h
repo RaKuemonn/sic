@@ -14,6 +14,8 @@ public:
 
 	DirectX::XMFLOAT3 inhaled() override;
 
+	void SetInhaleParameter();
+
 private:
 	Model*		model = nullptr;
 };

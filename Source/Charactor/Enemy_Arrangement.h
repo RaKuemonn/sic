@@ -36,21 +36,19 @@ private:
     int bomb_enemy_limit_num = 20;
     int normal_enemy_num[3] = {0};
     int bomb_enemy_num[3] = {0};
-    int randam_num = 0; 
+    int random_num = 0; 
 
-    float randam_scale = 1;
+    float random_scale = 1;
 
-    /*bool normal_randam = false;
-    bool bomb_randam = false;*/
+    int normal_random = 0;
+    bool bomb_random = false;
 
-    int normal_randam = 0;
-    int bomb_randam = 0;
 
 public:
     Enemy_Arrangement() {};
     ~Enemy_Arrangement() {};
 
-    void randam_scaling(int Arrangement_num);
+    void random_scaling(int Arrangement_num);
 
     enum csv_file_num
     {

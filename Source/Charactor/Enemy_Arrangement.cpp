@@ -68,21 +68,21 @@ void Enemy_Arrangement::enemy_produce(csv_file_num csv_file)
             if (Arrangement[y][x].num == Enemy::ENEMYTAG::NORMAL)
             {
                 if ((y < 100 || y > 150) /*&& (x < 100 || x > 150)*/)
-                    if (csv_file == csv_file_num::GAME) randam_scaling(Arrangement[y][x].num);
+                    if (csv_file == csv_file_num::GAME) random_scaling(Arrangement[y][x].num);
 
                 NormalEnemy* normalEnemy = new NormalEnemy();
                 normalEnemy->SetPosition(DirectX::XMFLOAT3(Reference_point_correction + x * CHIP_SIZE, 0, Reference_point_correction + y * CHIP_SIZE));
-                normalEnemy->SetScale({ randam_scale, randam_scale, randam_scale });
+                normalEnemy->SetScale({ random_scale, random_scale, random_scale });
                 enemyManager.Register(normalEnemy, Enemy::ENEMYTAG::NORMAL);
             }
             if (Arrangement[y][x].num == Enemy::ENEMYTAG::BOMB)
             {       
                 if ((y < 100 || y > 150) /*&& (x < 100 || x > 150)*/)
-                    if (csv_file == csv_file_num::GAME) randam_scaling(Arrangement[y][x].num);
+                    if (csv_file == csv_file_num::GAME) random_scaling(Arrangement[y][x].num);
 
                 BombEnemy* bombEnemy = new BombEnemy();
                 bombEnemy->SetPosition(DirectX::XMFLOAT3(Reference_point_correction + x * CHIP_SIZE, 0, Reference_point_correction + y * CHIP_SIZE));
-                bombEnemy->SetScale({ randam_scale, randam_scale, randam_scale });
+                bombEnemy->SetScale({ random_scale, random_scale, random_scale });
                 enemyManager.Register(bombEnemy, Enemy::ENEMYTAG::BOMB);
             }
             if (Arrangement[y][x].num == Enemy::ENEMYTAG::RARE)
@@ -96,78 +96,56 @@ void Enemy_Arrangement::enemy_produce(csv_file_num csv_file)
     }
 }
 
-void Enemy_Arrangement::randam_scaling(int Arrangement_num)
+void Enemy_Arrangement::random_scaling(int Arrangement_num)
 {
     if (Enemy::ENEMYTAG::NORMAL == Arrangement_num)
-    {
-        /*if (normal_randam == true)
+    {   
+        if (normal_random >= 2)
         {
-            randam_num = rand() % 3;
-            normal_randam = false;
-
+            random_num = -1;
+            normal_random = 0;
+        }
+        else
+        {
+            random_num = rand() % 3;
             if ((normal_enemy_num[SMALL_SIZE] != normal_enemy_num[MEDIUM_SIZE]) || (normal_enemy_num[SMALL_SIZE] != normal_enemy_num[LARGE_SIZE]))
             {
                 if (normal_enemy_num[SMALL_SIZE] <= normal_enemy_num[MEDIUM_SIZE])
                 {
-                    if (normal_enemy_num[SMALL_SIZE] < normal_enemy_num[LARGE_SIZE]) randam_num = SMALL_SIZE;
-                    else randam_num = LARGE_SIZE;
+                    if (normal_enemy_num[SMALL_SIZE] < normal_enemy_num[LARGE_SIZE]) random_num = SMALL_SIZE;
+                    else random_num = LARGE_SIZE;
                 }
-                else if(normal_enemy_num[MEDIUM_SIZE] <= normal_enemy_num[LARGE_SIZE]) randam_num = MEDIUM_SIZE;
-                else randam_num = LARGE_SIZE;
+                else if (normal_enemy_num[MEDIUM_SIZE] <= normal_enemy_num[LARGE_SIZE]) random_num = MEDIUM_SIZE;
+                else random_num = LARGE_SIZE;
             }
-        }
-        else
-        {
-            randam_num = -1;
-            normal_randam = true;
-        }*/
-        
-        if (normal_randam >= 2)
-        {
-            randam_num = -1;
-            normal_randam = 0;
-        }
-        else
-        {
-            randam_num = rand() % 3;
-            if ((normal_enemy_num[SMALL_SIZE] != normal_enemy_num[MEDIUM_SIZE]) || (normal_enemy_num[SMALL_SIZE] != normal_enemy_num[LARGE_SIZE]))
-            {
-                if (normal_enemy_num[SMALL_SIZE] <= normal_enemy_num[MEDIUM_SIZE])
-                {
-                    if (normal_enemy_num[SMALL_SIZE] < normal_enemy_num[LARGE_SIZE]) randam_num = SMALL_SIZE;
-                    else randam_num = LARGE_SIZE;
-                }
-                else if (normal_enemy_num[MEDIUM_SIZE] <= normal_enemy_num[LARGE_SIZE]) randam_num = MEDIUM_SIZE;
-                else randam_num = LARGE_SIZE;
-            }
-            normal_randam++;
+            normal_random++;
         }
 
-        switch (randam_num)
+        switch (random_num)
         {
         case SMALL_SIZE:
             if (normal_enemy_num[SMALL_SIZE] < normal_enemy_limit_num)
             {
-                randam_scale = 2;
+                random_scale = 2;
                 normal_enemy_num[SMALL_SIZE]++;
                  break;
             }
         case MEDIUM_SIZE:
             if (normal_enemy_num[MEDIUM_SIZE] < normal_enemy_limit_num)
             {
-                randam_scale = 3;
+                random_scale = 3;
                 normal_enemy_num[MEDIUM_SIZE]++;
                 break;
             }
         case LARGE_SIZE:
             if (normal_enemy_num[LARGE_SIZE] < normal_enemy_limit_num)
             {
-                randam_scale = 4;
+                random_scale = 4;
                 normal_enemy_num[LARGE_SIZE]++;
                 break;
             }
         default:
-            randam_scale = 1;
+            random_scale = 1;
             break;
         }
 
@@ -175,53 +153,42 @@ void Enemy_Arrangement::randam_scaling(int Arrangement_num)
 
     if (Enemy::ENEMYTAG::BOMB == Arrangement_num)
     {
-        if (bomb_randam == true)
+        if (bomb_random == true)
         {
-            randam_num = rand() % 3;
-            bomb_randam = false;
+            random_num = rand() % 3;
+            bomb_random = false;
         }
         else
         {
-            randam_num = -1;
-            bomb_randam = true;
+            random_num = -1;
+            bomb_random = true;
         }
 
-        /*if (bomb_randam >= 2)
-        {
-            randam_num = rand() % 3;
-            bomb_randam = 0;
-        }
-        else
-        {
-            randam_num = -1;
-            bomb_randam++;
-        }*/
-
-        switch (randam_num)
+        switch (random_num)
         {
         case SMALL_SIZE:
             if (bomb_enemy_num[SMALL_SIZE] < bomb_enemy_limit_num)
             {
-                randam_scale = 2;
+                random_scale = 2;
                 bomb_enemy_num[SMALL_SIZE]++;
                 break;
             }
         case MEDIUM_SIZE:
             if (bomb_enemy_num[MEDIUM_SIZE] < bomb_enemy_limit_num)
             {
-                randam_scale = 3;
+                random_scale = 3;
                 bomb_enemy_num[MEDIUM_SIZE]++;
                 break;
             }
         case LARGE_SIZE:
             if (bomb_enemy_num[LARGE_SIZE] < bomb_enemy_limit_num)
             {
-                randam_scale = 4;
+                random_scale = 4;
                 bomb_enemy_num[LARGE_SIZE]++;
                 break;
             }
         default:
-            randam_scale = 1;
+            random_scale = 1;
             break;
         }
     }

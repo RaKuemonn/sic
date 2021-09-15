@@ -14,10 +14,6 @@ void ScaleManager::Update()
     // Updateだけど更新しているわけではなく...
     // スケールごとのイベントを管理している
 
-    constexpr int phase_size = 8;
-
-    static bool did[phase_size] = { };
-
     for (int i = 0; i < phase_size; ++i)
     {
         if (total_scale_value > 10.0f + 5.0f * i && did[i] == false)

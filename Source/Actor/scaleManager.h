@@ -12,6 +12,11 @@ public:
     ScaleManager(DirectX::XMFLOAT3* scale_) : p_scale(scale_)
     {
         CalculateTotalScaleValue();
+
+        for (int i = 0; i < phase_size; ++i)
+        {
+            did[i] = false;
+        }
     };
     ~ScaleManager(){}
 
@@ -50,4 +55,8 @@ private:
 private:
     DirectX::XMFLOAT3* p_scale = nullptr;
     float total_scale_value = 0.0f;
+
+
+    static constexpr int phase_size = 8;
+    bool did[phase_size] = {};
 };

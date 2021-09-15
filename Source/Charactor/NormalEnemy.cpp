@@ -12,21 +12,7 @@ NormalEnemy::NormalEnemy()
 	// 幅、高さ設定
 	height = 2.0f;
 
-	// 吸い込み用のパラメータ設定
-	{
-
-		float total_scale_value = (scale.x + scale.y + scale.z);
-
-		// 当たり判定の半径
-		radius = total_scale_value / 3;
-
-		// 吸い込めるようになる最低限のスケール
-		par.enough_total_scale_value = total_scale_value * 0.87f;
-
-		// 消化できるようになる最低限のスケール
-		// ※ありえない数値を入れておく
-		par.can_be_digestion_total_scale_value = FLT_MAX;
-	}
+	
 }
 
 NormalEnemy::~NormalEnemy()
@@ -68,4 +54,22 @@ DirectX::XMFLOAT3 NormalEnemy::inhaled()
 	default:
 		break;
 	}
+}
+
+
+void NormalEnemy::SetInhaleParameter()
+// 吸い込み用のパラメータ設定
+{
+
+	float total_scale_value = (scale.x + scale.y + scale.z);
+
+	// 当たり判定の半径
+	radius = total_scale_value / 3;
+
+	// 吸い込めるようになる最低限のスケール
+	par.enough_total_scale_value = total_scale_value * 0.87f;
+
+	// 消化できるようになる最低限のスケール
+	// ※ありえない数値を入れておく
+	par.can_be_digestion_total_scale_value = FLT_MAX;
 }

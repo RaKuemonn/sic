@@ -19,7 +19,7 @@ void Enemy::UpdateVelocity(float elapsedTime, int kind)
 
 	UpdateVerticalVelocity(elapsedFrame, kind);
 
-	UpdateVerticalMove(elapsedTime);
+	UpdateVerticalMove(elapsedTime, kind);
 
 
 	if (Is_inhaling == false) return;
