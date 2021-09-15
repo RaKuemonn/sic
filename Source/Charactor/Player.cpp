@@ -28,6 +28,10 @@ Player::Player()
 	Audio& audio2 = Audio::Instance();
 	Hit = audio2.LoadAudioSource("Data/Audio/Hit.wav");*/
 
+
+	UpdateTransform();							// オブジェクト行列を更新
+	model->UpdateTransform(transform);			// モデル行列更新
+
 }
 
 // デストラクタ
