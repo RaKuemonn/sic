@@ -16,7 +16,7 @@ void ScaleManager::Update()
 
     for (int i = 0; i < phase_size; ++i)
     {
-        if (total_scale_value > 10.0f + 5.0f * i && did[i] == false)
+        if (total_scale_value > 6.0f + 5.0f * i && did[i] == false)
         {
             CameraController::Instance()->SetRange(35.0f + 15.0f * i);
             GameSystem::Instance().AddScore(bonus_score * (i + 1));

@@ -120,7 +120,8 @@ void Character::UpdateVerticalMove(float elapsedTime, int kind)
     position.y += velocity.y * elapsedTime;
 
     float offset = 0.0f;
-    if (kind > 0) offset = scale.y * 0.3f;
+    if (kind == 0) offset = scale.y * 2.3f;
+    if (kind > 0) offset = -scale.y * 0.3f;
 
     foot_pos.y = position.y - scale.y - offset;
 
@@ -128,7 +129,7 @@ void Character::UpdateVerticalMove(float elapsedTime, int kind)
     if (foot_pos.y < 0.0f)
     {
         foot_pos.y = 0.0f;
-        position.y = scale.y - offset;
+        position.y = scale.y + offset;
 
         velocity.y = 0.0f;
 

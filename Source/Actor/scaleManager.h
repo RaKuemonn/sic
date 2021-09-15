@@ -49,7 +49,7 @@ private:
     }
     void CalculateTotalScaleValue()
     {
-        total_scale_value = (*p_scale).x + (*p_scale).y + (*p_scale).z;
+        total_scale_value = (*p_scale).x + (*p_scale).y + (*p_scale).z + 1.5f;
     }
 
 private:
