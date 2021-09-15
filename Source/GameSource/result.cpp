@@ -96,7 +96,7 @@ void Result::SpriteRender(ID3D11DeviceContext* dc)
 		if (select_timer >> 5 & 0x01)
 		{
 			spr_retry->Render2(dc,
-				screenWidth / 2 - spr_retryWidth / 2, screenHeight - spr_retryHeight * 3,						// 表示位置
+				0, 0,						// 表示位置
 				1.0f, 1.0f,									// スケール
 				0, 0,										// 画像切り抜き位置
 				spr_retryWidth, spr_retryHeight,				// 画像切り抜きサイズ
@@ -108,7 +108,7 @@ void Result::SpriteRender(ID3D11DeviceContext* dc)
 	else
 	{
 		spr_retry->Render2(dc,
-			screenWidth / 2 - spr_retryWidth / 2, screenHeight - spr_retryHeight * 3,						// 表示位置
+			0, 0,						// 表示位置
 			1.0f, 1.0f,									// スケール
 			0, 0,										// 画像切り抜き位置
 			spr_retryWidth, spr_retryHeight,				// 画像切り抜きサイズ
@@ -122,7 +122,7 @@ void Result::SpriteRender(ID3D11DeviceContext* dc)
 		if (select_timer >> 5 & 0x01)
 		{
 			spr_end->Render2(dc,
-				screenWidth / 2 - spr_endWidth / 2, screenHeight - spr_endHeight * 1.75f,						// 表示位置
+				0, 0,						// 表示位置
 				1.0f, 1.0f,									// スケール
 				0, 0,										// 画像切り抜き位置
 				spr_endWidth, spr_endHeight,				// 画像切り抜きサイズ
@@ -134,7 +134,7 @@ void Result::SpriteRender(ID3D11DeviceContext* dc)
 	else
 	{
 		spr_end->Render2(dc,
-			screenWidth / 2 - spr_endWidth / 2, screenHeight - spr_endHeight * 1.75f,						// 表示位置
+			0, 0,						// 表示位置
 			1.0f, 1.0f,									// スケール
 			0, 0,										// 画像切り抜き位置
 			spr_endWidth, spr_endHeight,				// 画像切り抜きサイズ
@@ -172,9 +172,9 @@ void Result::Set()
 
 void Result::Load()
 {
-	spr_class = std::make_unique<Sprite>("Data/Sprite/~級.png");
-	spr_retry = std::make_unique<Sprite>("Data/Sprite/retry.png");
-	spr_end = std::make_unique<Sprite>("Data/Sprite/title.png");
+	spr_class = std::make_unique<Sprite>("Data/Sprite/あなたは～です。＆スコア＆ランキング（リザルト）.png");
+	spr_retry = std::make_unique<Sprite>("Data/Sprite/リトライ（リザルト）.png");
+	spr_end = std::make_unique<Sprite>("Data/Sprite/やめる（リザルト）.png");
 
 
 	black_band = std::make_unique<Sprite>();

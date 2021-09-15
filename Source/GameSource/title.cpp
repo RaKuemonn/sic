@@ -112,7 +112,7 @@ void Title::SpriteRender(ID3D11DeviceContext* dc)
 			if (select_timer >> 5 & 0x01)
 			{
 				spr_play->Render2(dc,
-					screenWidth / 2 - spr_playWidth / 2, screenHeight - spr_playHeight * 3,						// 表示位置
+					0, 0,						// 表示位置
 					1.0f, 1.0f,									// スケール
 					0, 0,										// 画像切り抜き位置
 					spr_playWidth, spr_playHeight,				// 画像切り抜きサイズ
@@ -124,7 +124,7 @@ void Title::SpriteRender(ID3D11DeviceContext* dc)
 		else
 		{
 			spr_play->Render2(dc,
-				screenWidth / 2 - spr_playWidth / 2, screenHeight - spr_playHeight * 3,						// 表示位置
+				0, 0,						// 表示位置
 				1.0f, 1.0f,									// スケール
 				0, 0,										// 画像切り抜き位置
 				spr_playWidth, spr_playHeight,				// 画像切り抜きサイズ
@@ -138,7 +138,7 @@ void Title::SpriteRender(ID3D11DeviceContext* dc)
 			if (select_timer >> 5 & 0x01)
 			{
 				spr_end->Render2(dc,
-					screenWidth / 2 - spr_endWidth / 2, screenHeight - spr_endHeight * 1.75f,						// 表示位置
+					0, 0,						// 表示位置
 					1.0f, 1.0f,									// スケール
 					0, 0,										// 画像切り抜き位置
 					spr_endWidth, spr_endHeight,				// 画像切り抜きサイズ
@@ -150,7 +150,7 @@ void Title::SpriteRender(ID3D11DeviceContext* dc)
 		else
 		{
 			spr_end->Render2(dc,
-				screenWidth / 2 - spr_endWidth / 2, screenHeight - spr_endHeight * 1.75f,						// 表示位置
+				0, 0,						// 表示位置
 				1.0f, 1.0f,									// スケール
 				0, 0,										// 画像切り抜き位置
 				spr_endWidth, spr_endHeight,				// 画像切り抜きサイズ
@@ -252,11 +252,11 @@ void Title::Set()
 void Title::Load()
 {
 	spr_title_logo		= std::make_unique<Sprite>("Data/Sprite/タイトルロゴ.jpg");
-	spr_play			= std::make_unique<Sprite>("Data/Sprite/play.png");
-	spr_end 			= std::make_unique<Sprite>("Data/Sprite/title.png");
+	spr_play			= std::make_unique<Sprite>("Data/Sprite/スタート（タイトル）.png");
+	spr_end 			= std::make_unique<Sprite>("Data/Sprite/やめる（タイトル）.png");
 	spr_font			= std::make_unique<Sprite>("Data/Font/font2_a.png");
-	spr_Tutorial_moji	= std::make_unique<Sprite>("Data/Sprite/Tutorial_moji.png");
-	spr_Game_moji		= std::make_unique<Sprite>("Data/Sprite/Game_moji.png");
+	spr_Tutorial_moji	= std::make_unique<Sprite>("Data/Sprite/チュートリアル（チュートリアルorゲーム）.png");
+	spr_Game_moji		= std::make_unique<Sprite>("Data/Sprite/ゲーム（チュートリアルorゲーム）.png");
 }
 
 
