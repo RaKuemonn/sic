@@ -35,6 +35,7 @@ private:
     std::unique_ptr<Sprite> spr_class = nullptr;
     std::unique_ptr<Sprite> spr_retry = nullptr;
     std::unique_ptr<Sprite> spr_end = nullptr;
+    std::unique_ptr<Sprite> spr_font = nullptr;
 
     int selecting = 0;
     int select_timer = 0;

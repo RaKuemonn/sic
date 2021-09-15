@@ -43,7 +43,7 @@ void Game::Update(float elapsedTime)
 
 	float average_scale_value = player->GetScaleManager()->TotalScaleValue() / 3 /* 3ŽŸŒ³ x,y,z */;
 	DirectX::XMFLOAT3 player_pos = player->GetPosition();
-	CameraController::Instance()->SetTarget(float3SUM({player_pos.x, player_pos.y + average_scale_value + average_scale_value * 2.0f, player_pos.z}, float3Scaling(player->GetFront(), average_scale_value + average_scale_value * 2.0f)));
+	CameraController::Instance()->SetTarget(float3SUM({player_pos.x, player_pos.y + average_scale_value + average_scale_value * 0.5f, player_pos.z}, float3Scaling(player->GetFront(), average_scale_value + average_scale_value * 2.0f)));
 	CameraController::Instance()->Update(elapsedTime);
 
 

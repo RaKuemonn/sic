@@ -153,6 +153,37 @@ void Result::SpriteRender(ID3D11DeviceContext* dc)
 	}
 
 
+	if (GameSystem::Instance().DataRanking().Size() <= 0) return;
+
+
+	for (int i = 0; i < GameSystem::Instance().DataRanking().Size(); ++i)
+	{
+		constexpr DirectX::XMFLOAT2 scale = { 0.6f, 0.6f };
+
+		//　1文字の幅と高さを計算
+		float sw = static_cast<float>(spr_font->GetTextureWidth() / 10);
+		float sh = static_cast<float>(spr_font->GetTextureHeight());
+
+		// 現在の文字位置(相対位置)
+		float carriage = 0;
+
+		// 数値を文字に変換
+		std::string str_number = std::to_string(static_cast<int>(GameSystem::Instance().DataRanking().data_array.at(i)));
+
+		DirectX::XMFLOAT4 color = { 1,1,1,1 };
+
+		// 一文字づつRender()する
+		for (const char c : str_number)
+		{
+			//文字を表示。アスキーコードの位置にある文字位置を切り抜いて表示
+			spr_font->Render2(dc, { 425.0f + carriage, 150.0f + 150 * i }, { scale.x, scale.y }, { sw * (c & 0x0F), sh }, { sw, sh }, { sw * 0.5f, sh * 0.5f }, 0, { color.x, color.y, color.z, color.w });
+			//文字位置を幅分ずらす
+			carriage += sw * scale.x;
+		}
+	}
+
+
+
 
 	// 黒帯
 	constexpr float scale = 300.0f;
@@ -185,6 +216,7 @@ void Result::Load()
 	spr_class = std::make_unique<Sprite>("Data/Sprite/あなたは～です。＆スコア＆ランキング（リザルト）.png");
 	spr_retry = std::make_unique<Sprite>("Data/Sprite/リトライ（リザルト）.png");
 	spr_end = std::make_unique<Sprite>("Data/Sprite/やめる（リザルト）.png");
+	spr_font = std::make_unique<Sprite>("Data/Sprite/数字.png");
 
 
 	black_band = std::make_unique<Sprite>();
