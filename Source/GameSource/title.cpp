@@ -251,7 +251,7 @@ void Title::Set()
 
 void Title::Load()
 {
-	spr_title_logo		= std::make_unique<Sprite>("Data/Sprite/タイトルロゴ.jpg");
+	spr_title_logo		= std::make_unique<Sprite>("Data/Sprite/タイトルロゴ付き背景画像.png");
 	spr_play			= std::make_unique<Sprite>("Data/Sprite/スタート（タイトル）.png");
 	spr_end 			= std::make_unique<Sprite>("Data/Sprite/やめる（タイトル）.png");
 	spr_font			= std::make_unique<Sprite>("Data/Font/font2_a.png");

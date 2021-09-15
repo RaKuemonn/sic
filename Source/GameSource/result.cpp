@@ -82,6 +82,15 @@ void Result::SpriteRender(ID3D11DeviceContext* dc)
 	float spr_endWidth = CAST_F(spr_end->GetTextureWidth());
 	float spr_endHeight = CAST_F(spr_end->GetTextureHeight());
 
+	spr_back->Render2(dc,
+		0, 0,						// 表示位置
+		1.0f, 1.0f,									// スケール
+		0, 0,										// 画像切り抜き位置
+		spr_classWidth, spr_classHeight,				// 画像切り抜きサイズ
+		0, 0,	// 画像基準点
+		angle,										// 角度
+		1, 1, 1, 1);								// 色情報(r,g,b,a)
+
 	spr_class->Render2(dc,
 		0, 0,						// 表示位置
 		1.0f, 1.0f,									// スケール
@@ -172,6 +181,7 @@ void Result::Set()
 
 void Result::Load()
 {
+	spr_back = std::make_unique<Sprite>("Data/Sprite/タイトルロゴなし背景画像（リザルト）.png");
 	spr_class = std::make_unique<Sprite>("Data/Sprite/あなたは～です。＆スコア＆ランキング（リザルト）.png");
 	spr_retry = std::make_unique<Sprite>("Data/Sprite/リトライ（リザルト）.png");
 	spr_end = std::make_unique<Sprite>("Data/Sprite/やめる（リザルト）.png");

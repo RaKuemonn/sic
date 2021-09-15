@@ -31,6 +31,7 @@ private:
 
 private:
 
+    std::unique_ptr<Sprite> spr_back = nullptr;
     std::unique_ptr<Sprite> spr_class = nullptr;
     std::unique_ptr<Sprite> spr_retry = nullptr;
     std::unique_ptr<Sprite> spr_end = nullptr;
