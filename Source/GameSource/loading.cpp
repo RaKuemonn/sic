@@ -20,7 +20,7 @@ void Loading::Update(float elapsedTime)
 
 	// TODO: 読み込み処理
 
-	angle += elapsedTime * 600.0f;/* TEST: 後で消す */
+	angle += elapsedTime * 200.0f;/* TEST: 後で消す */
 
 	if (scene->IsSceneLoaded())
 	{
@@ -90,7 +90,7 @@ void Loading::Set()
 void Loading::Load()
 {
 	spr_back = std::make_unique<Sprite>("Data/Sprite/タイトルロゴなし背景画像（リザルト）.png");
-	spr_icon = new Sprite("Data/Sprite/LoadingIcon.png");
+	spr_icon = new Sprite("Data/Sprite/ローディング.png");
 }
 
 
