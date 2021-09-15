@@ -56,6 +56,9 @@ private:
     bool explaining = true; // à–¾’†
     int explanation = 0;
 
+    bool ws[2] = { false };
+    bool adik[4] = { false };
+
     enum tutorial_contents 
     {
         PLAYER_MOVE,            // ƒvƒŒƒCƒ„[ˆÚ“®‘€ì

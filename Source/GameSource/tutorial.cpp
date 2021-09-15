@@ -18,10 +18,6 @@
 void Tutorial::Update(float elapsedTime)
 {
 
-	// シーン変更
-	//ChangeNextScene(new Game(), GamePad::BTN_SPACE);
-
-
 	//	↓	　入力処理とかいろいろ書く　	↓	　//
 
 	// TODO: チュートリアル処理
@@ -30,8 +26,6 @@ void Tutorial::Update(float elapsedTime)
 
 	if (explaining && explanation < 18 && gamePad.GetButtonDown() & GamePad::BTN_SPACE)
 		explanation++;
-
-	//if (gamePad.GetButtonDown() & GamePad::BTN_SPACE) explaining = false;
 
 	constexpr DirectX::XMFLOAT4X4 cube_trandform = { 1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1 };
 	mdl_sky->UpdateTransform(cube_trandform);
@@ -52,15 +46,12 @@ void Tutorial::Update(float elapsedTime)
 	if (player->GetPosition().x < -15.0f) player->SetPosition({ 15.0f, player->GetPosition().y, player->GetPosition().z });
 	if (player->GetPosition().z < -15.0f) player->SetPosition({ player->GetPosition().x, player->GetPosition().y, -15.0f });
 
-	
-
 	switch (tutorial_state)
 	{
 	case PLAYER_MOVE:
 		if (explanation == 4)
 		{
 			explaining = false;
-			static bool ws[2] = { false };
 			if (gamePad.GetButtonDown() & GamePad::BTN_UP)		ws[0] = true;
 			if (gamePad.GetButtonDown() & GamePad::BTN_DOWN)	ws[1] = true;
 			if (ws[0] && ws[1]) End_of_explanation(); // クリア条件を満たしたら次のstateへ
@@ -70,7 +61,6 @@ void Tutorial::Update(float elapsedTime)
 		if (explanation == 7)
 		{
 			explaining = false;
-			static bool adik[4] = { false };
 			if (gamePad.GetButtonDown() & GamePad::BTN_LEFT)	adik[0] = true;
 			if (gamePad.GetButtonDown() & GamePad::BTN_RIGHT)	adik[1] = true;
 			if (gamePad.GetButtonDown() & GamePad::BTN_I)		adik[2] = true;
@@ -83,13 +73,6 @@ void Tutorial::Update(float elapsedTime)
 			}
 		}
 		break;
-	/*case PLAYER_AND_CAMERA_MOVE:
-		if (explaining == false)
-		{
-			End_of_explanation();
-			enemy_Arrangement->enemy_produce(Enemy_Arrangement::csv_file_num::TUTORIAL_NORMAL);
-		}
-		break;*/
 	case MERIT:
 		if (explanation == 11)
 		{
@@ -116,12 +99,8 @@ void Tutorial::Update(float elapsedTime)
 		}
 		break;
 	case END:
-		//ChangeNextScene(new Game());
-		//if (explanation == 17)
-		{
-			//explaining = false;
-			ChangeNextScene(new Game(), gamePad.GetButtonDown() & GamePad::BTN_SPACE); // 急にシーンが変わると不自然なので任意のタイミングで変える
-		}
+		// シーン変更
+		ChangeNextScene(new Game(), gamePad.GetButtonDown() & GamePad::BTN_SPACE); // 急にシーンが変わると不自然なので任意のタイミングで変える
 		break;
 	default:
 		break;
@@ -201,6 +180,16 @@ void Tutorial::DeInit()
 
 	// 説明画像の初期化
 	explanation = 0;
+
+	for (int i = 0; i < 2; i++)
+	{
+		ws[i] = false;
+	}
+	
+	for (int i = 0; i < 4; i++)
+	{
+		adik[i] = false;
+	}
 }
 
 
@@ -277,7 +266,8 @@ void Tutorial::CameraSet()
 void Tutorial::End_of_explanation()
 {
 	tutorial_state++;
-	if(explanation < 18) explanation++;
+	CameraSet();
 	player->SetPosition(DirectX::XMFLOAT3(0, foot_length, 0));
+	if(explanation < 18) explanation++;
 	explaining = true;
 }
