@@ -252,7 +252,7 @@ void Player::UpdateAngleX(float elapsedTime)
 {
 	if (inhale->IsDuringInhale())
 	{
-		angle.x = Lerq(angle.x, 0.2f, 0.9f * elapsedTime);
+		angle.x = Lerq(angle.x, 0.4f, 0.9f * elapsedTime);
 	}
 
 	else

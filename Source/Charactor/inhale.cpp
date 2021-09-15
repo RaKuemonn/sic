@@ -59,7 +59,7 @@ void Inhale::UpdateNozzlePosition()
 	// ノズルが本体からどれぐらい先にあるのかを計算
 	float scale_factor = player->GetScaleManager()->GetScaleZ();
 	DirectX::XMFLOAT3 pos = player->GetPosition();
-	nozzle.position = float3SUM({ pos.x, pos.y - average_scale_value * 0.7f, pos.z }, float3Scaling(player->GetFront(), scale_factor + scale_factor * 8.0f));
+	nozzle.position = float3SUM({ pos.x, pos.y - average_scale_value * 0.7f, pos.z }, float3Scaling(player->GetFront(), scale_factor + scale_factor * 3.5f));
 
 	// 当たり判定の大きさも変更する
 	radius = average_scale_value;
