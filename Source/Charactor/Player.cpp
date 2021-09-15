@@ -13,10 +13,10 @@
 // コンストラクタ
 Player::Player()
 {
-	model = new Model("Data/Model/Test/test_chara.mdl");
+	model = new Model("Data/Model/hugu.mdl");
 
 	// モデルが大きいのでスケーリング
-	scale.x = scale.y = scale.z = 1.0f;
+	scale.x = scale.y = scale.z = 0.5f;
 	scale_manager = new ScaleManager(&scale);
 
 	inhale = new Inhale(this);
