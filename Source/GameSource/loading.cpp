@@ -47,6 +47,15 @@ void Loading::SpriteRender(ID3D11DeviceContext* dc)
 	float positionX = screenWidth - textureWidth;
 	float positionY = screenHeight - textureHeight;
 
+	spr_back->Render2(dc,
+		0, 0,						// 表示位置
+		1.0f, 1.0f,									// スケール
+		0, 0,										// 画像切り抜き位置
+		1920, 1080,				// 画像切り抜きサイズ
+		0, 0,	// 画像基準点
+		0,										// 角度
+		1, 1, 1, 1);								// 色情報(r,g,b,a)
+
 	spr_icon->Render2(dc,
 		positionX, positionY,						// 表示位置
 		1.0f, 1.0f,									// スケール
@@ -80,6 +89,7 @@ void Loading::Set()
 
 void Loading::Load()
 {
+	spr_back = std::make_unique<Sprite>("Data/Sprite/タイトルロゴなし背景画像（リザルト）.png");
 	spr_icon = new Sprite("Data/Sprite/LoadingIcon.png");
 }
 

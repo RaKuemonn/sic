@@ -32,6 +32,7 @@ private:
 private:
     Scene* scene = nullptr;
     Sprite* spr_icon = nullptr;
+    std::unique_ptr<Sprite> spr_back = nullptr;
     float angle = 0.0f;
 
 };
