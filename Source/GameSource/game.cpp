@@ -41,9 +41,9 @@ void Game::Update(float elapsedTime)
 	if (countdown->NowCountDonw() == false && black_band_timer == 0.0f) player->Update(elapsedTime);
 
 
-
+	float average_scale_value = player->GetScaleManager()->TotalScaleValue() / 3 /* 3ŸŒ³ x,y,z */;
 	DirectX::XMFLOAT3 player_pos = player->GetPosition();
-	CameraController::Instance()->SetTarget(float3SUM({player_pos.x, player_pos.y + 5.0f, player_pos.z}, float3Scaling(player->GetFront(), 5.0f)));
+	CameraController::Instance()->SetTarget(float3SUM({player_pos.x, player_pos.y + average_scale_value + average_scale_value * 2.0f, player_pos.z}, float3Scaling(player->GetFront(), average_scale_value + average_scale_value * 2.0f)));
 	CameraController::Instance()->Update(elapsedTime);
 
 
@@ -179,7 +179,7 @@ void Game::CameraSet()
 void Game::ChangeScene(float elapsedTime)
 {
 #if _DEBUG
-	ChangeNextScene(new Result(), GamePad::BTN_SPACE, false);
+	ChangeNextScene(new Result(), GamePad::BTN_A, false);
 #endif
 
 	if (GameSystem::Instance().NowTime() > 0.0f) return;

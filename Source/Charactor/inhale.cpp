@@ -45,7 +45,7 @@ void Inhale::InputInhale()
 {
     is_during_inhale = false;
 
-	if (Input::Instance().GetGamePad().GetButton() & GamePad::BTN_A /*Z key*/)
+	if (Input::Instance().GetGamePad().GetButton() & GamePad::BTN_SPACE /*Z key*/)
 	{
 		is_during_inhale = true;
 	}
