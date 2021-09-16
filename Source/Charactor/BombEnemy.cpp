@@ -4,7 +4,7 @@
 
 BombEnemy::BombEnemy()
 {
-	model = new Model("Data/Model/Test/test_enemy2.mdl");
+	model = new Model("Data/Model/kai_bakudan.mdl");
 
 	enemy_tag = BOMB;
 

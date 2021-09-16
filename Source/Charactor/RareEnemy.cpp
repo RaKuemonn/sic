@@ -3,7 +3,7 @@
 
 RareEnemy::RareEnemy()
 {
-	model = new Model("Data/Model/Test/test_enemy3.mdl");
+	model = new Model("Data/Model/kai_rare.mdl");
 
 	enemy_tag = RARE;
 

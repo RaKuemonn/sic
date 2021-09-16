@@ -3,7 +3,7 @@
 
 NormalEnemy::NormalEnemy()
 {
-	model = new Model("Data/Model/Test/test_enemy1.mdl");
+	model = new Model("Data/Model/kai_plus.mdl");
 
 	enemy_tag = NORMAL;
 
