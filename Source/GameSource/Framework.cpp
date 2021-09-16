@@ -9,6 +9,7 @@
 #include "Input/Input.h"
 #include "Graphics/ResourceManager.h"
 #include "EffectManager.h"
+#include "audioManager.h"
 
 
 
@@ -31,12 +32,15 @@ Framework::Framework(HWND hWnd)
 	// 使用エフェクトの生成＆登録
 	EffectManager::Instance()->Initialize();
 	
+	AudioManager::Instance().Init();
+
 	sceneManager = std::make_unique<SceneManager>();
 }
 
 
 Framework::~Framework()
 {
+	AudioManager::Instance().Deinit();
 	EffectManager::Instance()->Finalize();
 }
 

@@ -246,6 +246,9 @@
     <ClInclude Include="Source\System\coutdown.h">
       <Filter>Source\System</Filter>
     </ClInclude>
+    <ClInclude Include="Source\System\audioManager.h">
+      <Filter>Source\System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\imgui\imgui.cpp">
@@ -411,6 +414,9 @@
       <Filter>Source\Charater</Filter>
     </ClCompile>
     <ClCompile Include="Source\System\countdown.cpp">
+      <Filter>Source\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\System\audioManager.cpp">
       <Filter>Source\System</Filter>
     </ClCompile>
   </ItemGroup>
