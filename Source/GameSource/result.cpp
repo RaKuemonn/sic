@@ -183,11 +183,15 @@ void Result::SpriteRender(ID3D11DeviceContext* dc)
 
 		DirectX::XMFLOAT4 color = { 1,1,1,1 };
 
+		DirectX::XMFLOAT2 pos = { 350.0f ,690.0f };
+
+		constexpr float mozikan = 150.0f;
+
 		// 一文字づつRender()する
 		for (const char c : str_number)
 		{
 			//文字を表示。アスキーコードの位置にある文字位置を切り抜いて表示
-			spr_font->Render2(dc, { 425.0f + carriage, 150.0f + 150 * i }, { scale.x, scale.y }, { sw * (c & 0x0F), sh }, { sw, sh }, { sw * 0.5f, sh * 0.5f }, 0, { color.x, color.y, color.z, color.w });
+			spr_font->Render2(dc, { pos.x + carriage, pos.y + mozikan * i }, { scale.x, scale.y }, { sw * (c & 0x0F), sh }, { sw, sh }, { sw * 0.5f, sh * 0.5f }, 0, { color.x, color.y, color.z, color.w });
 			//文字位置を幅分ずらす
 			carriage += sw * scale.x;
 		}
