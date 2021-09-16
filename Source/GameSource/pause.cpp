@@ -27,6 +27,8 @@ bool Pause::Update(float elapsedTime)
 	if (Input::Instance().GetGamePad().GetButtonDown() & GamePad::BTN_R)
 	{
 		now_pause = !now_pause;
+
+		// TODO: コマンド入力音
 	}
 
 	if (now_pause == true)
@@ -34,9 +36,18 @@ bool Pause::Update(float elapsedTime)
 		GamePad& gamePad = Input::Instance().GetGamePad();
 
 		if (selecting == CONTINUE)
-			if (Input::Instance().GetGamePad().GetButtonDown() & GamePad::BTN_SPACE) now_pause = false;
+			if (Input::Instance().GetGamePad().GetButtonDown() & GamePad::BTN_SPACE)
+			{
+				now_pause = false;
+				// TODO: コマンド入力音
+			}
+
+
 		if (selecting == END)
-			scene->ChangeNextScene(new Title(), GamePad::BTN_SPACE);
+			if (Input::Instance().GetGamePad().GetButtonDown() & GamePad::BTN_SPACE)
+			{
+				scene->ChangeNextScene(new Title());
+			}
 
 		if (gamePad.GetButtonDown() & GamePad::BTN_UP)
 		{
@@ -44,6 +55,8 @@ bool Pause::Update(float elapsedTime)
 
 			if (selecting < 0) selecting = CONTINUE;
 			else select_timer = 0;
+
+			// TODO: コマンド入力音
 		}
 		if (gamePad.GetButtonDown() & GamePad::BTN_DOWN)
 		{
@@ -51,6 +64,8 @@ bool Pause::Update(float elapsedTime)
 
 			if (selecting > 1) selecting = END;
 			else select_timer = 0;
+
+			// TODO: コマンド入力音
 		}
 		if (elapsedTime) select_timer++;
 	}

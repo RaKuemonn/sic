@@ -16,25 +16,35 @@ extern bool game_exit;
 void Title::Update(float elapsedTime)
 {
 
-	// "Game"にシーン変更
 	GamePad& gamePad = Input::Instance().GetGamePad();
 
-	if(selecting == TUTORIAL)
-		ChangeNextScene(new Tutorial(), GamePad::BTN_SPACE);
-	if(selecting == GAME)
-		ChangeNextScene(new Game(), GamePad::BTN_SPACE);
-	
-	if (selecting == START)
+	// 決定キー
+	if (gamePad.GetButtonDown() & GamePad::BTN_SPACE)
 	{
-		if (gamePad.GetButtonDown() & GamePad::BTN_SPACE)
+		if (selecting == TUTORIAL)
+		{
+			ChangeNextScene(new Tutorial());
+		}
+
+		if (selecting == GAME)
+		{
+			ChangeNextScene(new Game());
+		}
+
+		if (selecting == START)
 		{
 			game_mode_select = true;
 			selecting = TUTORIAL;
 		}
+
+		if (selecting == END) game_exit = true;
+
+
+		// TODO: 選択音
 	}
 
-	if(selecting == END)
-		if (gamePad.GetButtonDown() & GamePad::BTN_SPACE) game_exit = true;
+
+
 
 	//	↓	　入力処理とかいろいろ書く　	↓	　//
 
@@ -47,12 +57,16 @@ void Title::Update(float elapsedTime)
 		{
 			if (selecting < 0) selecting = START;
 			else select_timer = 0;
+
 		}
 		else
 		{
 			if (selecting < 2) selecting = TUTORIAL;
 			else select_timer = 0;
 		}
+
+
+		// TODO: コマンド入力音
 	}
 	if (gamePad.GetButtonDown() & GamePad::BTN_DOWN)
 	{
@@ -68,6 +82,8 @@ void Title::Update(float elapsedTime)
 			if (selecting > 3) selecting = GAME;
 			else select_timer = 0;
 		}
+
+		// TODO: コマンド入力音
 	}
 	if (elapsedTime) select_timer++;
 

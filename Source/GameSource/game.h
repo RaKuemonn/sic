@@ -41,6 +41,7 @@ private:
     void CameraSet();
     void ChangeScene(float elapsedTime);
     void ClearedSpriteRender(ID3D11DeviceContext* dc);
+    void BGMStart();
 
 private:
     std::unique_ptr<Pause> pause = nullptr;
@@ -53,4 +54,8 @@ private:
     std::unique_ptr<Sprite> black_band = nullptr;
     const float black_band_timer_max = 1.4f;
     float black_band_timer = 0.0f;
+
+    // BGM—p
+    bool bgm_normal = false;
+    bool bgm_caution = false;
 };

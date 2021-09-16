@@ -304,6 +304,12 @@ void Character::UpdateHorizontalMove(float elapsedTime)
                 position.z += wall_vec.z;
             }
 
+            if (wall_hit == false)
+            {
+                // TODO: 壁とかにぶつかった時の音
+            }
+
+            wall_hit = true;
 
         }
 
@@ -343,6 +349,13 @@ void Character::UpdateHorizontalMove(float elapsedTime)
                 position.x += wall_vec.x;
                 position.z += wall_vec.z;
             }
+
+            if (wall_hit == false)
+            {
+                // TODO: 壁とかにぶつかった時の音
+            }
+
+            wall_hit = true;
         }
 
         //壁がなければ
@@ -351,7 +364,12 @@ void Character::UpdateHorizontalMove(float elapsedTime)
             // 通常の位置の更新
             position.x += mx;
             position.z += mz;
+
+            wall_hit = false;
         }
+
+        // TODO: 移動音(掃除機みたいな)
+
     }
 
 }

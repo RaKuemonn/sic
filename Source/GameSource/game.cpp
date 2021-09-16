@@ -38,7 +38,7 @@ void Game::Update(float elapsedTime)
 
 	EnemyManager::Instance().Update(elapsedTime);
 
-	if (countdown->NowCountDonw() == false && black_band_timer == 0.0f) player->Update(elapsedTime);
+	if (countdown->NowCountDown() == false && black_band_timer == 0.0f) player->Update(elapsedTime);
 
 
 	float average_scale_value = player->GetScaleManager()->TotalScaleValue() / 3 /* 3次元 x,y,z */;
@@ -47,7 +47,7 @@ void Game::Update(float elapsedTime)
 	CameraController::Instance()->Update(elapsedTime);
 
 
-	if (countdown->NowCountDonw() == false) GameSystem::Instance().Update(elapsedTime);
+	if (countdown->NowCountDown() == false) GameSystem::Instance().Update(elapsedTime);
 }
 
 
@@ -209,4 +209,22 @@ void Game::ClearedSpriteRender(ID3D11DeviceContext* dc)
 
 	black_band->Render(dc, 0, 0, 1920, scale * pow(black_band_timer, 5), 0, 0, 0, 0, 0, 1, 1, 1, 1);
 	black_band->Render(dc, 0, 1080, 1920, -scale * pow(black_band_timer, 5), 0, 0, 0, 0, 0, 1, 1, 1, 1);
+}
+
+
+void Game::BGMStart()
+{
+	if (bgm_normal == false && countdown->NowCountDown() == false)
+	{
+		bgm_normal = true;
+		// TODO: BGM 通常
+	}
+
+	if (bgm_caution == false && GameSystem::Instance().NowTime() <= 10.0f)
+	{
+		// BGM 通常のストップ
+
+		bgm_caution = true;
+		// TODO: BGM 残り時間少ない時に上からかけるかどうか
+	}
 }

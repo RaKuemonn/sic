@@ -5,6 +5,14 @@
 class Player;
 
 
+enum ENEMYTAG
+{
+	NORMAL,
+	BOMB,
+	RARE,
+};
+
+
 class Enemy : public Character
 {
 public:
@@ -35,10 +43,5 @@ public:
 	bool Is_inhaling = false; // Is_inhaling(‹z“ü’†) = ‹z‚¢‚Ü‚ê‚Ä‚é‚©‚Ç‚¤‚©
 	Player* player = nullptr;
 
-	enum ENEMYTAG
-	{
-		NORMAL,
-		BOMB,
-		RARE,
-	};
+	
 };

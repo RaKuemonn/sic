@@ -95,6 +95,8 @@ void Inhale::Collision()
 			if (player->GetScaleManager()->TotalScaleValue() < enemy->EnoughTotalScaleValue())
 			{
 				KnockBack(player->GetPosition(), enemy->GetPosition());
+				// TODO: •Ç‚Æ‚©‚É‚Ô‚Â‚©‚Á‚½‚Ì‰¹
+
 				continue;
 			}
 
@@ -122,6 +124,24 @@ void Inhale::Collision()
 			GameSystem::Instance().AddScore(static_cast<int>(sum_add_scale * 10.0f));
 			
 			GameSystem::Instance().SetHitStop();
+
+
+			// TODO: ‹z‚¢‚İ‰¹
+
+			if (enemy->enemy_tag == ENEMYTAG::NORMAL)
+			{
+				// Normal‚Ì‹z‚¢‚İ‰¹
+			}
+			if (enemy->enemy_tag == ENEMYTAG::BOMB)
+			{
+				// Bomb‚Ì‹z‚¢‚İ‰¹
+			}
+			if (enemy->enemy_tag == ENEMYTAG::RARE)
+			{
+				// Rare‚Ì‹z‚¢‚İ‰¹
+			}
+
+
 
 			break;
 		}

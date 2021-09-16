@@ -27,9 +27,6 @@ void Tutorial::Update(float elapsedTime)
 	if (explaining && explanation < 18 && gamePad.GetButtonDown() & GamePad::BTN_SPACE)
 		explanation++;
 
-	constexpr DirectX::XMFLOAT4X4 cube_trandform = { 1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1 };
-	mdl_sky->UpdateTransform(cube_trandform);
-
 	StageManager::Instance().Update(elapsedTime);
 
 	// エネミー更新処理
@@ -112,7 +109,6 @@ void Tutorial::ModelRender(ID3D11DeviceContext* dc, Shader* shader)
 {
 	/* 3Dモデルの描画 */
 	StageManager::Instance().ModelRender(dc, shader);
-	shader->Draw(dc, mdl_sky.get());
 
 	player->Render(dc, shader);
 
@@ -199,13 +195,12 @@ void Tutorial::Set()
 
 	CameraSet();
 
-	GameSystem::Instance().GameStart();
+	// TODO: BGM 通常
 }
 
 
 void Tutorial::Load()
 {
-	mdl_sky = std::make_unique<Model>("Data/Model/Test/test_sky.mdl");
 	spr_explanation = std::make_unique<Sprite>("Data/Sprite/チュートリアル説明文2.png");
 	spr_space = std::make_unique<Sprite>("Data/Sprite/space.png");
 	spr_start = std::make_unique<Sprite>("Data/Sprite/スタート（タイトル）.png");
@@ -265,6 +260,8 @@ void Tutorial::CameraSet()
 
 void Tutorial::End_of_explanation()
 {
+	// TODO: チュートリアル項目クリア音
+
 	tutorial_state++;
 	CameraSet();
 	player->SetPosition(DirectX::XMFLOAT3(0, foot_length, 0));

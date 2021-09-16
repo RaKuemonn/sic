@@ -56,7 +56,7 @@ private:
     const float black_band_timer_max = 1.4f;
     float black_band_timer = 0.0f;
     bool did_first = false;
-
+    bool did = false;
 
     // ƒtƒO
     std::unique_ptr<Sprite> spr_hugu_icon = nullptr;

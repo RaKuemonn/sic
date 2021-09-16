@@ -18,7 +18,7 @@ public:
     void SpriteRender(ID3D11DeviceContext* dc, DirectX::XMFLOAT2 pos = {}, DirectX::XMFLOAT2 scale = { 1,1 });
 
 public: // Getä÷êî
-    bool NowCountDonw() { return now_countdown; }
+    bool NowCountDown() { return now_countdown; }
 
 private:
     bool now_countdown = true;

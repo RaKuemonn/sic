@@ -28,6 +28,8 @@ void Result::Update(float elapsedTime)
 
 	if (gamePad.GetButtonDown() & GamePad::BTN_UP)
 	{
+		// TODO: コマンド入力音
+
 		selecting -= 1;  
 
 		if (selecting < 0) selecting = RETRY;
@@ -35,6 +37,8 @@ void Result::Update(float elapsedTime)
 	}
 	if (gamePad.GetButtonDown() & GamePad::BTN_DOWN)
 	{
+		// TODO: コマンド入力音
+
 		selecting += 1;
 
 		if (selecting > 1) selecting = END;
@@ -214,8 +218,12 @@ void Result::Set()
 	GameSystem::Instance().ResultDataSave();
 
 	black_band_timer = 0.0f;
+	did_first = false;
+	did = false;
 
 	SetHuguRank();
+
+	// TODO: リザルト　(音)
 }
 
 
@@ -240,7 +248,6 @@ void Result::ImGui()
 
 void Result::ChangeScene(float elapsedTime)
 {
-	static bool did = false;
 	if (Input::Instance().GetGamePad().GetButtonDown() & GamePad::BTN_SPACE)
 	{
 		did = true;
@@ -284,6 +291,7 @@ void Result::SetHuguRank()
 
 
 	float total_scale_value = GameSystem::Instance().TotalScaleValue();
+
 
 	constexpr float default_start_value = 3.0f;
 

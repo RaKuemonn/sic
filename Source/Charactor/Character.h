@@ -105,6 +105,8 @@ protected:
 		RARE_ENEMY,	// ƒŒƒAƒ‚ƒu
 	};
 
+	bool wall_hit = false;
+
 public:
 	Parameter par;
 };

@@ -40,7 +40,6 @@ private:
     void CameraSet();
 
 private:
-    std::unique_ptr<Model> mdl_sky = nullptr;
     std::unique_ptr<Sprite> spr_explanation = nullptr;
     std::unique_ptr<Sprite> spr_space = nullptr;
     std::unique_ptr<Sprite> spr_start = nullptr;
