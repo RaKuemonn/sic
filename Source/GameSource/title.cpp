@@ -120,6 +120,15 @@ void Title::SpriteRender(ID3D11DeviceContext* dc)
 		angle,										// 角度
 		1, 1, 1, 1);								// 色情報(r,g,b,a)
 
+	spr_space->Render2(dc,
+		0, 0,						// 表示位置
+		1.0f, 1.0f,									// スケール
+		0, 0,										// 画像切り抜き位置
+		title_logoWidth, title_logoHeight,				// 画像切り抜きサイズ
+		0, 0,	// 画像基準点
+		angle,										// 角度
+		1, 1, 1, 1);								// 色情報(r,g,b,a)
+
 
 	if (game_mode_select == false)
 	{
@@ -254,6 +263,7 @@ void Title::Set()
 void Title::Load()
 {
 	spr_title_logo		= std::make_unique<Sprite>("Data/Sprite/タイトルロゴ付き背景画像.png");
+	spr_space			= std::make_unique<Sprite>("Data/Sprite/space（タイトル）.png");
 	spr_play			= std::make_unique<Sprite>("Data/Sprite/スタート（タイトル）.png");
 	spr_end 			= std::make_unique<Sprite>("Data/Sprite/やめる（タイトル）.png");
 	spr_Tutorial_moji	= std::make_unique<Sprite>("Data/Sprite/チュートリアル（チュートリアルorゲーム）.png");

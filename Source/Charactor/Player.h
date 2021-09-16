@@ -34,6 +34,15 @@ public:	// Get関数
 	
 public: // Set関数
 	void AddImpact(const DirectX::XMFLOAT3 impact_);
+	void ResetTransform()
+	{
+		position = { 0, scale.y + scale.y * 1.7f, 0 };
+		angle = {};
+
+
+		UpdateTransform();							// オブジェクト行列を更新
+		model->UpdateTransform(transform);			// モデル行列更新
+	}
 
 private:
 

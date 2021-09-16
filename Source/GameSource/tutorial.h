@@ -34,7 +34,7 @@ public:
 
     void DebugRender()override;
 
-    void End_of_explanation();
+    void End_of_explanation(float elapsedTime);
 
 private:
     void CameraSet();

@@ -51,7 +51,7 @@ void Tutorial::Update(float elapsedTime)
 			explaining = false;
 			if (gamePad.GetButtonDown() & GamePad::BTN_UP)		ws[0] = true;
 			if (gamePad.GetButtonDown() & GamePad::BTN_DOWN)	ws[1] = true;
-			if (ws[0] && ws[1]) End_of_explanation(); // クリア条件を満たしたら次のstateへ
+			if (ws[0] && ws[1]) End_of_explanation(elapsedTime); // クリア条件を満たしたら次のstateへ
 		}
 		break;
 	case CAMERA_MOVE:
@@ -65,7 +65,7 @@ void Tutorial::Update(float elapsedTime)
 			
 			if (adik[0] && adik[1] && adik[2] && adik[3])
 			{
-				End_of_explanation();
+				End_of_explanation(elapsedTime);
 				enemy_Arrangement->enemy_produce(Enemy_Arrangement::csv_file_num::TUTORIAL_NORMAL);
 			}
 		}
@@ -76,7 +76,7 @@ void Tutorial::Update(float elapsedTime)
 			explaining = false;
 			if (EnemyManager::Instance().GetEnemyCount() <= 0)
 			{
-				End_of_explanation();
+				End_of_explanation(elapsedTime);
 				enemy_Arrangement->enemy_produce(Enemy_Arrangement::csv_file_num::TUTORIAL_BOMB);
 			}
 		}
@@ -85,14 +85,14 @@ void Tutorial::Update(float elapsedTime)
 		if (explanation == 15)
 		{
 			explaining = false;
-			if (EnemyManager::Instance().GetEnemyCount() <= 0) End_of_explanation();
+			if (EnemyManager::Instance().GetEnemyCount() <= 0) End_of_explanation(elapsedTime);
 		}
 		break;
 	case SHELL_SIZE:
 		if (explanation == 18)
 		{
 			explaining = false;
-			End_of_explanation();
+			End_of_explanation(elapsedTime);
 		}
 		break;
 	case END:
@@ -207,7 +207,7 @@ void Tutorial::Load()
 
 	// プレイヤー初期化
 	player = new Player();
-	player->SetPosition(DirectX::XMFLOAT3(0, foot_length, 0));
+	player->ResetTransform();
 
 	enemy_Arrangement = new Enemy_Arrangement();
 
@@ -258,13 +258,17 @@ void Tutorial::CameraSet()
 	CameraController::Instance()->SetRange(15.0f);
 }
 
-void Tutorial::End_of_explanation()
+void Tutorial::End_of_explanation(float elapsedTime)
 {
 	// TODO: チュートリアル項目クリア音
 
 	tutorial_state++;
+
+	player->ResetTransform();
+
 	CameraSet();
-	player->SetPosition(DirectX::XMFLOAT3(0, foot_length, 0));
+	
+	
 	if(explanation < 18) explanation++;
 	explaining = true;
 }
