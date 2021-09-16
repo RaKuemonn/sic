@@ -9,6 +9,7 @@
 
 // 追加
 #include "gameSystem.h"
+#include "audioManager.h"
 
 
 
@@ -28,7 +29,8 @@ void Result::Update(float elapsedTime)
 
 	if (gamePad.GetButtonDown() & GamePad::BTN_UP)
 	{
-		// TODO: コマンド入力音
+		AudioManager::Instance().GetAudio(Audio_INDEX::SE_SELECT)->Stop();
+		AudioManager::Instance().GetAudio(Audio_INDEX::SE_SELECT)->Play(false);
 
 		selecting -= 1;  
 
@@ -37,7 +39,8 @@ void Result::Update(float elapsedTime)
 	}
 	if (gamePad.GetButtonDown() & GamePad::BTN_DOWN)
 	{
-		// TODO: コマンド入力音
+		AudioManager::Instance().GetAudio(Audio_INDEX::SE_SELECT)->Stop();
+		AudioManager::Instance().GetAudio(Audio_INDEX::SE_SELECT)->Play(false);
 
 		selecting += 1;
 
@@ -227,7 +230,7 @@ void Result::Set()
 
 	SetHuguRank();
 
-	// TODO: リザルト　(音)
+	AudioManager::Instance().GetAudio(Audio_INDEX::SE_RESULT)->Play(false);
 }
 
 
@@ -266,6 +269,8 @@ void Result::ChangeScene(float elapsedTime)
 	// 黒帯が降りきったら
 	if (black_band_timer >= 1.4f)
 	{
+		AudioManager::Instance().GetAudio(Audio_INDEX::SE_RESULT)->Stop();
+
 		if (selecting == RETRY)
 			ChangeNextScene(new Game(), true);
 

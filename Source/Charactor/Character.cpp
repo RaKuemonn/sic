@@ -2,6 +2,8 @@
 #include "collision.h"
 #include "stageManager.h"
 
+#include "audioManager.h"
+
 
 // 行列更新処理
 void Character::UpdateTransform()
@@ -306,7 +308,8 @@ void Character::UpdateHorizontalMove(float elapsedTime)
 
             if (wall_hit == false)
             {
-                // TODO: 壁とかにぶつかった時の音
+                AudioManager::Instance().GetAudio(Audio_INDEX::SE_WALLHIT)->Stop();
+                AudioManager::Instance().GetAudio(Audio_INDEX::SE_WALLHIT)->Play(false);
             }
 
             wall_hit = true;
@@ -352,7 +355,8 @@ void Character::UpdateHorizontalMove(float elapsedTime)
 
             if (wall_hit == false)
             {
-                // TODO: 壁とかにぶつかった時の音
+                AudioManager::Instance().GetAudio(Audio_INDEX::SE_WALLHIT)->Stop();
+                AudioManager::Instance().GetAudio(Audio_INDEX::SE_WALLHIT)->Play(false);
             }
 
             wall_hit = true;
@@ -368,7 +372,6 @@ void Character::UpdateHorizontalMove(float elapsedTime)
             wall_hit = false;
         }
 
-        // TODO: 移動音(掃除機みたいな)
 
     }
 

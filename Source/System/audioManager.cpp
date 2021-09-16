@@ -4,8 +4,8 @@
 
 void AudioManager::Init()
 {
-    bgm_normal       = Audio::Instance().LoadAudioSource("Data/Audio/BGM/ラストスパート.wav");
-    bgm_speed        = Audio::Instance().LoadAudioSource("Data/Audio/BGM/通常.wav");
+    bgm_normal       = Audio::Instance().LoadAudioSource("Data/Audio/BGM/通常.wav");
+    bgm_speed        = Audio::Instance().LoadAudioSource("Data/Audio/BGM/ラストスパート.wav");
     se_select        = Audio::Instance().LoadAudioSource("Data/Audio/SE/選択.wav");
     se_enter         = Audio::Instance().LoadAudioSource("Data/Audio/SE/コマンド.wav");
     se_success       = Audio::Instance().LoadAudioSource("Data/Audio/SE/チュートリアル成功.wav");

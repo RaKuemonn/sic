@@ -9,6 +9,7 @@
 
 // 追加
 #include "gameSystem.h"
+#include "audioManager.h"
 
 extern bool game_exit;
 
@@ -40,7 +41,8 @@ void Title::Update(float elapsedTime)
 		if (selecting == END) game_exit = true;
 
 
-		// TODO: 選択音
+		AudioManager::Instance().GetAudio(Audio_INDEX::SE_ENTER)->Stop();
+		AudioManager::Instance().GetAudio(Audio_INDEX::SE_ENTER)->Play(false);
 	}
 
 
@@ -66,7 +68,9 @@ void Title::Update(float elapsedTime)
 		}
 
 
-		// TODO: コマンド入力音
+		AudioManager::Instance().GetAudio(Audio_INDEX::SE_SELECT)->Stop();
+		AudioManager::Instance().GetAudio(Audio_INDEX::SE_SELECT)->Play(false);
+
 	}
 	if (gamePad.GetButtonDown() & GamePad::BTN_DOWN)
 	{
@@ -83,7 +87,8 @@ void Title::Update(float elapsedTime)
 			else select_timer = 0;
 		}
 
-		// TODO: コマンド入力音
+		AudioManager::Instance().GetAudio(Audio_INDEX::SE_SELECT)->Stop();
+		AudioManager::Instance().GetAudio(Audio_INDEX::SE_SELECT)->Play(false);
 	}
 	if (elapsedTime) select_timer++;
 
@@ -250,7 +255,7 @@ void Title::SpriteRender(ID3D11DeviceContext* dc)
 
 void Title::DeInit()
 {
-	
+
 }
 
 

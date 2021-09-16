@@ -5,6 +5,7 @@
 #include "Input/Input.h"
 
 #include "title.h"
+#include "audioManager.h"
 
 Pause::Pause(Scene* scene_) : scene(scene_)
 {
@@ -28,7 +29,8 @@ bool Pause::Update(float elapsedTime)
 	{
 		now_pause = !now_pause;
 
-		// TODO: コマンド入力音
+		AudioManager::Instance().GetAudio(Audio_INDEX::SE_SELECT)->Stop();
+		AudioManager::Instance().GetAudio(Audio_INDEX::SE_SELECT)->Play(false);
 	}
 
 	if (now_pause == true)
@@ -39,7 +41,9 @@ bool Pause::Update(float elapsedTime)
 			if (Input::Instance().GetGamePad().GetButtonDown() & GamePad::BTN_SPACE)
 			{
 				now_pause = false;
-				// TODO: コマンド入力音
+
+				AudioManager::Instance().GetAudio(Audio_INDEX::SE_ENTER)->Stop();
+				AudioManager::Instance().GetAudio(Audio_INDEX::SE_ENTER)->Play(false);
 			}
 
 
@@ -47,6 +51,8 @@ bool Pause::Update(float elapsedTime)
 			if (Input::Instance().GetGamePad().GetButtonDown() & GamePad::BTN_SPACE)
 			{
 				scene->ChangeNextScene(new Title());
+				if (scene->bgm_caution == false)AudioManager::Instance().GetAudio(Audio_INDEX::BGM_NORMAL)->Stop();
+				if (scene->bgm_caution == true)AudioManager::Instance().GetAudio(Audio_INDEX::BGM_SPEED)->Stop();
 			}
 
 		if (gamePad.GetButtonDown() & GamePad::BTN_UP)
@@ -56,7 +62,8 @@ bool Pause::Update(float elapsedTime)
 			if (selecting < 0) selecting = CONTINUE;
 			else select_timer = 0;
 
-			// TODO: コマンド入力音
+			AudioManager::Instance().GetAudio(Audio_INDEX::SE_SELECT)->Stop();
+			AudioManager::Instance().GetAudio(Audio_INDEX::SE_SELECT)->Play(false);
 		}
 		if (gamePad.GetButtonDown() & GamePad::BTN_DOWN)
 		{
@@ -65,7 +72,8 @@ bool Pause::Update(float elapsedTime)
 			if (selecting > 1) selecting = END;
 			else select_timer = 0;
 
-			// TODO: コマンド入力音
+			AudioManager::Instance().GetAudio(Audio_INDEX::SE_SELECT)->Stop();
+			AudioManager::Instance().GetAudio(Audio_INDEX::SE_SELECT)->Play(false);
 		}
 		if (elapsedTime) select_timer++;
 	}

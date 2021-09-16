@@ -13,7 +13,7 @@ void GameSystem::Update(float elapsedTime)
 
 void GameSystem::SpriteRender(ID3D11DeviceContext* dc)
 {
-    timer->SpriteRender(dc);
+    timer->SpriteRender(dc, {850,0});
     //score->SpriteRender(dc);
 }
 

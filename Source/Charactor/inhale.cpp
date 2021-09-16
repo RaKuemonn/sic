@@ -11,6 +11,8 @@
 #include "gameSystem.h"
 #include "CameraController.h"
 
+#include "audioManager.h"
+
 
 
 Inhale::Inhale(Player* player_) : player(player_)
@@ -95,8 +97,9 @@ void Inhale::Collision()
 			if (player->GetScaleManager()->TotalScaleValue() < enemy->EnoughTotalScaleValue())
 			{
 				KnockBack(player->GetPosition(), enemy->GetPosition());
-				// TODO: •Ç‚Æ‚©‚É‚Ô‚Â‚©‚Á‚½Žž‚Ì‰¹
 
+				AudioManager::Instance().GetAudio(Audio_INDEX::SE_WALLHIT)->Stop();
+				AudioManager::Instance().GetAudio(Audio_INDEX::SE_WALLHIT)->Play(false);
 				continue;
 			}
 
@@ -126,19 +129,25 @@ void Inhale::Collision()
 			GameSystem::Instance().SetHitStop();
 
 
-			// TODO: ‹z‚¢ž‚Ý‰¹
 
 			if (enemy->enemy_tag == ENEMYTAG::NORMAL)
 			{
 				// Normal‚Ì‹z‚¢ž‚Ý‰¹
+				AudioManager::Instance().GetAudio(Audio_INDEX::SE_INHALE_NORMAL)->Stop();
+				AudioManager::Instance().GetAudio(Audio_INDEX::SE_INHALE_NORMAL)->Play(false);
 			}
 			if (enemy->enemy_tag == ENEMYTAG::BOMB)
 			{
 				// Bomb‚Ì‹z‚¢ž‚Ý‰¹
+				AudioManager::Instance().GetAudio(Audio_INDEX::SE_INHALE_BOMB)->Stop();
+				AudioManager::Instance().GetAudio(Audio_INDEX::SE_INHALE_BOMB)->Play(false);
+
 			}
 			if (enemy->enemy_tag == ENEMYTAG::RARE)
 			{
 				// Rare‚Ì‹z‚¢ž‚Ý‰¹
+				AudioManager::Instance().GetAudio(Audio_INDEX::SE_INHALE_NORMAL)->Stop();
+				AudioManager::Instance().GetAudio(Audio_INDEX::SE_INHALE_NORMAL)->Play(false);
 			}
 
 

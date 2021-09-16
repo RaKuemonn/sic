@@ -12,6 +12,7 @@
 #include "gameSystem.h"
 #include "stageManager.h"
 #include "easy_math.h"
+#include "audioManager.h"
 
 
 
@@ -97,7 +98,12 @@ void Tutorial::Update(float elapsedTime)
 		break;
 	case END:
 		// シーン変更
-		ChangeNextScene(new Game(), gamePad.GetButtonDown() & GamePad::BTN_SPACE); // 急にシーンが変わると不自然なので任意のタイミングで変える
+		if(gamePad.GetButtonDown() & GamePad::BTN_SPACE)
+		{ 
+			ChangeNextScene(new Game()); // 急にシーンが変わると不自然なので任意のタイミングで変える
+			AudioManager::Instance().GetAudio(Audio_INDEX::BGM_NORMAL)->Stop();
+		}
+		
 		break;
 	default:
 		break;
@@ -195,7 +201,7 @@ void Tutorial::Set()
 
 	CameraSet();
 
-	// TODO: BGM 通常
+	AudioManager::Instance().GetAudio(Audio_INDEX::BGM_NORMAL)->Play(true);
 }
 
 
@@ -260,7 +266,8 @@ void Tutorial::CameraSet()
 
 void Tutorial::End_of_explanation(float elapsedTime)
 {
-	// TODO: チュートリアル項目クリア音
+	AudioManager::Instance().GetAudio(Audio_INDEX::SE_SUCCESS)->Stop();
+	AudioManager::Instance().GetAudio(Audio_INDEX::SE_SUCCESS)->Play(false);
 
 	tutorial_state++;
 

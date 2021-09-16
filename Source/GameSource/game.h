@@ -55,7 +55,4 @@ private:
     const float black_band_timer_max = 1.4f;
     float black_band_timer = 0.0f;
 
-    // BGM—p
-    bool bgm_normal = false;
-    bool bgm_caution = false;
 };

@@ -4,6 +4,8 @@
 #include "CameraController.h"
 #include "gameSystem.h"
 
+#include "audioManager.h"
+
 
 
 void ScaleManager::Update()
@@ -21,6 +23,8 @@ void ScaleManager::Update()
             CameraController::Instance()->SetRange(35.0f + 15.0f * i);
             GameSystem::Instance().AddScore(bonus_score * (i + 1));
             did[i] = true;
+            AudioManager::Instance().GetAudio(Audio_INDEX::SE_GROWUP)->Stop();
+            AudioManager::Instance().GetAudio(Audio_INDEX::SE_GROWUP)->Play(false);
         }
     }
 

@@ -53,4 +53,8 @@ private:
     SceneManager* scene_manager = nullptr;
     bool scene_loaded = false;  // ƒ[ƒh‚³‚ê‚½‚©
 
+public:
+    // BGM—p
+    bool bgm_normal = false;
+    bool bgm_caution = false;
 };

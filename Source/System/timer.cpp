@@ -5,7 +5,7 @@
 
 
 
-Timer::Timer(COUNT count, const float default_start_time_, const bool render) : Digits(default_start_time_, 4)
+Timer::Timer(COUNT count, const float default_start_time_, const bool render) : Digits(default_start_time_, 2)
 {
     stop = false;
 

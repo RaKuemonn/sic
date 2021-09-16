@@ -12,6 +12,7 @@
 #include "gameSystem.h"
 #include "stageManager.h"
 #include "easy_math.h"
+#include "audioManager.h"
 
 
 
@@ -26,6 +27,8 @@ void Game::Update(float elapsedTime)
 	if (pause->Update(elapsedTime)) return;
 	// カウントダウン
 	countdown->Update(elapsedTime);
+
+	BGMStart();
 
 	//	↓	　入力処理とかいろいろ書く　	↓	　//
 
@@ -196,6 +199,9 @@ void Game::ChangeScene(float elapsedTime)
 	{
 		// 残り時間がゼロになった際シーン遷移をする
 		ChangeNextScene(new Result(), false);
+
+		if(bgm_caution == false)AudioManager::Instance().GetAudio(Audio_INDEX::BGM_NORMAL)->Stop();
+		if (bgm_caution == true)AudioManager::Instance().GetAudio(Audio_INDEX::BGM_SPEED)->Stop();
 	}
 }
 
@@ -214,17 +220,16 @@ void Game::ClearedSpriteRender(ID3D11DeviceContext* dc)
 
 void Game::BGMStart()
 {
-	if (bgm_normal == false && countdown->NowCountDown() == false)
+	if (bgm_normal == false && countdown->NowCountDown() == false && bgm_caution == false)
 	{
 		bgm_normal = true;
-		// TODO: BGM 通常
+		AudioManager::Instance().GetAudio(Audio_INDEX::BGM_NORMAL)->Play(true);
 	}
 
-	if (bgm_caution == false && GameSystem::Instance().NowTime() <= 10.0f)
+	if (bgm_normal == true && bgm_caution == false && GameSystem::Instance().NowTime() <= 10.0f)
 	{
-		// BGM 通常のストップ
-
+		AudioManager::Instance().GetAudio(Audio_INDEX::BGM_NORMAL)->Stop();
 		bgm_caution = true;
-		// TODO: BGM 残り時間少ない時に上からかけるかどうか
+		AudioManager::Instance().GetAudio(Audio_INDEX::BGM_SPEED)->Play(true);
 	}
 }
