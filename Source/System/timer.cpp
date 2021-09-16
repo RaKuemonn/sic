@@ -33,7 +33,7 @@ void Timer::Update(float elapsedTime)
 }
 
 
-void Timer::SpriteRender(ID3D11DeviceContext* dc, DirectX::XMFLOAT2 pos, DirectX::XMFLOAT2 scale)
+void Timer::SpriteRender(ID3D11DeviceContext* dc, DirectX::XMFLOAT2 pos, DirectX::XMFLOAT2 scale, DirectX::XMFLOAT4 color)
 {
     if (spr_number == nullptr) return;
 
@@ -52,7 +52,7 @@ void Timer::SpriteRender(ID3D11DeviceContext* dc, DirectX::XMFLOAT2 pos, DirectX
             { 0 + number_size.x * digit_place.at(digit_place.size() - i) ,0 }, { number_size.x, number_size.y },
             { 0,0 },
             0,
-            { 1,1,1,1 });
+            color);
     }
 }
 

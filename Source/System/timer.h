@@ -22,7 +22,7 @@ public:
 
 public:
     void Update(float elapsedTime);
-    void SpriteRender(ID3D11DeviceContext* dc, DirectX::XMFLOAT2 pos = {}, DirectX::XMFLOAT2 scale = { 1,1 });
+    void SpriteRender(ID3D11DeviceContext* dc, DirectX::XMFLOAT2 pos = {}, DirectX::XMFLOAT2 scale = { 1,1 }, DirectX::XMFLOAT4 color = { 1,1,1,1 });
 
 public: // Getä÷êî
     float NowTime() { return GetDigit(); }

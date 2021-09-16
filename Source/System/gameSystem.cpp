@@ -13,7 +13,21 @@ void GameSystem::Update(float elapsedTime)
 
 void GameSystem::SpriteRender(ID3D11DeviceContext* dc)
 {
-    timer->SpriteRender(dc, { 850,0 });
+    DirectX::XMFLOAT4 color = { 1,1,1,1 };
+
+    if (timer->NowTime() <= 30.0f)
+    {
+        color = { 1,1,0,1 };
+    }
+
+    if (timer->NowTime() <= 10.0f)
+    {
+        color = { 1,0,0,1 };
+    }
+
+
+
+    timer->SpriteRender(dc, { 850,0 }, { 1,1 }, color);
     //score->SpriteRender(dc);
 }
 
@@ -33,7 +47,7 @@ void GameSystem::Init()
     hitstop = std::make_unique<HitStop>();
 
     data_ranking.data_array.clear();
-    FileIO::Open("Data/Binary/test.box", data_ranking);
+    FileIO::Open("Data/Binary/ranking.box", data_ranking);
 }
 
 
@@ -67,7 +81,7 @@ void GameSystem::ResultDataSave()
 
     CompareScoreAndRanking();
 
-    FileIO::Write("Data/Binary/test.box", data_ranking);
+    FileIO::Write("Data/Binary/ranking.box", data_ranking);
 }
 
 
