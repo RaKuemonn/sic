@@ -1,4 +1,5 @@
 #include "Charactor/Enemy_Arrangement.h"
+//#include "Enemy.h"
 
 void csv_load(Block data[][Enemy_Arrangement::CHIP_NUM_X], const char* filename)
 {
@@ -65,7 +66,7 @@ void Enemy_Arrangement::enemy_produce(csv_file_num csv_file)
 
             srand((unsigned int)time(NULL));
 
-            if (Arrangement[y][x].num == Enemy::ENEMYTAG::NORMAL)
+            if (Arrangement[y][x].num == ENEMYTAG::NORMAL)
             {
                 if ((y < 100 || y > 150) /*&& (x < 100 || x > 150)*/)
                     if (csv_file == csv_file_num::GAME) random_scaling(Arrangement[y][x].num);
@@ -73,9 +74,9 @@ void Enemy_Arrangement::enemy_produce(csv_file_num csv_file)
                 NormalEnemy* normalEnemy = new NormalEnemy();
                 normalEnemy->SetPosition(DirectX::XMFLOAT3(Reference_point_correction + x * CHIP_SIZE, 0, Reference_point_correction + y * CHIP_SIZE));
                 normalEnemy->SetScale({ random_scale, random_scale, random_scale });
-                enemyManager.Register(normalEnemy, Enemy::ENEMYTAG::NORMAL);
+                enemyManager.Register(normalEnemy, ENEMYTAG::NORMAL);
             }
-            if (Arrangement[y][x].num == Enemy::ENEMYTAG::BOMB)
+            if (Arrangement[y][x].num == ENEMYTAG::BOMB)
             {       
                 if ((y < 100 || y > 150) /*&& (x < 100 || x > 150)*/)
                     if (csv_file == csv_file_num::GAME) random_scaling(Arrangement[y][x].num);
@@ -83,14 +84,14 @@ void Enemy_Arrangement::enemy_produce(csv_file_num csv_file)
                 BombEnemy* bombEnemy = new BombEnemy();
                 bombEnemy->SetPosition(DirectX::XMFLOAT3(Reference_point_correction + x * CHIP_SIZE, 0, Reference_point_correction + y * CHIP_SIZE));
                 bombEnemy->SetScale({ random_scale, random_scale, random_scale });
-                enemyManager.Register(bombEnemy, Enemy::ENEMYTAG::BOMB);
+                enemyManager.Register(bombEnemy, ENEMYTAG::BOMB);
             }
-            if (Arrangement[y][x].num == Enemy::ENEMYTAG::RARE)
+            if (Arrangement[y][x].num == ENEMYTAG::RARE)
             {
 
                 RareEnemy* rareEnemy = new RareEnemy();
                 rareEnemy->SetPosition(DirectX::XMFLOAT3(Reference_point_correction + x * CHIP_SIZE, 0, Reference_point_correction + y * CHIP_SIZE));
-                enemyManager.Register(rareEnemy, Enemy::ENEMYTAG::RARE);
+                enemyManager.Register(rareEnemy, ENEMYTAG::RARE);
             }
         }
     }
@@ -98,7 +99,7 @@ void Enemy_Arrangement::enemy_produce(csv_file_num csv_file)
 
 void Enemy_Arrangement::random_scaling(int Arrangement_num)
 {
-    if (Enemy::ENEMYTAG::NORMAL == Arrangement_num)
+    if (ENEMYTAG::NORMAL == Arrangement_num)
     {   
         if (normal_random >= 2)
         {
@@ -151,7 +152,7 @@ void Enemy_Arrangement::random_scaling(int Arrangement_num)
 
     }
 
-    if (Enemy::ENEMYTAG::BOMB == Arrangement_num)
+    if (ENEMYTAG::BOMB == Arrangement_num)
     {
         if (bomb_random == true)
         {

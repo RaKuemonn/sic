@@ -203,7 +203,7 @@ void Tutorial::Load()
 {
 	spr_explanation = std::make_unique<Sprite>("Data/Sprite/チュートリアル説明文2.png");
 	spr_space = std::make_unique<Sprite>("Data/Sprite/space.png");
-	spr_start = std::make_unique<Sprite>("Data/Sprite/スタート（タイトル）.png");
+	spr_start = std::make_unique<Sprite>("Data/Sprite/スタート（チュートリアル）.png");
 
 	// プレイヤー初期化
 	player = new Player();
