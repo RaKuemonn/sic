@@ -51,6 +51,8 @@ void Game::Update(float elapsedTime)
 
 
 	if (countdown->NowCountDown() == false) GameSystem::Instance().Update(elapsedTime);
+
+	SmallOut();
 }
 
 
@@ -105,6 +107,8 @@ void Game::Set()
 	GameSystem::Instance().GameStart();
 
 	black_band_timer = 0.0f;
+
+	smallest = false;
 }
 
 
@@ -187,7 +191,7 @@ void Game::ChangeScene(float elapsedTime)
 	ChangeNextScene(new Result(), GamePad::BTN_A, false);
 #endif
 
-	if (GameSystem::Instance().NowTime() > 0.0f) return;
+	if (GameSystem::Instance().NowTime() > 0.0f && smallest == false) return;
 
 
 	// •‘Ñ‚ÌXV
@@ -232,4 +236,11 @@ void Game::BGMStart()
 		bgm_caution = true;
 		AudioManager::Instance().GetAudio(Audio_INDEX::BGM_SPEED)->Play(true);
 	}
+}
+
+void Game::SmallOut()
+{
+	if (player->GetScaleManager()->TotalScaleValue() > 2.4f) return;
+
+	smallest = true;
 }

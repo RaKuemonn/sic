@@ -102,6 +102,7 @@ void Tutorial::Update(float elapsedTime)
 		{ 
 			ChangeNextScene(new Game()); // 急にシーンが変わると不自然なので任意のタイミングで変える
 			AudioManager::Instance().GetAudio(Audio_INDEX::BGM_NORMAL)->Stop();
+			AudioManager::Instance().GetAudio(Audio_INDEX::SE_SUCCESS)->Stop();
 		}
 		
 		break;

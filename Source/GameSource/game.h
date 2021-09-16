@@ -42,6 +42,7 @@ private:
     void ChangeScene(float elapsedTime);
     void ClearedSpriteRender(ID3D11DeviceContext* dc);
     void BGMStart();
+    void SmallOut();
 
 private:
     std::unique_ptr<Pause> pause = nullptr;
@@ -55,4 +56,5 @@ private:
     const float black_band_timer_max = 1.4f;
     float black_band_timer = 0.0f;
 
+    bool smallest = false;
 };
