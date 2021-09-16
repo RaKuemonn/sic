@@ -152,13 +152,17 @@ void Result::SpriteRender(ID3D11DeviceContext* dc)
 			1, 1, 1, 1);								// 色情報(r,g,b,a)
 	}
 
+	// フグのアイコンとフォントの表示
+	spr_hugu_icon->Render2(dc, { 0,0 }, { 1,1 }, { 0,0 }, { screenWidth,screenHeight }, { 0,0 }, 0, { 1,1,1,1 });
+	spr_hugu_font->Render2(dc, { 0,0 }, { 1,1 }, { 0,0 }, { screenWidth,screenHeight }, { 0,0 }, 0, { 1,1,1,1 });
+
+
+
+
 	GameSystem::Instance().ScoreSpriteRender(dc, { 710,390 }, { 1,1 });
 
 
-
-	if (GameSystem::Instance().DataRanking().Size() <= 0) return;
-
-
+	// ランキングの表示
 	for (int i = 0; i < GameSystem::Instance().DataRanking().Size(); ++i)
 	{
 		constexpr DirectX::XMFLOAT2 scale = { 0.6f, 0.6f };
@@ -210,6 +214,8 @@ void Result::Set()
 	GameSystem::Instance().ResultDataSave();
 
 	black_band_timer = 0.0f;
+
+	SetHuguRank();
 }
 
 
@@ -268,4 +274,56 @@ void Result::ChangeSceneSpriteRender(ID3D11DeviceContext* dc)
 
 	black_band->Render(dc, 0, 0, 1920, scale * pow(black_band_timer, 5), 0, 0, 0, 0, 0, 1, 1, 1, 1);
 	black_band->Render(dc, 0, 1080, 1920, -scale * pow(black_band_timer, 5), 0, 0, 0, 0, 0, 1, 1, 1, 1);
+}
+
+
+void Result::SetHuguRank()
+{
+	char* icon_filename = {};
+	char* font_filename = {};
+
+
+	float total_scale_value = GameSystem::Instance().TotalScaleValue();
+
+	constexpr float default_start_value = 3.0f;
+
+
+	// くさふぐ
+	if (total_scale_value <= kusa_hugu_scale || total_scale_value > default_start_value)
+	{
+		icon_filename = "Data/Sprite/くさふぐ画像（リザルト）.png";
+		font_filename = "Data/Sprite/くさふぐ（リザルト）.png";
+	}
+
+	// しょうさいふぐ
+	if (total_scale_value > shousai_hugu_scale)
+	{
+		icon_filename = "Data/Sprite/しょうさいふぐ画像（リザルト）.png";
+		font_filename = "Data/Sprite/しょうさいふぐ（リザルト）.png";
+	}
+
+	// まふぐ
+	if (total_scale_value > ma_hugu_scale)
+	{
+		icon_filename = "Data/Sprite/まふぐ画像（リザルト）.png";
+		font_filename = "Data/Sprite/まふぐ（リザルト）.png";
+	}
+
+	// しまふぐ
+	if (total_scale_value > shima_hugu_scale)
+	{
+		icon_filename = "Data/Sprite/しまふぐ画像（リザルト）.png";
+		font_filename = "Data/Sprite/しまふぐ（リザルト）.png";
+	}
+
+	// とらふぐ
+	if (total_scale_value > tora_hugu_scale)
+	{
+		icon_filename = "Data/Sprite/とらふぐ画像（リザルト）.png";
+		font_filename = "Data/Sprite/とらふぐ（リザルト）.png";
+	}
+
+
+	spr_hugu_icon = std::make_unique<Sprite>(icon_filename);
+	spr_hugu_font = std::make_unique<Sprite>(font_filename);
 }

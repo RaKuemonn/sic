@@ -28,6 +28,7 @@ public:
 private:
     void ChangeScene(float elapsedTime);
     void ChangeSceneSpriteRender(ID3D11DeviceContext* dc);
+    void SetHuguRank();
 
 private:
 
@@ -55,4 +56,9 @@ private:
     const float black_band_timer_max = 1.4f;
     float black_band_timer = 0.0f;
     bool did_first = false;
+
+
+    // ƒtƒO
+    std::unique_ptr<Sprite> spr_hugu_icon = nullptr;
+    std::unique_ptr<Sprite> spr_hugu_font = nullptr;
 };

@@ -40,6 +40,7 @@ public: // Get関数
     float NowTime() { return timer->NowTime(); }
     int NowScore() { return score->NowScore(); }
     FileData& DataRanking() { return data_ranking; }
+    float TotalScaleValue() { return total_scale_value; }
 
 public: // Set関数
     void GameStart();
@@ -48,7 +49,7 @@ public: // Set関数
     void StopTime() { timer->Stop(); }
     void UnlockStopTime() { timer->UnlockStop(); }
     void SetHitStop() { hitstop->SetHitStop(); }
-    void SetTotalScaleValue(const float total_scale_value_) { total_scale_value = total_scale_value_; }
+    void SetTotalScaleValue(const float total_scale_value_) { total_scale_value = total_scale_value_; } // ゲームシーンのプレイヤーの合計スケール値を保存する用
 
 private:
     void CompareScoreAndRanking();
