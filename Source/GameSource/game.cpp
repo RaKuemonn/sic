@@ -230,7 +230,7 @@ void Game::BGMStart()
 		AudioManager::Instance().GetAudio(Audio_INDEX::BGM_NORMAL)->Play(true);
 	}
 
-	if (bgm_normal == true && bgm_caution == false && GameSystem::Instance().NowTime() <= 10.0f)
+	if (bgm_normal == true && bgm_caution == false && GameSystem::Instance().NowTime() <= 20.0f)
 	{
 		AudioManager::Instance().GetAudio(Audio_INDEX::BGM_NORMAL)->Stop();
 		bgm_caution = true;

@@ -14,6 +14,7 @@ Pause::Pause(Scene* scene_) : scene(scene_)
 	spr_back = std::make_unique<Sprite>("Data/Sprite/枠（ポーズ）.png");
 	spr_play = std::make_unique<Sprite>("Data/Sprite/つづける（ポーズ）.png");
 	spr_end	 = std::make_unique<Sprite>("Data/Sprite/やめる（ポーズ）.png");
+	spr_ui = std::make_unique<Sprite>("Data/Sprite/ポーズメニュー.png");
 }
 
 
@@ -84,6 +85,14 @@ bool Pause::Update(float elapsedTime)
 
 void Pause::SpriteRender(ID3D11DeviceContext* dc)
 {
+	spr_ui->Render2(dc, { 0,0 }, { 1,1 },
+		{ 0,0 },
+		{ 1920,1080 },
+		{ 0,0 },
+		0,
+		{ 1,1,1,1 }
+	);
+
 	if (now_pause == false) return;
 
 	/* 2Dスプライトの描画 */
@@ -91,6 +100,8 @@ void Pause::SpriteRender(ID3D11DeviceContext* dc)
 	float spr_playHeight = CAST_F(spr_play->GetTextureHeight());
 	float spr_endWidth = CAST_F(spr_end->GetTextureWidth());
 	float spr_endHeight = CAST_F(spr_end->GetTextureHeight());
+
+	
 
 	spr_back->Render2(dc,
 		0, 0,						// 表示位置

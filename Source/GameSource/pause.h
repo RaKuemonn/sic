@@ -28,6 +28,7 @@ private:
     std::unique_ptr<Sprite> spr_back = nullptr;
     std::unique_ptr<Sprite> spr_play = nullptr;
     std::unique_ptr<Sprite> spr_end = nullptr;
+    std::unique_ptr<Sprite> spr_ui = nullptr;
 
     int selecting = 0;
     int select_timer = 0;
