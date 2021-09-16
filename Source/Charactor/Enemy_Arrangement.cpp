@@ -63,8 +63,7 @@ void Enemy_Arrangement::enemy_produce(csv_file_num csv_file)
             // 基準点補正　ステージの左上の座標から始まるように
             constexpr float Reference_point_correction = -249;
             //float randam_scale = 1;
-
-            srand((unsigned int)time(NULL));
+            constexpr float Fixed_value_angle = 22.5f;
 
             if (Arrangement[y][x].num == ENEMYTAG::NORMAL)
             {
@@ -73,17 +72,30 @@ void Enemy_Arrangement::enemy_produce(csv_file_num csv_file)
 
                 NormalEnemy* normalEnemy = new NormalEnemy();
                 normalEnemy->SetPosition(DirectX::XMFLOAT3(Reference_point_correction + x * CHIP_SIZE, 0, Reference_point_correction + y * CHIP_SIZE));
+
                 normalEnemy->SetScale({ random_scale, random_scale, random_scale });
+                if (csv_file == csv_file_num::TUTORIAL_NORMAL) normalEnemy->SetAngle({ 0, DirectX::XMConvertToRadians(180), 0 });
+                if (csv_file == csv_file_num::GAME)
+                {
+                    random_angling();
+                    normalEnemy->SetAngle({ 0, DirectX::XMConvertToRadians(Fixed_value_angle * random_angle), 0 });
+                }
                 enemyManager.Register(normalEnemy, ENEMYTAG::NORMAL);
             }
             if (Arrangement[y][x].num == ENEMYTAG::BOMB)
             {       
                 if ((y < 100 || y > 150) /*&& (x < 100 || x > 150)*/)
                     if (csv_file == csv_file_num::GAME) random_scaling(Arrangement[y][x].num);
-
                 BombEnemy* bombEnemy = new BombEnemy();
                 bombEnemy->SetPosition(DirectX::XMFLOAT3(Reference_point_correction + x * CHIP_SIZE, 0, Reference_point_correction + y * CHIP_SIZE));
+                
                 bombEnemy->SetScale({ random_scale, random_scale, random_scale });
+                if (csv_file == csv_file_num::TUTORIAL_BOMB) bombEnemy->SetAngle({ 0, DirectX::XMConvertToRadians(180), 0 });
+                if (csv_file == csv_file_num::GAME)
+                {
+                    random_angling();
+                    bombEnemy->SetAngle({ 0, DirectX::XMConvertToRadians(Fixed_value_angle * random_angle), 0 });
+                }
                 enemyManager.Register(bombEnemy, ENEMYTAG::BOMB);
             }
             if (Arrangement[y][x].num == ENEMYTAG::RARE)
@@ -193,4 +205,9 @@ void Enemy_Arrangement::random_scaling(int Arrangement_num)
             break;
         }
     }
+}
+
+void Enemy_Arrangement::random_angling()
+{
+    random_angle = rand() % 16;
 }

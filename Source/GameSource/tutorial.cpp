@@ -91,8 +91,8 @@ void Tutorial::Update(float elapsedTime)
 	case SHELL_SIZE:
 		if (explanation == 18)
 		{
-			explaining = false;
-			End_of_explanation(elapsedTime);
+			tutorial_state++;
+			//End_of_explanation(elapsedTime);
 		}
 		break;
 	case END:

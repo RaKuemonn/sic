@@ -39,6 +39,7 @@ private:
     int random_num = 0; 
 
     float random_scale = 1;
+    int random_angle = 0;
 
     int normal_random = 0;
     bool bomb_random = false;
@@ -49,6 +50,7 @@ public:
     ~Enemy_Arrangement() {};
 
     void random_scaling(int Arrangement_num);
+    void random_angling();
 
     enum csv_file_num
     {
