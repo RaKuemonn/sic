@@ -27,6 +27,7 @@ public:
 
 private:
     std::unique_ptr<Sprite> spr_title_logo = nullptr;
+    std::unique_ptr<Sprite> spr_space = nullptr;
     std::unique_ptr<Sprite> spr_play = nullptr;
     std::unique_ptr<Sprite> spr_end = nullptr;
     std::unique_ptr<Sprite> spr_Tutorial_moji = nullptr;
