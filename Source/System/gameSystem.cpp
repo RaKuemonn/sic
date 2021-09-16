@@ -13,7 +13,7 @@ void GameSystem::Update(float elapsedTime)
 
 void GameSystem::SpriteRender(ID3D11DeviceContext* dc)
 {
-    timer->SpriteRender(dc, {850,0});
+    timer->SpriteRender(dc, { 850,0 });
     //score->SpriteRender(dc);
 }
 
@@ -28,8 +28,8 @@ void GameSystem::Init()
 {
     constexpr float time_limit_second = 80.8f;
 
-    timer   = std::make_unique<Timer>(COUNT::DOWN, time_limit_second, true);
-    score   = std::make_unique<Score>(true);
+    timer = std::make_unique<Timer>(COUNT::DOWN, time_limit_second, true);
+    score = std::make_unique<Score>(true);
     hitstop = std::make_unique<HitStop>();
 
     data_ranking.data_array.clear();
