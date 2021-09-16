@@ -120,7 +120,7 @@ void Character::UpdateVerticalMove(float elapsedTime, int kind)
     position.y += velocity.y * elapsedTime;
 
     float offset = 0.0f;
-    if (kind == 0) offset = scale.y * 2.3f;
+    if (kind == 0) offset = scale.y * 1.7f;
     if (kind > 0) offset = -scale.y * 0.3f;
 
     foot_pos.y = position.y - scale.y - offset;
@@ -260,7 +260,12 @@ void Character::UpdateHorizontalMove(float elapsedTime)
         DirectX::XMFLOAT3 start = { position.x,     position.y + stepOffset,    position.z };
         DirectX::XMFLOAT3 end = { position.x + mx,  position.y + stepOffset,    position.z + mz };
 
-        HitResult hit;
+        DirectX::XMFLOAT3 start2 = { position.x,     position.y,    position.z };
+        DirectX::XMFLOAT3 end2 = { position.x + mx,  position.y,    position.z + mz };
+
+        HitResult hit, hit2;
+
+        // レイキャスト2個目完成！
         //壁があれば
         if (StageManager::Instance().RayCast(start, end, hit))
         {
@@ -300,6 +305,44 @@ void Character::UpdateHorizontalMove(float elapsedTime)
             }
 
 
+        }
+
+        else if (StageManager::Instance().RayCast(start2, end2, hit2))
+        {
+            // 壁までのベクトル
+            DirectX::XMVECTOR Start = DirectX::XMLoadFloat3(&start2);
+            DirectX::XMVECTOR End = DirectX::XMLoadFloat3(&end2);
+            DirectX::XMVECTOR Vec = DirectX::XMVectorSubtract(End, Start);
+
+
+            // 壁の法線
+            DirectX::XMVECTOR Normal = DirectX::XMLoadFloat3(&hit2.normal);
+            Normal = DirectX::XMVector3Normalize(Normal);
+            DirectX::XMVECTOR Dot = DirectX::XMVector3Dot(Vec, Normal);
+
+            DirectX::XMFLOAT3 wall_vec;
+            DirectX::XMStoreFloat3(&wall_vec, DirectX::XMVectorSubtract(Vec, DirectX::XMVectorMultiply(Dot, Normal)));
+
+
+
+            start = { position.x,position.y,position.z };
+            end = { position.x + wall_vec.x , position.y, position.z + wall_vec.z };
+
+            // 壁ずり後の位置が壁に
+            // めり込んでいれば
+            if (StageManager::Instance().RayCast(start, end, hit))
+            {
+                // 更新しない
+
+            }
+
+            // めり込んでいなければ
+            else
+            {
+                // 位置の更新
+                position.x += wall_vec.x;
+                position.z += wall_vec.z;
+            }
         }
 
         //壁がなければ

@@ -15,7 +15,7 @@ public:
     ~Score() {};
 
 public:
-    void SpriteRender(ID3D11DeviceContext* dc);
+    void SpriteRender(ID3D11DeviceContext* dc, DirectX::XMFLOAT2 pos = {}, DirectX::XMFLOAT2 scale = { 1,1 });
 
 public: // Getä÷êî
     int NowScore() { return GetDigit(); }

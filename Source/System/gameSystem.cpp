@@ -18,6 +18,12 @@ void GameSystem::SpriteRender(ID3D11DeviceContext* dc)
 }
 
 
+void GameSystem::ScoreSpriteRender(ID3D11DeviceContext* dc, DirectX::XMFLOAT2 pos, DirectX::XMFLOAT2 scale)
+{
+    score->SpriteRender(dc, pos, scale);
+}
+
+
 void GameSystem::Init()
 {
     constexpr float start_time_second = 120.8f;
@@ -44,6 +50,8 @@ void GameSystem::GameStart()
     //timer->Stop();
 
     score->Reset();
+
+    total_scale_value = 0.0f;
 }
 
 

@@ -21,6 +21,8 @@ Player::Player()
 
 	inhale = new Inhale(this);
 
+	position.y = scale.y + scale.y * 1.7f;
+
 	//‰¹
 	/*Audio& audio1 = Audio::Instance();
 	Shot = audio1.LoadAudioSource("Data/Audio/Shot.wav");
@@ -244,7 +246,7 @@ void Player::UpdateStepOffset()
 {
 	float average_scale_value = scale_manager->TotalScaleValue() / 3;
 
-	stepOffset = average_scale_value/* - average_scale_value * 0.3f*/;
+	stepOffset = average_scale_value * 1.3f;
 }
 
 
@@ -252,7 +254,7 @@ void Player::UpdateAngleX(float elapsedTime)
 {
 	if (inhale->IsDuringInhale())
 	{
-		angle.x = Lerq(angle.x, 0.4f, 0.9f * elapsedTime);
+		angle.x = Lerq(angle.x, 0.3f, 2.1f * elapsedTime);
 	}
 
 	else

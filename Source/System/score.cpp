@@ -15,7 +15,7 @@ Score::Score(bool render) : Digits(0, 5)
 }
 
 
-void Score::SpriteRender(ID3D11DeviceContext* dc)
+void Score::SpriteRender(ID3D11DeviceContext* dc, DirectX::XMFLOAT2 pos, DirectX::XMFLOAT2 scale)
 {
     if (spr_number == nullptr) return;
 
@@ -29,8 +29,8 @@ void Score::SpriteRender(ID3D11DeviceContext* dc)
     for (size_t i = digit_place.size(); i > 0; --i)
     {
         spr_number->Render2(dc,
-            { 0 + number_size.x * (i - 1), number_size.y },
-            { 1,1 },
+            { pos.x + number_size.x * (i - 1), pos.y + number_size.y },
+            { scale.x,scale.y },
             { 0 + number_size.x * digit_place.at(digit_place.size() - i) ,0 }, { number_size.x, number_size.y },
             { 0,0 },
             0,

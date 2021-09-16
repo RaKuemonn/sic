@@ -43,7 +43,7 @@ void Game::Update(float elapsedTime)
 
 	float average_scale_value = player->GetScaleManager()->TotalScaleValue() / 3 /* 3次元 x,y,z */;
 	DirectX::XMFLOAT3 player_pos = player->GetPosition();
-	CameraController::Instance()->SetTarget(float3SUM({player_pos.x, player_pos.y + average_scale_value + average_scale_value * 0.5f, player_pos.z}, float3Scaling(player->GetFront(), average_scale_value + average_scale_value * 2.0f)));
+	CameraController::Instance()->SetTarget(float3SUM({player_pos.x, player_pos.y + average_scale_value + average_scale_value * 1.1f, player_pos.z}, float3Scaling(player->GetFront(), average_scale_value + average_scale_value * 3.5f)));
 	CameraController::Instance()->Update(elapsedTime);
 
 
@@ -78,6 +78,8 @@ void Game::SpriteRender(ID3D11DeviceContext* dc)
 
 void Game::DeInit()
 {
+	GameSystem::Instance().SetTotalScaleValue(player->GetScaleManager()->TotalScaleValue());
+
 	// プレイヤー終了化
 	safe_delete(player);
 

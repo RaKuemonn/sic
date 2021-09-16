@@ -28,7 +28,7 @@ void Result::Update(float elapsedTime)
 
 	if (gamePad.GetButtonDown() & GamePad::BTN_UP)
 	{
-		selecting -= 1;
+		selecting -= 1;  
 
 		if (selecting < 0) selecting = RETRY;
 		else select_timer = 0;
@@ -151,6 +151,9 @@ void Result::SpriteRender(ID3D11DeviceContext* dc)
 			angle,										// Šp“x
 			1, 1, 1, 1);								// Fî•ñ(r,g,b,a)
 	}
+
+	GameSystem::Instance().ScoreSpriteRender(dc, { 710,390 }, { 1,1 });
+
 
 
 	if (GameSystem::Instance().DataRanking().Size() <= 0) return;
