@@ -26,9 +26,9 @@ void GameSystem::ScoreSpriteRender(ID3D11DeviceContext* dc, DirectX::XMFLOAT2 po
 
 void GameSystem::Init()
 {
-    constexpr float start_time_second = 120.8f;
+    constexpr float time_limit_second = 60.8f;
 
-    timer   = std::make_unique<Timer>(COUNT::DOWN, start_time_second, true);
+    timer   = std::make_unique<Timer>(COUNT::DOWN, time_limit_second, true);
     score   = std::make_unique<Score>(true);
     hitstop = std::make_unique<HitStop>();
 

@@ -64,3 +64,13 @@ private: // 変数
     std::unique_ptr<HitStop> hitstop = nullptr; // ヒットストップ
     float total_scale_value = 0.0f;
 };
+
+// プレイヤーの初期スケールサイズ
+constexpr float default_start_value = 3.0f;
+
+// フグのサイズの定数
+constexpr float kusa_hugu_scale     = default_start_value + 1.0f;
+constexpr float shousai_hugu_scale  = default_start_value + 10.0f;
+constexpr float ma_hugu_scale       = default_start_value + 20.0f;
+constexpr float shima_hugu_scale    = default_start_value + 30.0f;
+constexpr float tora_hugu_scale     = default_start_value + 40.0f;
