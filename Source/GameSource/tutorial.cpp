@@ -43,7 +43,7 @@ void Tutorial::Update(float elapsedTime)
 	// s“®§ŒÀ
 	if (player->GetPosition().x > 15.0f) player->SetPosition({ 15.0f, player->GetPosition().y, player->GetPosition().z });
 	if (player->GetPosition().z > 30.0f) player->SetPosition({ player->GetPosition().x, player->GetPosition().y, 30.0f });
-	if (player->GetPosition().x < -15.0f) player->SetPosition({ 15.0f, player->GetPosition().y, player->GetPosition().z });
+	if (player->GetPosition().x < -15.0f) player->SetPosition({ -15.0f, player->GetPosition().y, player->GetPosition().z });
 	if (player->GetPosition().z < -15.0f) player->SetPosition({ player->GetPosition().x, player->GetPosition().y, -15.0f });
 
 	switch (tutorial_state)
